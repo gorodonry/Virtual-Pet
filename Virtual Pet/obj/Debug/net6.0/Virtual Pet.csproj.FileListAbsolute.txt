@@ -1,0 +1,15 @@
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\oop-task-virtual-pet-Ryan-Gordon11235\Virtual Pet\bin\Debug\net6.0\Virtual Pet.exe
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\oop-task-virtual-pet-Ryan-Gordon11235\Virtual Pet\bin\Debug\net6.0\Virtual Pet.deps.json
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\oop-task-virtual-pet-Ryan-Gordon11235\Virtual Pet\bin\Debug\net6.0\Virtual Pet.runtimeconfig.json
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\oop-task-virtual-pet-Ryan-Gordon11235\Virtual Pet\bin\Debug\net6.0\Virtual Pet.dll
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\oop-task-virtual-pet-Ryan-Gordon11235\Virtual Pet\bin\Debug\net6.0\Virtual Pet.pdb
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\oop-task-virtual-pet-Ryan-Gordon11235\Virtual Pet\obj\Debug\net6.0\Virtual Pet.csproj.AssemblyReference.cache
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\oop-task-virtual-pet-Ryan-Gordon11235\Virtual Pet\obj\Debug\net6.0\Virtual Pet.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\oop-task-virtual-pet-Ryan-Gordon11235\Virtual Pet\obj\Debug\net6.0\Virtual Pet.AssemblyInfoInputs.cache
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\oop-task-virtual-pet-Ryan-Gordon11235\Virtual Pet\obj\Debug\net6.0\Virtual Pet.AssemblyInfo.cs
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\oop-task-virtual-pet-Ryan-Gordon11235\Virtual Pet\obj\Debug\net6.0\Virtual Pet.csproj.CoreCompileInputs.cache
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\oop-task-virtual-pet-Ryan-Gordon11235\Virtual Pet\obj\Debug\net6.0\Virtual Pet.dll
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\oop-task-virtual-pet-Ryan-Gordon11235\Virtual Pet\obj\Debug\net6.0\ref\Virtual Pet.dll
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\oop-task-virtual-pet-Ryan-Gordon11235\Virtual Pet\obj\Debug\net6.0\Virtual Pet.pdb
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\oop-task-virtual-pet-Ryan-Gordon11235\Virtual Pet\obj\Debug\net6.0\Virtual Pet.genruntimeconfig.cache
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\oop-task-virtual-pet-Ryan-Gordon11235\Virtual Pet\obj\Debug\net6.0\refint\Virtual Pet.dll

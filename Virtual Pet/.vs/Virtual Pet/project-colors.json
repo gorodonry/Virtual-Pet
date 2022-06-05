@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "eed20482-75ac-4a60-9747-edf184302c66": {
+      "ProjectGuid": "eed20482-75ac-4a60-9747-edf184302c66",
+      "DisplayName": "Virtual Pet",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
