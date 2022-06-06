@@ -1,0 +1,15 @@
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\VirtualPet\bin\Debug\net6.0\VirtualPet.exe
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\VirtualPet\bin\Debug\net6.0\VirtualPet.deps.json
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\VirtualPet\bin\Debug\net6.0\VirtualPet.runtimeconfig.json
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\VirtualPet\bin\Debug\net6.0\VirtualPet.dll
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\VirtualPet\bin\Debug\net6.0\VirtualPet.pdb
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\VirtualPet\obj\Debug\net6.0\VirtualPet.csproj.AssemblyReference.cache
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\VirtualPet\obj\Debug\net6.0\VirtualPet.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\VirtualPet\obj\Debug\net6.0\VirtualPet.AssemblyInfoInputs.cache
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\VirtualPet\obj\Debug\net6.0\VirtualPet.AssemblyInfo.cs
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\VirtualPet\obj\Debug\net6.0\VirtualPet.csproj.CoreCompileInputs.cache
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\VirtualPet\obj\Debug\net6.0\VirtualPet.dll
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\VirtualPet\obj\Debug\net6.0\refint\VirtualPet.dll
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\VirtualPet\obj\Debug\net6.0\VirtualPet.pdb
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\VirtualPet\obj\Debug\net6.0\VirtualPet.genruntimeconfig.cache
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\VirtualPet\obj\Debug\net6.0\ref\VirtualPet.dll
