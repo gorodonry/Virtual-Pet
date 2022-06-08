@@ -1,0 +1,31 @@
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\Virtual Pet\bin\Debug\net6.0-windows\Virtual Pet.exe
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\Virtual Pet\bin\Debug\net6.0-windows\Virtual Pet.deps.json
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\Virtual Pet\bin\Debug\net6.0-windows\Virtual Pet.runtimeconfig.json
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\Virtual Pet\bin\Debug\net6.0-windows\Virtual Pet.dll
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\Virtual Pet\bin\Debug\net6.0-windows\Virtual Pet.pdb
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\Virtual Pet\bin\Debug\net6.0-windows\MaterialDesignColors.dll
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\Virtual Pet\bin\Debug\net6.0-windows\MaterialDesignThemes.Wpf.dll
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\Virtual Pet\bin\Debug\net6.0-windows\Microsoft.Xaml.Behaviors.dll
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\Virtual Pet\bin\Debug\net6.0-windows\Prism.dll
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\Virtual Pet\bin\Debug\net6.0-windows\Prism.Unity.Wpf.dll
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\Virtual Pet\bin\Debug\net6.0-windows\Prism.Wpf.dll
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\Virtual Pet\bin\Debug\net6.0-windows\Unity.Abstractions.dll
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\Virtual Pet\bin\Debug\net6.0-windows\Unity.Container.dll
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\Virtual Pet\obj\Debug\net6.0-windows\Virtual Pet.csproj.AssemblyReference.cache
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\Virtual Pet\obj\Debug\net6.0-windows\Views\MainWindow.baml
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\Virtual Pet\obj\Debug\net6.0-windows\Views\MainWindow.g.cs
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\Virtual Pet\obj\Debug\net6.0-windows\App.g.cs
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\Virtual Pet\obj\Debug\net6.0-windows\Virtual Pet_MarkupCompile.cache
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\Virtual Pet\obj\Debug\net6.0-windows\Virtual Pet_MarkupCompile.lref
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\Virtual Pet\obj\Debug\net6.0-windows\App.baml
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\Virtual Pet\obj\Debug\net6.0-windows\Virtual Pet.g.resources
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\Virtual Pet\obj\Debug\net6.0-windows\Virtual Pet.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\Virtual Pet\obj\Debug\net6.0-windows\Virtual Pet.AssemblyInfoInputs.cache
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\Virtual Pet\obj\Debug\net6.0-windows\Virtual Pet.AssemblyInfo.cs
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\Virtual Pet\obj\Debug\net6.0-windows\Virtual Pet.csproj.CoreCompileInputs.cache
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\Virtual Pet\obj\Debug\net6.0-windows\Virtual Pet.csproj.CopyComplete
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\Virtual Pet\obj\Debug\net6.0-windows\Virtual Pet.dll
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\Virtual Pet\obj\Debug\net6.0-windows\refint\Virtual Pet.dll
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\Virtual Pet\obj\Debug\net6.0-windows\Virtual Pet.pdb
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\Virtual Pet\obj\Debug\net6.0-windows\Virtual Pet.genruntimeconfig.cache
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\Virtual Pet\obj\Debug\net6.0-windows\ref\Virtual Pet.dll

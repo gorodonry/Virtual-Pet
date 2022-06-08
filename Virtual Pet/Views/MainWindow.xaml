@@ -9,8 +9,82 @@
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
         FontFamily="{materialDesign:MaterialDesignFont}"
-        Title="{Binding Title}" Height="350" Width="525">
+        Title="{Binding Title}" Height="550" Width="950">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </Window.Resources>
     <Grid>
-        
+        <!-- Interface for pet name selection by the user -->
+        <Grid x:Name="NameSelection"
+              Visibility="{Binding NameSelectionVisible, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <materialDesign:ColorZone Mode="PrimaryLight"
+                                      Grid.Row="0"
+                                      Grid.Column="0"
+                                      Grid.ColumnSpan="3"
+                                      CornerRadius="4"
+                                      Margin="7">
+                <TextBlock Text="Virtual Pet"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Margin="0 10 0 10"
+                           FontSize="30"/>
+            </materialDesign:ColorZone>
+            <TextBlock Grid.Row="2"
+                       Grid.Column="0"
+                       Style="{StaticResource NameInputTextBlock}"
+                       Text="Name of pet one"/>
+            <TextBox Grid.Row="2"
+                     Grid.Column="2"
+                     Style="{StaticResource NameInputTextBox}"
+                     Text="{Binding PetOneName, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Grid.Row="3"
+                       Grid.Column="0"
+                       Style="{StaticResource NameInputTextBlock}"
+                       Text="Name of pet two"/>
+            <TextBox Grid.Row="3"
+                     Grid.Column="2"
+                     Style="{StaticResource NameInputTextBox}"
+                     Text="{Binding PetTwoName, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Grid.Row="4"
+                       Grid.Column="0"
+                       Style="{StaticResource NameInputTextBlock}"
+                       Text="Name of pet three"/>
+            <TextBox Grid.Row="4"
+                     Grid.Column="2"
+                     Style="{StaticResource NameInputTextBox}"
+                     Text="{Binding PetThreeName, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
+            <Button Grid.Row="5"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="3"
+                    Margin="0 50 0 0"
+                    Width="200"
+                    Style="{StaticResource MaterialDesignOutlinedLightButton}"
+                    Command="{Binding StartPlaying}"
+                    Content="Start Playing"/>
+            <Border Grid.Row="2"
+                    Grid.RowSpan="3"
+                    Grid.Column="1"
+                    BorderThickness="0.5"
+                    BorderBrush="LightGray"/>
+        </Grid>
+        <!-- Gameplay interface -->
+        <Grid x:Name="Gameplay"
+              Visibility="{Binding GameplayVisible, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+            
+        </Grid>
     </Grid>
 </Window>
