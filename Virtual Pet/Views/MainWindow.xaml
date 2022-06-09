@@ -29,6 +29,7 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <materialDesign:ColorZone Mode="PrimaryLight"
@@ -67,7 +68,18 @@
                      Grid.Column="2"
                      Style="{StaticResource NameInputTextBox}"
                      Text="{Binding PetThreeName, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
-            <Button Grid.Row="5"
+            <Border Grid.Row="5"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="3"
+                    HorizontalAlignment="Center"
+                    Margin="0 50 0 0"
+                    Padding="10"
+                    BorderThickness="0 0.4 0 0.4"
+                    BorderBrush="LightGray">
+                <TextBlock FontStyle="Italic"
+                           Text="&quot;How long can you keep your creations alive ? !Muahaha!&quot;"/>
+            </Border>
+            <Button Grid.Row="6"
                     Grid.Column="0"
                     Grid.ColumnSpan="3"
                     Margin="0 50 0 0"
@@ -84,7 +96,27 @@
         <!-- Gameplay interface -->
         <Grid x:Name="Gameplay"
               Visibility="{Binding GameplayVisible, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
-            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <!-- Information for pet 1 -->
+            <ItemsControl Grid.Row="0"
+                          Grid.Column="0"
+                          VerticalAlignment="Center"
+                          ItemsSource="{Binding PetOne, Mode=TwoWay}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </Grid>
     </Grid>
 </Window>

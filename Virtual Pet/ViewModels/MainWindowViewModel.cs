@@ -1,8 +1,10 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using Virtual_Pet.Models;
 
 namespace Virtual_Pet.ViewModels
 {
@@ -105,6 +107,27 @@ namespace Virtual_Pet.ViewModels
             }
         }
 
+        private Pet _petOne;
+        public Pet PetOne
+        {
+            get { return _petOne; }
+            set { SetProperty(ref _petOne, value); }
+        }
+
+        private Pet _petTwo;
+        public Pet PetTwo
+        {
+            get { return _petTwo; }
+            set { SetProperty(ref _petTwo, value); }
+        }
+
+        private Pet _petThree;
+        public Pet PetThree
+        {
+            get { return _petThree; }
+            set { SetProperty(ref _petThree, value); }
+        }
+
         // Command to change from the name selection UI to the gameplay UI
         private DelegateCommand _startPlaying;
         public DelegateCommand StartPlaying =>
@@ -112,8 +135,20 @@ namespace Virtual_Pet.ViewModels
 
         void ExecuteStartPlaying()
         {
+            // Start gameplay
             NameSelectionVisible = false;
             GameplayVisible = true;
+
+            // Create pets
+            int[] petTypes = new int[] { new Random().Next(1, 3), new Random().Next(1, 3), new Random().Next(1, 3) };
+            PetOne = (petTypes[0] == 1) ? new Pet(PetOneName) : (petTypes[0] == 2) ? new WeakPet(PetOneName) : new StrongPet(PetOneName);
+            PetTwo = (petTypes[1] == 1) ? new Pet(PetTwoName) : (petTypes[1] == 2) ? new WeakPet(PetTwoName) : new StrongPet(PetTwoName);
+            PetThree = (petTypes[2] == 1) ? new Pet(PetThreeName) : (petTypes[2] == 2) ? new WeakPet(PetThreeName) : new StrongPet(PetThreeName);
+
+            // Alert the view to the changes
+            RaisePropertyChanged(nameof(PetOne));
+            RaisePropertyChanged(nameof(PetTwo));
+            RaisePropertyChanged(nameof(PetThree));
             RaisePropertyChanged(nameof(NameSelectionVisible));
             RaisePropertyChanged(nameof(GameplayVisible));
         }
