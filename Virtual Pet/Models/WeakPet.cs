@@ -8,9 +8,12 @@ namespace Virtual_Pet.Models
 {
     public class WeakPet : Pet
     {
-        public WeakPet(string name) : base(name)
+        // A pet with reduced health but an increased boredom limit
+        public WeakPet(string name, int petNo, string imageType) : base(name, petNo, imageType)
         {
             this.name = name;
+            this.petNo = petNo;
+            this.imageType = imageType;
             boredomLimit = 100;
             health = 50;
             maxHealth = standardMaxHealth / 2;

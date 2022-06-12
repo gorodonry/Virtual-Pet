@@ -90,33 +90,51 @@
             <Border Grid.Row="2"
                     Grid.RowSpan="3"
                     Grid.Column="1"
-                    BorderThickness="0.5"
+                    BorderThickness="0.1"
                     BorderBrush="LightGray"/>
         </Grid>
         <!-- Gameplay interface -->
         <Grid x:Name="Gameplay"
               Visibility="{Binding GameplayVisible, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <!-- Information for pet 1 -->
-            <ItemsControl Grid.Row="0"
-                          Grid.Column="0"
-                          VerticalAlignment="Center"
-                          ItemsSource="{Binding PetOne, Mode=TwoWay}">
-                <ItemsControl.ItemTemplate>
+            <!-- Information for pets -->
+            <ListBox Grid.Row="0"
+                     ItemsSource="{Binding Pets}">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Grid IsItemsHost="True">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem" BasedOn="{StaticResource MaterialDesignListBoxItem}">
+                        <Setter Property="Grid.Column" Value="{Binding PetNo}"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        <Setter Property="Padding" Value="25"/>
+                        <Setter Property="Margin" Value="10"/>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                <ListBox.ItemTemplate>
                     <DataTemplate>
-                        
+                        <StackPanel>
+                            <TextBlock VerticalAlignment="Top"
+                                       HorizontalAlignment="Center"
+                                       FontSize="20"
+                                       Margin="0 0 0 15"
+                                       Text="{Binding Name}"/>
+                            <Image Source="{Binding Image}"/>
+                        </StackPanel>
                     </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </Grid>
     </Grid>
 </Window>

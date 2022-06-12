@@ -8,9 +8,12 @@ namespace Virtual_Pet.Models
 {
     public class StrongPet : Pet
     {
-        public StrongPet(string petName) : base(petName)
+        // A pet with increased health but also an increased hunger rate
+        public StrongPet(string name, int petNo, string imageType) : base(name, petNo, imageType)
         {
-            name = petName;
+            this.name = name;
+            this.petNo = petNo;
+            this.imageType = imageType;
             health = 200;
             maxHealth = standardMaxHealth * 2;
             hungerRate = 8;

@@ -13,6 +13,9 @@ namespace Virtual_Pet.Models
         protected const int standardMaxHealth = 100;
 
         protected string name;
+        protected int petNo;
+        protected string imageType;
+
         protected int boredom = 0;
         protected int hunger = 0;
         protected List<string> sounds = new();
@@ -26,15 +29,59 @@ namespace Virtual_Pet.Models
 
         protected string strength = "normal";
 
-        public Pet(string name)
+        public Pet(string name, int petNo, string imageType)
         {
-            // Only the name should be specified upon instantiation, everything else is controlled by the program
+            // Only the name and pet number (0 indexed) should be specified upon instantiation, everything else is controlled by the program
             this.name = name;
+            this.petNo = petNo;
+            this.imageType = imageType;
         }
 
         public string Name
         {
             get { return name; }
+            set
+            {
+                if (value.Trim().Length != 0)
+                {
+                    name = value;
+                }
+            }
+        }
+
+        public int PetNo
+        {
+            get { return petNo; }
+        }
+
+        public string Image
+        {
+            get
+            {
+                // Note the dinosaur image only has a healthy option
+                if (imageType == "dinosaur")
+                {
+                    return $"/Images/healthy_{imageType}.png";
+                }
+
+                // Return the path of the image corresponding to the current status of the pet
+                if (Mood[0] != "sick" && Mood[0] != "dead" && Mood[2] != "angry")
+                {
+                    return $"/Images/healthy_{imageType}.png";
+                }
+                else if (Mood[0] != "sick" && Mood[0] != "dead")
+                {
+                    return $"/Images/angry_{imageType}.png";
+                }
+                else if (Mood[2] != "angry")
+                {
+                    return $"/Images/sick_{imageType}.png";
+                }
+                else
+                {
+                    return $"/Images/sick_angry_{imageType}.png";
+                }
+            }
         }
 
         public int Boredom

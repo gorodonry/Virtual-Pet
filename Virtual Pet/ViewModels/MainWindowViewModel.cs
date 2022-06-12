@@ -2,6 +2,7 @@
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using Virtual_Pet.Models;
@@ -107,25 +108,25 @@ namespace Virtual_Pet.ViewModels
             }
         }
 
-        private Pet _petOne;
-        public Pet PetOne
-        {
-            get { return _petOne; }
-            set { SetProperty(ref _petOne, value); }
-        }
+        // Types of the three pets where 1 is a normal pet, 2 is a weak pet, and 3 is a strong pet
+        private static int[] petTypes = new int[3] { new Random().Next(1, 3), new Random().Next(1, 3), new Random().Next(1, 3) };
 
-        private Pet _petTwo;
-        public Pet PetTwo
-        {
-            get { return _petTwo; }
-            set { SetProperty(ref _petTwo, value); }
-        }
+        // Image type of the three pets, determined randomly
+        private static string[] petImages = new string[4] { "dinosaur", "dog", "pixel_dog-ish", "squid" };
+        private static int[] petImageTypes = new int[3] { new Random().Next(0, 3), new Random().Next(0, 3), new Random().Next(0, 3) };
 
-        private Pet _petThree;
-        public Pet PetThree
+        // Observable collection of users pets, names are specified when the user clicks the start playing button
+        private ObservableCollection<Pet> _pets = new()
         {
-            get { return _petThree; }
-            set { SetProperty(ref _petThree, value); }
+            (petTypes[0] == 1) ? new Pet("", 0, petImages[petImageTypes[0]]) : (petTypes[0] == 2) ? new WeakPet("", 0, petImages[petImageTypes[0]]) : new StrongPet("", 0, petImages[petImageTypes[0]]),
+            (petTypes[1] == 1) ? new Pet("", 1, petImages[petImageTypes[1]]) : (petTypes[1] == 2) ? new WeakPet("", 1, petImages[petImageTypes[1]]) : new StrongPet("", 1, petImages[petImageTypes[1]]),
+            (petTypes[2] == 1) ? new Pet("", 2, petImages[petImageTypes[2]]) : (petTypes[2] == 2) ? new WeakPet("", 2, petImages[petImageTypes[2]]) : new StrongPet("", 2, petImages[petImageTypes[2]])
+        };
+
+        public ObservableCollection<Pet> Pets
+        {
+            get { return _pets; }
+            set { SetProperty(ref _pets, value); }
         }
 
         // Command to change from the name selection UI to the gameplay UI
@@ -139,18 +140,15 @@ namespace Virtual_Pet.ViewModels
             NameSelectionVisible = false;
             GameplayVisible = true;
 
-            // Create pets
-            int[] petTypes = new int[] { new Random().Next(1, 3), new Random().Next(1, 3), new Random().Next(1, 3) };
-            PetOne = (petTypes[0] == 1) ? new Pet(PetOneName) : (petTypes[0] == 2) ? new WeakPet(PetOneName) : new StrongPet(PetOneName);
-            PetTwo = (petTypes[1] == 1) ? new Pet(PetTwoName) : (petTypes[1] == 2) ? new WeakPet(PetTwoName) : new StrongPet(PetTwoName);
-            PetThree = (petTypes[2] == 1) ? new Pet(PetThreeName) : (petTypes[2] == 2) ? new WeakPet(PetThreeName) : new StrongPet(PetThreeName);
+            // Set pet names
+            Pets[0].Name = PetOneName;
+            Pets[1].Name = PetTwoName;
+            Pets[2].Name = PetThreeName;
 
             // Alert the view to the changes
-            RaisePropertyChanged(nameof(PetOne));
-            RaisePropertyChanged(nameof(PetTwo));
-            RaisePropertyChanged(nameof(PetThree));
             RaisePropertyChanged(nameof(NameSelectionVisible));
             RaisePropertyChanged(nameof(GameplayVisible));
+            RaisePropertyChanged(nameof(Pets));
         }
 
         bool CanExecuteStartPlaying()
@@ -158,7 +156,7 @@ namespace Virtual_Pet.ViewModels
             // A value must be entered for each pet name
             if (PetOneName.Length != 0 && PetTwoName.Length != 0 && PetThreeName.Length != 0)
             {
-                // Pet names cannot be repeated
+                // No two pets can have the same name
                 if (PetOneName.ToLower() != PetTwoName.ToLower() && PetTwoName.ToLower() != PetThreeName.ToLower() && PetThreeName.ToLower() != PetOneName.ToLower())
                 {
                     return true;

@@ -5,7 +5,37 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Images\angry_dog.png" />
+    <None Remove="Images\angry_pixel_dog-ish.png" />
+    <None Remove="Images\angry_squid.png" />
+    <None Remove="Images\healthy_dinosaur.png" />
+    <None Remove="Images\healthy_dog.png" />
+    <None Remove="Images\healthy_pixel_dog-ish.png" />
+    <None Remove="Images\healthy_squid.png" />
+    <None Remove="Images\sick_angry_dog.png" />
+    <None Remove="Images\sick_angry_pixel_dog-ish.png" />
+    <None Remove="Images\sick_angry_squid.png" />
+    <None Remove="Images\sick_dog.png" />
+    <None Remove="Images\sick_pixel_dog-ish.png" />
+    <None Remove="Images\sick_squid.png" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="MaterialDesignThemes" Version="4.5.0" />
     <PackageReference Include="Prism.Unity" Version="8.1.97" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\angry_dog.png" />
+    <Resource Include="Images\angry_pixel_dog-ish.png" />
+    <Resource Include="Images\angry_squid.png" />
+    <Resource Include="Images\healthy_dinosaur.png" />
+    <Resource Include="Images\healthy_dog.png" />
+    <Resource Include="Images\healthy_pixel_dog-ish.png" />
+    <Resource Include="Images\healthy_squid.png" />
+    <Resource Include="Images\sick_angry_dog.png" />
+    <Resource Include="Images\sick_angry_pixel_dog-ish.png" />
+    <Resource Include="Images\sick_angry_squid.png" />
+    <Resource Include="Images\sick_dog.png" />
+    <Resource Include="Images\sick_pixel_dog-ish.png" />
+    <Resource Include="Images\sick_squid.png" />
   </ItemGroup>
 </Project>
