@@ -129,6 +129,13 @@ namespace Virtual_Pet.ViewModels
             set { SetProperty(ref _pets, value); }
         }
 
+        private int _wallet = 100;
+        public int Wallet
+        {
+            get { return _wallet; }
+            set { SetProperty(ref _wallet, value); }
+        }
+
         // Command to change from the name selection UI to the gameplay UI
         private DelegateCommand _startPlaying;
         public DelegateCommand StartPlaying =>
@@ -170,6 +177,35 @@ namespace Virtual_Pet.ViewModels
             {
                 return false;
             }
+        }
+
+        // Advance time by a tick
+        private DelegateCommand _tick;
+        public DelegateCommand Tick =>
+            _tick ?? (_tick = new DelegateCommand(ExecuteTick));
+
+        void ExecuteTick()
+        {
+            // Apply the consequences of advancing time by a tick
+            for (int i=0; i<Pets.Count(); i++)
+            {
+                Pets[i].Boredom += Pets[i].BoredomRate;
+                Pets[i].Hunger += Pets[i].HungerRate;
+                if (Pets[i].HungerMessage == "starving")
+                {
+                    Pets[i].Health -= Pets[i].HungerRate / 2;
+                }
+
+                // Gain a coin for each happy pet
+                if (Pets[i].HealthMessage != "dead" && Pets[i].BoredomMessage == "happy")
+                {
+                    Wallet += 1;
+                }
+            }
+
+            // Alert relevant views to the change
+            RaisePropertyChanged(nameof(Pets));
+            RaisePropertyChanged(nameof(Wallet));
         }
 
         public MainWindowViewModel()

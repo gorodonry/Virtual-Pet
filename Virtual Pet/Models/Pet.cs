@@ -1,6 +1,7 @@
 ﻿using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -68,6 +69,7 @@ namespace Virtual_Pet.Models
                 if (value.Trim().Length != 0)
                 {
                     name = value;
+                    RaisePropertyChanged(nameof(Name));
                 }
             }
         }
@@ -83,15 +85,15 @@ namespace Virtual_Pet.Models
                 }
 
                 // Return the path of the image corresponding to the current status of the pet
-                if (Mood[0] != "sick" && Mood[0] != "dead" && Mood[2] != "angry")
+                if (HealthMessage != "sick" && HealthMessage != "dead" && BoredomMessage != "bored" && BoredomMessage != "angry")
                 {
                     return $"/Images/healthy_{imageType}.png";
                 }
-                else if (Mood[0] != "sick" && Mood[0] != "dead")
+                else if (HealthMessage != "sick" && HealthMessage != "dead")
                 {
                     return $"/Images/angry_{imageType}.png";
                 }
-                else if (Mood[2] != "angry")
+                else if (BoredomMessage != "bored" && BoredomMessage != "angry")
                 {
                     return $"/Images/sick_{imageType}.png";
                 }
@@ -106,19 +108,46 @@ namespace Virtual_Pet.Models
         {
             // Boredom cannot exceed 100, or drop below 0
             get { return boredom; }
-            set { boredom = Math.Max(Math.Min(maxBoredom, value), 0); }
+            set
+            {
+                boredom = Math.Max(Math.Min(maxBoredom, value), 0);
+                RaisePropertyChanged(nameof(Boredom));
+                RaisePropertyChanged(nameof(BoredomPercentage));
+                RaisePropertyChanged(nameof(BoredomFraction));
+                RaisePropertyChanged(nameof(BoredomMessage));
+                RaisePropertyChanged(nameof(Image));
+            }
         }
 
         public int BoredomPercentage
         {
             // Returns pet boredom as a percentage
-            get { return Boredom / BoredomLimit * 100; }
+            get { return (Boredom * 100) / maxBoredom; }
         }
 
         public string BoredomFraction
         {
             // Returns pet boredom as a fraction
             get { return $"{Boredom}/{maxBoredom}"; }
+        }
+
+        public string BoredomMessage
+        {
+            get
+            {
+                if (Boredom < BoredomLimit)
+                {
+                    return "happy";
+                }
+                else if (Boredom < angerLimit && strength != "weak")
+                {
+                    return "bored";
+                }
+                else
+                {
+                    return "angry";
+                }
+            }
         }
 
         public int BoredomLimit
@@ -130,18 +159,44 @@ namespace Virtual_Pet.Models
         {
             // Hunger cannot exceed 100, or drop below 0
             get { return hunger; }
-            set { hunger = Math.Max(Math.Min(maxHunger, value), 0); }
+            set
+            {
+                hunger = Math.Max(Math.Min(maxHunger, value), 0);
+                RaisePropertyChanged(nameof(Hunger));
+                RaisePropertyChanged(nameof(HungerPercentage));
+                RaisePropertyChanged(nameof(HungerFraction));
+                RaisePropertyChanged(nameof(HungerMessage));
+            }
         }
 
         public int HungerPercentage
         {
             // Returns pet hunger as a percentage
-            get { return Hunger / HungerLimit * 100; }
+            get { return (Hunger * 100) / maxHunger; }
         }
 
         public string HungerFraction
         {
             get { return $"{Hunger}/{maxHunger}"; }
+        }
+
+        public string HungerMessage
+        {
+            get
+            {
+                if (Hunger < maxHunger / 2)
+                {
+                    return "full";
+                }
+                else if (Hunger <= HungerLimit)
+                {
+                    return "hungry";
+                }
+                else
+                {
+                    return "starving";
+                }
+            }
         }
 
         public int HungerLimit
@@ -158,6 +213,8 @@ namespace Virtual_Pet.Models
                 if (sounds.Count() < maxSounds)
                 {
                     sounds.Add(value[0]);
+                    RaisePropertyChanged(nameof(Sounds));
+                    RaisePropertyChanged(nameof(DisplaySounds));
                 }
             }
         }
@@ -181,18 +238,49 @@ namespace Virtual_Pet.Models
         {
             // Health cannot exceed max health (can vary), or drop below 0
             get { return health; }
-            set { health = Math.Max(Math.Min(maxHealth, value), 0); }
+            set
+            {
+                health = Math.Max(Math.Min(maxHealth, value), 0);
+                RaisePropertyChanged(nameof(Health));
+                RaisePropertyChanged(nameof(HealthPercentage));
+                RaisePropertyChanged(nameof(HealthFraction));
+                RaisePropertyChanged(nameof(HealthMessage));
+                RaisePropertyChanged(nameof(Image));
+            }
         }
 
         public int HealthPercentage
         {
             // Returns pet health as a percentage
-            get { return Health / maxHealth * 100; }
+            get { return (Health * 100) / maxHealth; }
         }
 
         public string HealthFraction
         {
             get { return $"{Health}/{maxHealth}"; }
+        }
+
+        public string HealthMessage
+        {
+            get
+            {
+                if (Health >= 0.8 * maxHealth)
+                {
+                    return "fighting fit";
+                }
+                else if (Health > 0.2 * maxHealth)
+                {
+                    return "ok";
+                }
+                else if (Health >= 1)
+                {
+                    return "sick";
+                }
+                else
+                {
+                    return "dead";
+                }
+            }
         }
 
         public int BoredomRate
@@ -249,17 +337,6 @@ namespace Virtual_Pet.Models
             }
         }
 
-        public void Tick()
-        {
-            // Apply the consequences of advancing time by a tick
-            Boredom += BoredomRate;
-            Hunger += HungerRate;
-            if (Hunger > HungerLimit)
-            {
-                Health -= HungerRate / 2;
-            }
-        }
-
         public void Feed(Cake cake)
         {
             // Feeds a pet a cake
@@ -296,77 +373,6 @@ namespace Virtual_Pet.Models
             {
                 //Console.WriteLine($"{CheckS(Name)} memory is full!\n");
             }
-        }
-
-        public List<string> Mood
-        {
-            // Returns a list of strings indicating a pet's mood and vitals
-            get
-            {
-                string healthMessage;
-                if (Health >= 0.8 * maxHealth)
-                {
-                    healthMessage = "fighting fit";
-                }
-                else if (Health > 0.2 * maxHealth)
-                {
-                    healthMessage = "ok";
-                }
-                else if (Health >= 1)
-                {
-                    healthMessage = "sick";
-                }
-                else
-                {
-                    healthMessage = "dead";
-                }
-
-                string hungerMessage;
-                if (Hunger < maxHunger / 2)
-                {
-                    hungerMessage = "full";
-                }
-                else if (Hunger <= HungerLimit)
-                {
-                    hungerMessage = "hungry";
-                }
-                else
-                {
-                    hungerMessage = "starving";
-                }
-
-                string boredomMessage;
-                if (Boredom < BoredomLimit)
-                {
-                    boredomMessage = "happy";
-                }
-                else if (Boredom < angerLimit && strength != "weak")
-                {
-                    boredomMessage = "bored";
-                }
-                else
-                {
-                    boredomMessage = "angry";
-                }
-
-                return new List<string> { healthMessage, hungerMessage, boredomMessage };
-            }
-        }
-
-//        public void Status()
-//        {
-//            // Prints out current information/status of a pet
-//            Console.WriteLine($@"--{Name.ToUpper()}--
-//Health  | {Health}/{MaxHealth} => {Mood[0]}
-//Hunger  | {Hunger} (limit: {HungerLimit}) => {Mood[1]}
-//Boredom | {Boredom} (limit: {BoredomLimit}) => {Mood[2]}
-//--{string.Concat(Enumerable.Repeat("-", Name.Length))}--
-//");
-//        }
-
-        public class DisplayStatus
-        {
-
         }
     }
 }

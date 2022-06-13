@@ -36,6 +36,7 @@
                 <Setter Property="Background" Value="White"/>
                 <Setter Property="BorderBrush" Value="White"/>
                 <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="materialDesign:TransitionAssist.DisableTransitions" Value="True"/>
             </Style>
             <Style x:Key="StatusBarText" TargetType="TextBlock" BasedOn="{StaticResource MaterialDesignBody1TextBlock}">
                 <Setter Property="Grid.Column" Value="1"/>

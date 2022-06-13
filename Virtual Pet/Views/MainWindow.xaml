@@ -117,7 +117,7 @@
                         <Setter Property="HorizontalContentAlignment" Value="Center"/>
                         <Setter Property="VerticalContentAlignment" Value="Top"/>
                         <Setter Property="Padding" Value="25"/>
-                        <Setter Property="Margin" Value="10 5 10 10"/>
+                        <Setter Property="Margin" Value="10 5 10 0"/>
                     </Style>
                 </ListBox.ItemContainerStyle>
                 <ListBox.ItemTemplate>
@@ -130,7 +130,9 @@
                                        Margin="0 0 0 15"
                                        Text="{Binding Name}"/>
                             <!-- Image of the pet -->
-                            <Image Source="{Binding Image}"/>
+                            <Image Source="{Binding Image}"
+                                   MaxWidth="300"
+                                   MaxHeight="300"/>
                             <!-- Health of the pet as a health bar -->
                             <Grid Margin="0 15 0 0">
                                 <Grid.ColumnDefinitions>
@@ -146,8 +148,14 @@
                                 <ProgressBar Style="{StaticResource StatusBarBar}"
                                              Foreground="Red"
                                              Value="{Binding HealthPercentage, Mode=OneWay}"/>
-                                <TextBlock Style="{StaticResource StatusBarText}"
-                                           Text="{Binding HealthFraction, StringFormat={}Health: {0}}"/>
+                                <TextBlock Style="{StaticResource StatusBarText}">
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="Health: {0} - {1}">
+                                            <Binding Path="HealthFraction"/>
+                                            <Binding Path="HealthMessage"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
                             </Grid>
                             <!-- Hunger of the pet as a hunger bar -->
                             <Grid>
@@ -164,8 +172,14 @@
                                 <ProgressBar Style="{StaticResource StatusBarBar}"
                                              Foreground="Brown"
                                              Value="{Binding HungerPercentage, Mode=OneWay}"/>
-                                <TextBlock Style="{StaticResource StatusBarText}"
-                                           Text="{Binding HungerFraction, StringFormat={}Hunger: {0}}"/>
+                                <TextBlock Style="{StaticResource StatusBarText}">
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="Hunger: {0} - {1}">
+                                            <Binding Path="HungerFraction"/>
+                                            <Binding Path="HungerMessage"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
                             </Grid>
                             <!-- Boredom of the pet as a boredom bar -->
                             <Grid>
@@ -182,8 +196,14 @@
                                 <ProgressBar Style="{StaticResource StatusBarBar}"
                                              Foreground="Blue"
                                              Value="{Binding BoredomPercentage, Mode=OneWay}"/>
-                                <TextBlock Style="{StaticResource StatusBarText}"
-                                           Text="{Binding BoredomFraction, StringFormat={}Boredom: {0}}"/>
+                                <TextBlock Style="{StaticResource StatusBarText}">
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="Boredom: {0} - {1}">
+                                            <Binding Path="BoredomFraction"/>
+                                            <Binding Path="BoredomMessage"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
                             </Grid>
                             <StackPanel Orientation="Horizontal"
                                         Margin="0 5 0 5">
@@ -197,11 +217,26 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <StackPanel Grid.Row="1"
-                        Orientation="Horizontal"
-                        DataContext="{Binding ElementName=PetInfo}">
-                
-            </StackPanel>
+            <Grid Grid.Row="1"
+                  Margin="15">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0"
+                           FontSize="30"
+                           Margin="50 0 0 0"
+                           VerticalAlignment="Center"
+                           Text="{Binding ElementName=PetInfo, Path=SelectedItem.Name}"/>
+                <Button Grid.Column="2"
+                        Width="100"
+                        Margin="20"
+                        VerticalAlignment="Center"
+                        materialDesign:ButtonAssist.CornerRadius="10"
+                        Command="{Binding Tick}"
+                        Content="Pass"/>
+            </Grid>
         </Grid>
     </Grid>
 </Window>
