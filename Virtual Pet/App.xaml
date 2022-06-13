@@ -45,6 +45,11 @@
                 <Setter Property="Margin" Value="0 17 20 0"/>
                 <Setter Property="FontSize" Value="10"/>
             </Style>
+            <Style x:Key="MarginDivider" TargetType="Border">
+                <Setter Property="Margin" Value="5 0 10 0"/>
+                <Setter Property="BorderBrush" Value="DarkGray"/>
+                <Setter Property="BorderThickness" Value="0.1"/>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </prism:PrismApplication>

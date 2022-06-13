@@ -12,5 +12,10 @@ namespace Virtual_Pet.Views
             InitializeComponent();
             this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
         }
+
+        void PetInfo_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            TeachingInput.Text = string.Empty;
+        }
     }
 }

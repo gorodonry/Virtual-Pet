@@ -106,7 +106,8 @@
             <!-- Information for pets -->
             <ListBox x:Name="PetInfo"
                      Grid.Row="0"
-                     ItemsSource="{Binding Pets}">
+                     ItemsSource="{Binding Pets}"
+                     SelectionChanged="PetInfo_SelectionChanged">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <UniformGrid IsItemsHost="True" Columns="{Binding Pets.Count}"/>
@@ -131,8 +132,8 @@
                                        Text="{Binding Name}"/>
                             <!-- Image of the pet -->
                             <Image Source="{Binding Image}"
-                                   MaxWidth="300"
-                                   MaxHeight="300"/>
+                                   MaxWidth="275"
+                                   MaxHeight="275"/>
                             <!-- Health of the pet as a health bar -->
                             <Grid Margin="0 15 0 0">
                                 <Grid.ColumnDefinitions>
@@ -205,31 +206,121 @@
                                     </TextBlock.Text>
                                 </TextBlock>
                             </Grid>
-                            <StackPanel Orientation="Horizontal"
-                                        Margin="0 5 0 5">
-                                <TextBlock Text="{Binding Name}"/>
-                                <TextBlock Text=" knows how to say"/>
-                            </StackPanel>
-                            <TextBlock Margin="20 0 10 0"
-                                       TextWrapping="WrapWithOverflow"
-                                       Text="{Binding DisplaySounds}"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
+            <!-- User gameplay controls (such as they are) -->
             <Grid Grid.Row="1"
+                  MinHeight="170"
                   Margin="15">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
                     <ColumnDefinition/>
                     <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
+                <!-- Name of the pet the action is taken on -->
                 <TextBlock Grid.Column="0"
                            FontSize="30"
                            Margin="50 0 0 0"
                            VerticalAlignment="Center"
+                           MinWidth="125"
                            Text="{Binding ElementName=PetInfo, Path=SelectedItem.Name}"/>
-                <Button Grid.Column="2"
+                <Border Grid.Column="1"
+                        Style="{StaticResource MarginDivider}"/>
+                <!-- Options for feeding the selected pet a cake -->
+                <Grid Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0"
+                               Margin="100 0 0 15"
+                               Text="{Binding ElementName=PetInfo, Path=SelectedItem.Name, StringFormat={}Feed {0}}"/>
+                    <TextBlock Grid.Row="1"
+                               VerticalAlignment="Bottom"
+                               HorizontalAlignment="Right"
+                               Margin="0 0 75 30"
+                               MaxWidth="300"
+                               TextWrapping="WrapWithOverflow"
+                               Text="{Binding ElementName=PetInfo, Path=SelectedItem.DisplaySounds}"/>
+                    <StackPanel Grid.Row="1"
+                                Orientation="Horizontal">
+                        <ItemsControl ItemsSource="{Binding Cakes}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel MaxWidth="600"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <!-- Each cake has a corresponding button -->
+                                    <Button Style="{StaticResource MaterialDesignFlatButton}"
+                                            Height="auto"
+                                            Padding="7"
+                                            Margin="5">
+                                        <Button.Content>
+                                            <StackPanel>
+                                                <TextBlock HorizontalAlignment="Center"
+                                                           FontSize="12">
+                                                    <TextBlock.Text>
+                                                        <MultiBinding StringFormat=" {0}cake ">
+                                                            <Binding Path="Type"/>
+                                                        </MultiBinding>
+                                                    </TextBlock.Text>
+                                                </TextBlock>
+                                                <StackPanel Orientation="Horizontal"
+                                                            HorizontalAlignment="Center">
+                                                    <materialDesign:PackIcon Kind="FoodDrumstick"
+                                                                             Height="13"/>
+                                                    <TextBlock Margin="0 0 3 0"
+                                                               FontSize="12"
+                                                               Text="{Binding Hunger}"/>
+                                                    <materialDesign:PackIcon Kind="Heart"
+                                                                             Height="13"
+                                                                             Margin="3 0 0 0"/>
+                                                    <TextBlock Text="{Binding Health}"
+                                                               FontSize="12"/>
+                                                </StackPanel>
+                                                <TextBlock HorizontalAlignment="Center"
+                                                           FontSize="12"
+                                                           Text="{Binding Cost, StringFormat={}${0}}"/>
+                                            </StackPanel>
+                                        </Button.Content>
+                                    </Button>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </Grid>
+                <Border Grid.Column="3"
+                        Style="{StaticResource MarginDivider}"/>
+                <!-- Options for teaching the pet a new sound -->
+                <Grid Grid.Column="4">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0"
+                               Margin="50 0 0 0"
+                               Text="{Binding ElementName=PetInfo, Path=SelectedItem.Name, StringFormat={}Teach {0}}"/>
+                    <TextBox x:Name="TeachingInput"
+                             Grid.Row="1"
+                             Margin="25 0 0 0"
+                             MinWidth="200"
+                             VerticalAlignment="Top"
+                             materialDesign:HintAssist.Hint="Enter a sound to teach"
+                             materialDesign:HintAssist.IsFloating="True"
+                             Text="{Binding TextToTeach}"/>
+                </Grid>
+                <!-- Display the amount of money the user has -->
+                <!-- If the user doesn't want to take an action, they can simply advance to the next tick -->
+                <Button Grid.Column="7"
                         Width="100"
                         Margin="20"
                         VerticalAlignment="Center"

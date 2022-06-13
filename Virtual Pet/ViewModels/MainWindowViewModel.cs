@@ -129,11 +129,35 @@ namespace Virtual_Pet.ViewModels
             set { SetProperty(ref _pets, value); }
         }
 
+        private readonly List<Cake> _cakes = new()
+        {
+            new Cake("cake", 2, 0, 0),
+            new Cake("berry", 10, 5, 5),
+            new Cake("banana", 15, 2, 10),
+            new Cake("peach", 20, 0, 20),
+            new Cake("pea", 5, 10, 10),
+            new Cake("bean", 2, 15, 25),
+            new Cake("pod", 0, 20, 40),
+            new Cake("ambrosia", 10000, 10000, 200)
+        };
+
+        public List<Cake> Cakes
+        {
+            get { return _cakes; }
+        }
+
         private int _wallet = 100;
         public int Wallet
         {
             get { return _wallet; }
             set { SetProperty(ref _wallet, value); }
+        }
+
+        private int _ticksSurvived = 0;
+        public int TicksSurvived
+        {
+            get { return _ticksSurvived; }
+            set { SetProperty(ref _ticksSurvived, value); }
         }
 
         // Command to change from the name selection UI to the gameplay UI
@@ -179,6 +203,13 @@ namespace Virtual_Pet.ViewModels
             }
         }
 
+        private string _textToTeach = string.Empty;
+        public string TextToTeach
+        {
+            get { return _textToTeach; }
+            set { SetProperty(ref _textToTeach, value); }
+        }
+
         // Advance time by a tick
         private DelegateCommand _tick;
         public DelegateCommand Tick =>
@@ -206,6 +237,8 @@ namespace Virtual_Pet.ViewModels
             // Alert relevant views to the change
             RaisePropertyChanged(nameof(Pets));
             RaisePropertyChanged(nameof(Wallet));
+
+            TicksSurvived += 1;
         }
 
         public MainWindowViewModel()

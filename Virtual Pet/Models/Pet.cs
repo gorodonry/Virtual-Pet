@@ -40,25 +40,12 @@ namespace Virtual_Pet.Models
             this.imageType = imageType;
         }
 
-        private static string JoinWithAnd(List<string> iterable)
+        private static string Capitalise(string str)
         {
-            // Joins a list of strings together with commas and an and
-            if (iterable.Count() == 0)
-            {
-                return "";
-            }
-            else if (iterable.Count() == 1)
-            {
-                return iterable[0];
-            }
-            else if (iterable.Count() == 2)
-            {
-                return $"{iterable[0]} and {iterable[1]}";
-            }
-            else
-            {
-                return $"{string.Join(", ", iterable.GetRange(0, iterable.Count() - 1))}, and {iterable[iterable.Count() - 1]}";
-            }
+            // Makes the first character of a string upper case then returns the string
+            char[] chars = str.ToCharArray();
+            chars[0] = char.ToUpper(chars[0]);
+            return string.Join("", chars);
         }
 
         public string Name
@@ -229,7 +216,7 @@ namespace Virtual_Pet.Models
                 }
                 else
                 {
-                    return JoinWithAnd(Sounds);
+                    return Capitalise(string.Join(", ", Sounds));
                 }
             }
         }
