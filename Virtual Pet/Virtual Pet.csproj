@@ -12,6 +12,7 @@
     <None Remove="Images\healthy_dog.png" />
     <None Remove="Images\healthy_pixel_dog-ish.png" />
     <None Remove="Images\healthy_squid.png" />
+    <None Remove="Images\minecraft_heart.png" />
     <None Remove="Images\sick_angry_dog.png" />
     <None Remove="Images\sick_angry_pixel_dog-ish.png" />
     <None Remove="Images\sick_angry_squid.png" />
@@ -31,6 +32,7 @@
     <Resource Include="Images\healthy_dog.png" />
     <Resource Include="Images\healthy_pixel_dog-ish.png" />
     <Resource Include="Images\healthy_squid.png" />
+    <Resource Include="Images\minecraft_heart.png" />
     <Resource Include="Images\sick_angry_dog.png" />
     <Resource Include="Images\sick_angry_pixel_dog-ish.png" />
     <Resource Include="Images\sick_angry_squid.png" />

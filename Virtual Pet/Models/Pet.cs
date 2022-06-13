@@ -13,15 +13,18 @@ namespace Virtual_Pet.Models
         protected const int standardMaxHealth = 100;
 
         protected string name;
-        protected int petNo;
         protected string imageType;
 
         protected int boredom = 0;
+        protected int maxBoredom = 100;
         protected int hunger = 0;
+        protected int maxHunger = 100;
         protected List<string> sounds = new();
+        protected int maxSounds = 5;
         protected int health = standardMaxHealth;
         protected int maxHealth = standardMaxHealth;
         protected int boredomLimit = new Random().Next(50, 90);
+        protected int angerLimit = 90;
         protected int hungerLimit = 80;
 
         protected int boredomRate = 4;
@@ -29,11 +32,10 @@ namespace Virtual_Pet.Models
 
         protected string strength = "normal";
 
-        public Pet(string name, int petNo, string imageType)
+        public Pet(string name, string imageType)
         {
             // Only the name and pet number (0 indexed) should be specified upon instantiation, everything else is controlled by the program
             this.name = name;
-            this.petNo = petNo;
             this.imageType = imageType;
         }
 
@@ -47,11 +49,6 @@ namespace Virtual_Pet.Models
                     name = value;
                 }
             }
-        }
-
-        public int PetNo
-        {
-            get { return petNo; }
         }
 
         public string Image
@@ -88,7 +85,13 @@ namespace Virtual_Pet.Models
         {
             // Boredom cannot exceed 100, or drop below 0
             get { return boredom; }
-            set { boredom = Math.Max(Math.Min(100, value), 0); }
+            set { boredom = Math.Max(Math.Min(maxBoredom, value), 0); }
+        }
+
+        public int BoredomPercentage
+        {
+            // Returns pet boredom as a percentage
+            get { return Boredom / BoredomLimit * 100; }
         }
 
         public int BoredomLimit
@@ -100,7 +103,13 @@ namespace Virtual_Pet.Models
         {
             // Hunger cannot exceed 100, or drop below 0
             get { return hunger; }
-            set { hunger = Math.Max(Math.Min(100, value), 0); }
+            set { hunger = Math.Max(Math.Min(maxHunger, value), 0); }
+        }
+
+        public int HungerPercentage
+        {
+            // Returns pet hunger as a percentage
+            get { return Hunger / HungerLimit * 100; }
         }
 
         public int HungerLimit
@@ -114,7 +123,7 @@ namespace Virtual_Pet.Models
             get { return sounds; }
             set
             {
-                if (sounds.Count() < 5)
+                if (sounds.Count() < maxSounds)
                 {
                     sounds.Add(value[0]);
                 }
@@ -126,6 +135,12 @@ namespace Virtual_Pet.Models
             // Health cannot exceed max health (can vary), or drop below 0
             get { return health; }
             set { health = Math.Max(Math.Min(MaxHealth, value), 0); }
+        }
+
+        public int HealthPercentage
+        {
+            // Returns pet health as a percentage
+            get { return Health / MaxHealth * 100; }
         }
 
         public int MaxHealth
@@ -178,7 +193,7 @@ namespace Virtual_Pet.Models
                     {
                         rate *= 2;
                     }
-                    if (Boredom > 90)
+                    if (Boredom > angerLimit)
                     {
                         rate *= 2;
                     }
@@ -260,7 +275,7 @@ namespace Virtual_Pet.Models
                 }
 
                 string hungerMessage;
-                if (Hunger < 50)
+                if (Hunger < maxHunger / 2)
                 {
                     hungerMessage = "full";
                 }
@@ -278,7 +293,7 @@ namespace Virtual_Pet.Models
                 {
                     boredomMessage = "happy";
                 }
-                else if (Boredom < 90 && strength != "weak")
+                else if (Boredom < angerLimit && strength != "weak")
                 {
                     boredomMessage = "bored";
                 }

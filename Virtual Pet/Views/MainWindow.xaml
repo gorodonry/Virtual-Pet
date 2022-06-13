@@ -105,19 +105,13 @@
                      ItemsSource="{Binding Pets}">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <Grid IsItemsHost="True">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                        </Grid>
+                        <UniformGrid IsItemsHost="True" Columns="{Binding Pets.Count}"/>
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem" BasedOn="{StaticResource MaterialDesignListBoxItem}">
-                        <Setter Property="Grid.Column" Value="{Binding PetNo}"/>
                         <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        <Setter Property="VerticalContentAlignment" Value="Top"/>
                         <Setter Property="Padding" Value="25"/>
                         <Setter Property="Margin" Value="10"/>
                     </Style>
@@ -125,12 +119,80 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
+                            <!-- Name of the pet -->
                             <TextBlock VerticalAlignment="Top"
                                        HorizontalAlignment="Center"
                                        FontSize="20"
                                        Margin="0 0 0 15"
                                        Text="{Binding Name}"/>
+                            <!-- Image of the pet -->
                             <Image Source="{Binding Image}"/>
+                            <!-- Health of the pet as a health bar -->
+                            <Grid Margin="0 25 0 0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <materialDesign:PackIcon Grid.Column="0"
+                                                         Kind="Heart"
+                                                         Width="30"
+                                                         Height="30"
+                                                         Foreground="Red"/>
+                                <ProgressBar Grid.Column="1"
+                                             VerticalContentAlignment="Center"
+                                             Margin="10 0 10 0"
+                                             Foreground="Red"
+                                             Background="White"
+                                             BorderBrush="White"
+                                             Value="{Binding HealthPercentage, Mode=OneWay}"/>
+                            </Grid>
+                            <!-- Hunger of the pet as a hunger bar -->
+                            <Grid Margin="0 10 0 0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <materialDesign:PackIcon Grid.Column="0"
+                                                         Kind="FoodDrumstick"
+                                                         Width="30"
+                                                         Height="30"
+                                                         Foreground="Brown"/>
+                                <ProgressBar Grid.Column="1"
+                                             VerticalContentAlignment="Center"
+                                             Margin="10 0 10 0"
+                                             Foreground="Brown"
+                                             Background="White"
+                                             BorderBrush="White"
+                                             Value="{Binding HungerPercentage, Mode=OneWay}"/>
+                            </Grid>
+                            <!-- Boredom of the pet as a boredom bar -->
+                            <Grid Margin="0 10 0 0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <materialDesign:PackIcon Grid.Column="0"
+                                                         Kind="Sleep"
+                                                         Width="30"
+                                                         Height="30"
+                                                         Foreground="Blue"/>
+                                <ProgressBar Grid.Column="1"
+                                             VerticalContentAlignment="Center"
+                                             Margin="10 0 10 0"
+                                             Foreground="Blue"
+                                             Background="White"
+                                             BorderBrush="White"
+                                             Value="{Binding BoredomPercentage, Mode=OneWay}"/>
+                            </Grid>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>

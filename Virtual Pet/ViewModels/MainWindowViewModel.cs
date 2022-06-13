@@ -118,9 +118,9 @@ namespace Virtual_Pet.ViewModels
         // Observable collection of users pets, names are specified when the user clicks the start playing button
         private ObservableCollection<Pet> _pets = new()
         {
-            (petTypes[0] == 1) ? new Pet("", 0, petImages[petImageTypes[0]]) : (petTypes[0] == 2) ? new WeakPet("", 0, petImages[petImageTypes[0]]) : new StrongPet("", 0, petImages[petImageTypes[0]]),
-            (petTypes[1] == 1) ? new Pet("", 1, petImages[petImageTypes[1]]) : (petTypes[1] == 2) ? new WeakPet("", 1, petImages[petImageTypes[1]]) : new StrongPet("", 1, petImages[petImageTypes[1]]),
-            (petTypes[2] == 1) ? new Pet("", 2, petImages[petImageTypes[2]]) : (petTypes[2] == 2) ? new WeakPet("", 2, petImages[petImageTypes[2]]) : new StrongPet("", 2, petImages[petImageTypes[2]])
+            (petTypes[0] == 1) ? new Pet("", petImages[petImageTypes[0]]) : (petTypes[0] == 2) ? new WeakPet("", petImages[petImageTypes[0]]) : new StrongPet("", petImages[petImageTypes[0]]),
+            (petTypes[1] == 1) ? new Pet("", petImages[petImageTypes[1]]) : (petTypes[1] == 2) ? new WeakPet("", petImages[petImageTypes[1]]) : new StrongPet("", petImages[petImageTypes[1]]),
+            (petTypes[2] == 1) ? new Pet("", petImages[petImageTypes[2]]) : (petTypes[2] == 2) ? new WeakPet("", petImages[petImageTypes[2]]) : new StrongPet("", petImages[petImageTypes[2]])
         };
 
         public ObservableCollection<Pet> Pets
