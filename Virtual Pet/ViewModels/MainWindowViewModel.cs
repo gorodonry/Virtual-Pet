@@ -109,11 +109,11 @@ namespace Virtual_Pet.ViewModels
         }
 
         // Types of the three pets where 1 is a normal pet, 2 is a weak pet, and 3 is a strong pet
-        private static int[] petTypes = new int[3] { new Random().Next(1, 3), new Random().Next(1, 3), new Random().Next(1, 3) };
+        private static int[] petTypes = new int[3] { new Random().Next(1, 4), new Random().Next(1, 4), new Random().Next(1, 4) };
 
         // Image type of the three pets, determined randomly
         private static string[] petImages = new string[4] { "dinosaur", "dog", "pixel_dog-ish", "squid" };
-        private static int[] petImageTypes = new int[3] { new Random().Next(0, 3), new Random().Next(0, 3), new Random().Next(0, 3) };
+        private static int[] petImageTypes = new int[3] { new Random().Next(0, 4), new Random().Next(0, 4), new Random().Next(0, 4) };
 
         // Observable collection of users pets, names are specified when the user clicks the start playing button
         private ObservableCollection<Pet> _pets = new()

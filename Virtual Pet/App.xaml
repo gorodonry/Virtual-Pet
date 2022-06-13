@@ -11,15 +11,38 @@
                 <materialDesign:BundledTheme BaseTheme="Inherit" PrimaryColor="DeepPurple" SecondaryColor="Green"/>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <Style x:Key="NameInputTextBlock" TargetType="TextBlock" BasedOn="{StaticResource MaterialDesignTextBlock}">
-                <Setter Property="Margin" Value="0 3 5 0"/>
+            <Style x:Key="NameInputTextBlock" TargetType="TextBlock" BasedOn="{StaticResource MaterialDesignBody2TextBlock}">
+                <Setter Property="Margin" Value="0 4 5 0"/>
                 <Setter Property="HorizontalAlignment" Value="Right"/>
+                <Setter Property="FontWeight" Value="Medium"/>
             </Style>
             <Style x:Key="NameInputTextBox" TargetType="TextBox" BasedOn="{StaticResource MaterialDesignTextBox}">
                 <Setter Property="Margin" Value="5 0 0 0"/>
                 <Setter Property="HorizontalAlignment" Value="Left"/>
                 <Setter Property="MinWidth" Value="100"/>
                 <Setter Property="MaxWidth" Value="250"/>
+            </Style>
+            <Style x:Key="StatusBarIcon" TargetType="materialDesign:PackIcon">
+                <Setter Property="Grid.Column" Value="0"/>
+                <Setter Property="Grid.Row" Value="0"/>
+                <Setter Property="Width" Value="30"/>
+                <Setter Property="Height" Value="30"/>
+            </Style>
+            <Style x:Key="StatusBarBar" TargetType="ProgressBar" BasedOn="{StaticResource MaterialDesignLinearProgressBar}">
+                <Setter Property="Grid.Column" Value="1"/>
+                <Setter Property="Grid.Row" Value="0"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="Margin" Value="10 0 10 0"/>
+                <Setter Property="Background" Value="White"/>
+                <Setter Property="BorderBrush" Value="White"/>
+                <Setter Property="BorderThickness" Value="0"/>
+            </Style>
+            <Style x:Key="StatusBarText" TargetType="TextBlock" BasedOn="{StaticResource MaterialDesignBody1TextBlock}">
+                <Setter Property="Grid.Column" Value="1"/>
+                <Setter Property="Grid.Row" Value="0"/>
+                <Setter Property="HorizontalAlignment" Value="Right"/>
+                <Setter Property="Margin" Value="0 17 20 0"/>
+                <Setter Property="FontSize" Value="10"/>
             </Style>
         </ResourceDictionary>
     </Application.Resources>

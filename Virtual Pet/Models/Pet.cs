@@ -39,6 +39,27 @@ namespace Virtual_Pet.Models
             this.imageType = imageType;
         }
 
+        private static string JoinWithAnd(List<string> iterable)
+        {
+            // Joins a list of strings together with commas and an and
+            if (iterable.Count() == 0)
+            {
+                return "";
+            }
+            else if (iterable.Count() == 1)
+            {
+                return iterable[0];
+            }
+            else if (iterable.Count() == 2)
+            {
+                return $"{iterable[0]} and {iterable[1]}";
+            }
+            else
+            {
+                return $"{string.Join(", ", iterable.GetRange(0, iterable.Count() - 1))}, and {iterable[iterable.Count() - 1]}";
+            }
+        }
+
         public string Name
         {
             get { return name; }
@@ -94,6 +115,12 @@ namespace Virtual_Pet.Models
             get { return Boredom / BoredomLimit * 100; }
         }
 
+        public string BoredomFraction
+        {
+            // Returns pet boredom as a fraction
+            get { return $"{Boredom}/{maxBoredom}"; }
+        }
+
         public int BoredomLimit
         {
             get { return boredomLimit; }
@@ -110,6 +137,11 @@ namespace Virtual_Pet.Models
         {
             // Returns pet hunger as a percentage
             get { return Hunger / HungerLimit * 100; }
+        }
+
+        public string HungerFraction
+        {
+            get { return $"{Hunger}/{maxHunger}"; }
         }
 
         public int HungerLimit
@@ -130,22 +162,37 @@ namespace Virtual_Pet.Models
             }
         }
 
+        public string DisplaySounds
+        {
+            get
+            {
+                if (Sounds.Count() == 0)
+                {
+                    return $"{Name} hasn't learnt any sounds yet :(";
+                }
+                else
+                {
+                    return JoinWithAnd(Sounds);
+                }
+            }
+        }
+
         public int Health
         {
             // Health cannot exceed max health (can vary), or drop below 0
             get { return health; }
-            set { health = Math.Max(Math.Min(MaxHealth, value), 0); }
+            set { health = Math.Max(Math.Min(maxHealth, value), 0); }
         }
 
         public int HealthPercentage
         {
             // Returns pet health as a percentage
-            get { return Health / MaxHealth * 100; }
+            get { return Health / maxHealth * 100; }
         }
 
-        public int MaxHealth
+        public string HealthFraction
         {
-            get { return maxHealth; }
+            get { return $"{Health}/{maxHealth}"; }
         }
 
         public int BoredomRate
@@ -170,7 +217,7 @@ namespace Virtual_Pet.Models
             {
                 int rate;
                 // Hunger rate is halved if the pet is close to death
-                if (health <= (MaxHealth / 4))
+                if (health <= (maxHealth / 4))
                 {
                     rate = hungerRate / 2;
                 }
@@ -257,11 +304,11 @@ namespace Virtual_Pet.Models
             get
             {
                 string healthMessage;
-                if (Health >= 0.8 * MaxHealth)
+                if (Health >= 0.8 * maxHealth)
                 {
                     healthMessage = "fighting fit";
                 }
-                else if (Health > 0.2 * MaxHealth)
+                else if (Health > 0.2 * maxHealth)
                 {
                     healthMessage = "ok";
                 }
@@ -316,5 +363,10 @@ namespace Virtual_Pet.Models
 //--{string.Concat(Enumerable.Repeat("-", Name.Length))}--
 //");
 //        }
+
+        public class DisplayStatus
+        {
+
+        }
     }
 }

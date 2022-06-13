@@ -10,6 +10,7 @@ namespace Virtual_Pet.Views
         public MainWindow()
         {
             InitializeComponent();
+            this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
         }
     }
 }

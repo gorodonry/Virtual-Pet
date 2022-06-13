@@ -9,7 +9,9 @@
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
         FontFamily="{materialDesign:MaterialDesignFont}"
-        Title="{Binding Title}" Height="550" Width="950">
+        Title="{Binding Title}"
+        Icon="/Images/virtual_pet.ico"
+        WindowState="Maximized">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </Window.Resources>
@@ -77,7 +79,8 @@
                     BorderThickness="0 0.4 0 0.4"
                     BorderBrush="LightGray">
                 <TextBlock FontStyle="Italic"
-                           Text="&quot;How long can you keep your creations alive ? !Muahaha!&quot;"/>
+                           Foreground="Gray"
+                           Text="&quot;How long can you keep your creations alive? Muahaha!&quot;"/>
             </Border>
             <Button Grid.Row="6"
                     Grid.Column="0"
@@ -101,7 +104,8 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             <!-- Information for pets -->
-            <ListBox Grid.Row="0"
+            <ListBox x:Name="PetInfo"
+                     Grid.Row="0"
                      ItemsSource="{Binding Pets}">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -113,7 +117,7 @@
                         <Setter Property="HorizontalContentAlignment" Value="Center"/>
                         <Setter Property="VerticalContentAlignment" Value="Top"/>
                         <Setter Property="Padding" Value="25"/>
-                        <Setter Property="Margin" Value="10"/>
+                        <Setter Property="Margin" Value="10 5 10 10"/>
                     </Style>
                 </ListBox.ItemContainerStyle>
                 <ListBox.ItemTemplate>
@@ -128,7 +132,7 @@
                             <!-- Image of the pet -->
                             <Image Source="{Binding Image}"/>
                             <!-- Health of the pet as a health bar -->
-                            <Grid Margin="0 25 0 0">
+                            <Grid Margin="0 15 0 0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="auto"/>
                                     <ColumnDefinition/>
@@ -136,21 +140,17 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="auto"/>
                                 </Grid.RowDefinitions>
-                                <materialDesign:PackIcon Grid.Column="0"
+                                <materialDesign:PackIcon Style="{StaticResource StatusBarIcon}"
                                                          Kind="Heart"
-                                                         Width="30"
-                                                         Height="30"
                                                          Foreground="Red"/>
-                                <ProgressBar Grid.Column="1"
-                                             VerticalContentAlignment="Center"
-                                             Margin="10 0 10 0"
+                                <ProgressBar Style="{StaticResource StatusBarBar}"
                                              Foreground="Red"
-                                             Background="White"
-                                             BorderBrush="White"
                                              Value="{Binding HealthPercentage, Mode=OneWay}"/>
+                                <TextBlock Style="{StaticResource StatusBarText}"
+                                           Text="{Binding HealthFraction, StringFormat={}Health: {0}}"/>
                             </Grid>
                             <!-- Hunger of the pet as a hunger bar -->
-                            <Grid Margin="0 10 0 0">
+                            <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="auto"/>
                                     <ColumnDefinition/>
@@ -158,21 +158,17 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="auto"/>
                                 </Grid.RowDefinitions>
-                                <materialDesign:PackIcon Grid.Column="0"
+                                <materialDesign:PackIcon Style="{StaticResource StatusBarIcon}"
                                                          Kind="FoodDrumstick"
-                                                         Width="30"
-                                                         Height="30"
                                                          Foreground="Brown"/>
-                                <ProgressBar Grid.Column="1"
-                                             VerticalContentAlignment="Center"
-                                             Margin="10 0 10 0"
+                                <ProgressBar Style="{StaticResource StatusBarBar}"
                                              Foreground="Brown"
-                                             Background="White"
-                                             BorderBrush="White"
                                              Value="{Binding HungerPercentage, Mode=OneWay}"/>
+                                <TextBlock Style="{StaticResource StatusBarText}"
+                                           Text="{Binding HungerFraction, StringFormat={}Hunger: {0}}"/>
                             </Grid>
                             <!-- Boredom of the pet as a boredom bar -->
-                            <Grid Margin="0 10 0 0">
+                            <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="auto"/>
                                     <ColumnDefinition/>
@@ -180,23 +176,32 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="auto"/>
                                 </Grid.RowDefinitions>
-                                <materialDesign:PackIcon Grid.Column="0"
+                                <materialDesign:PackIcon Style="{StaticResource StatusBarIcon}"
                                                          Kind="Sleep"
-                                                         Width="30"
-                                                         Height="30"
                                                          Foreground="Blue"/>
-                                <ProgressBar Grid.Column="1"
-                                             VerticalContentAlignment="Center"
-                                             Margin="10 0 10 0"
+                                <ProgressBar Style="{StaticResource StatusBarBar}"
                                              Foreground="Blue"
-                                             Background="White"
-                                             BorderBrush="White"
                                              Value="{Binding BoredomPercentage, Mode=OneWay}"/>
+                                <TextBlock Style="{StaticResource StatusBarText}"
+                                           Text="{Binding BoredomFraction, StringFormat={}Boredom: {0}}"/>
                             </Grid>
+                            <StackPanel Orientation="Horizontal"
+                                        Margin="0 5 0 5">
+                                <TextBlock Text="{Binding Name}"/>
+                                <TextBlock Text=" knows how to say"/>
+                            </StackPanel>
+                            <TextBlock Margin="20 0 10 0"
+                                       TextWrapping="WrapWithOverflow"
+                                       Text="{Binding DisplaySounds}"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
+            <StackPanel Grid.Row="1"
+                        Orientation="Horizontal"
+                        DataContext="{Binding ElementName=PetInfo}">
+                
+            </StackPanel>
         </Grid>
     </Grid>
 </Window>
