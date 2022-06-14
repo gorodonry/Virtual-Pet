@@ -106,8 +106,9 @@
             <!-- Information for pets -->
             <ListBox x:Name="PetInfo"
                      Grid.Row="0"
-                     ItemsSource="{Binding Pets}"
-                     SelectionChanged="PetInfo_SelectionChanged">
+                     ItemsSource="{Binding Pets, Mode=TwoWay}"
+                     SelectedIndex="{Binding SelectedPet, Mode=OneWayToSource}"
+                     SelectionChanged="ClearTeachingInput">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <UniformGrid IsItemsHost="True" Columns="{Binding Pets.Count}"/>
@@ -220,8 +221,8 @@
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition/>
                     <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition/>
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
                 <!-- Name of the pet the action is taken on -->
@@ -263,7 +264,11 @@
                                     <Button Style="{StaticResource MaterialDesignFlatButton}"
                                             Height="auto"
                                             Padding="7"
-                                            Margin="5">
+                                            Margin="5"
+                                            Command="{Binding DataContext.Feed, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                                            CommandParameter="{Binding}"
+                                            Click="ClearTeachingInput"
+                                            ClickMode="Press">
                                         <Button.Content>
                                             <StackPanel>
                                                 <TextBlock HorizontalAlignment="Center"
@@ -304,6 +309,8 @@
                 <Grid Grid.Column="4">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0"
@@ -313,20 +320,56 @@
                              Grid.Row="1"
                              Margin="25 0 0 0"
                              MinWidth="200"
-                             VerticalAlignment="Top"
+                             MaxWidth="250"
                              materialDesign:HintAssist.Hint="Enter a sound to teach"
                              materialDesign:HintAssist.IsFloating="True"
-                             Text="{Binding TextToTeach}"/>
+                             Text="{Binding TextToTeach, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock Grid.Row="2"
+                               Margin="50 25 0 0"
+                               Text="Additional food"/>
                 </Grid>
-                <!-- Display the amount of money the user has -->
+                <!-- Display the amount of money the user has, and the number of ticks they've survived for -->
+                <StackPanel Grid.Column="6"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+                    <TextBlock HorizontalAlignment="Center"
+                               Text="Wallet"/>
+                    <materialDesign:PackIcon Kind="Sack"
+                                             HorizontalAlignment="Center"
+                                             Width="50"
+                                             Height="50"/>
+                    <TextBlock HorizontalAlignment="Center"
+                               Text="{Binding Wallet, Mode=OneWay, StringFormat={}${0}}"/>
+                    <TextBlock HorizontalAlignment="Center"
+                               Margin="0 25 0 0"
+                               TextWrapping="WrapWithOverflow"
+                               TextAlignment="Center">
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="Your pets have survived {0} tick{1}">
+                                <Binding Path="TicksSurvived" Mode="OneWay"/>
+                                <Binding Path="TicksSurvivedMessageGrammar" Mode="OneWay"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </StackPanel>
                 <!-- If the user doesn't want to take an action, they can simply advance to the next tick -->
-                <Button Grid.Column="7"
+                <StackPanel Grid.Column="7"
+                            VerticalAlignment="Center">
+                    <Button x:Name="TeachButton"
+                            Width="100"
+                            Margin="20"
+                            materialDesign:ButtonAssist.CornerRadius="10"
+                            Command="{Binding Teach}"
+                            Content="Teach"/>
+                    <Button x:Name="PassButton"
                         Width="100"
                         Margin="20"
-                        VerticalAlignment="Center"
                         materialDesign:ButtonAssist.CornerRadius="10"
                         Command="{Binding Tick}"
+                        Click="ClearTeachingInput"
+                        ClickMode="Press"
                         Content="Pass"/>
+                </StackPanel>
             </Grid>
         </Grid>
     </Grid>

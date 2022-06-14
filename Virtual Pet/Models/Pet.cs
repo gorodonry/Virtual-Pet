@@ -1,6 +1,7 @@
 ﻿using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -193,17 +194,22 @@ namespace Virtual_Pet.Models
 
         public List<string> Sounds
         {
-            // Number of sounds taught cannot exceed 5
             get { return sounds; }
-            set
+        }
+
+        public void AddSound(string sound)
+        {
+            if (Sounds.Count() < MaxSounds)
             {
-                if (sounds.Count() < maxSounds)
-                {
-                    sounds.Add(value[0]);
-                    RaisePropertyChanged(nameof(Sounds));
-                    RaisePropertyChanged(nameof(DisplaySounds));
-                }
+                Sounds.Add(sound.Trim());
+                RaisePropertyChanged(nameof(Sounds));
+                RaisePropertyChanged(nameof(DisplaySounds));
             }
+        }
+
+        public int MaxSounds
+        {
+            get { return maxSounds; }
         }
 
         public string DisplaySounds

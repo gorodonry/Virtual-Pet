@@ -146,11 +146,27 @@ namespace Virtual_Pet.ViewModels
             get { return _cakes; }
         }
 
+        private int _selectedPet = -1;
+        public int SelectedPet
+        {
+            get { return _selectedPet; }
+            set
+            {
+                SetProperty(ref _selectedPet, value);
+                Feed.RaiseCanExecuteChanged();
+                Teach.RaiseCanExecuteChanged();
+            }
+        }
+
         private int _wallet = 100;
         public int Wallet
         {
             get { return _wallet; }
-            set { SetProperty(ref _wallet, value); }
+            set
+            {
+                SetProperty(ref _wallet, value);
+                Feed.RaiseCanExecuteChanged();
+            }
         }
 
         private int _ticksSurvived = 0;
@@ -158,6 +174,13 @@ namespace Virtual_Pet.ViewModels
         {
             get { return _ticksSurvived; }
             set { SetProperty(ref _ticksSurvived, value); }
+        }
+
+        private string _ticksSurvivedMessageGrammar = "s";
+        public string TicksSurvivedMessageGrammar
+        {
+            get { return _ticksSurvivedMessageGrammar; }
+            set { SetProperty(ref _ticksSurvivedMessageGrammar, value); }
         }
 
         // Command to change from the name selection UI to the gameplay UI
@@ -207,7 +230,83 @@ namespace Virtual_Pet.ViewModels
         public string TextToTeach
         {
             get { return _textToTeach; }
-            set { SetProperty(ref _textToTeach, value); }
+            set
+            {
+                SetProperty(ref _textToTeach, value);
+                Teach.RaiseCanExecuteChanged();
+            }
+        }
+
+        // Feed a pet a cake specified by the user
+        private DelegateCommand<Cake> _feed;
+        public DelegateCommand<Cake> Feed =>
+            _feed ?? (_feed = new DelegateCommand<Cake>(ExecuteFeed, CanExecuteFeed));
+
+        void ExecuteFeed(Cake cake)
+        {
+            // Feed the pet and deduct the cost from the user's wallet
+            Pets[SelectedPet].Hunger -= cake.Hunger;
+            Pets[SelectedPet].Health += cake.Health;
+
+            Wallet -= cake.Cost;
+
+            // Feeding a pet is an action, advance time by a tick
+            ExecuteTick();
+        }
+
+        // The user can feed a pet a cake if they can afford to buy the cake
+        bool CanExecuteFeed(Cake cake)
+        {
+            // Selected pet index initially set to -1 to indicate that the user has not yet selected a pet
+            if (SelectedPet == -1)
+            {
+                return false;
+            }
+            else if (cake.Cost > Wallet)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        // Teach a pet a sound specified by the user
+        private DelegateCommand _teach;
+        public DelegateCommand Teach =>
+            _teach ?? (_teach = new DelegateCommand(ExecuteTeach, CanExecuteTeach));
+
+        void ExecuteTeach()
+        {
+            // Teach the pet, deduct boredom, and increase hunger
+            Pets[SelectedPet].AddSound(TextToTeach);
+            Pets[SelectedPet].Boredom -= 50;
+            Pets[SelectedPet].Hunger += 25;
+
+            TextToTeach = "";
+            RaisePropertyChanged(nameof(TextToTeach));
+
+            // Teaching a pet is an action, advance time by a tick
+            ExecuteTick();
+        }
+
+        // The user can teach a pet a sound if a pet is selected, they have entered a sound, and the pet's memory isn't full
+        bool CanExecuteTeach()
+        {
+            // Selected pet index initially set to -1 to indicate that the user has not yet selected a pet
+            if (SelectedPet == -1)
+            {
+                return false;
+            }
+            else if (TextToTeach.Trim().Length != 0 && Pets[SelectedPet].Sounds.Count() < Pets[SelectedPet].MaxSounds)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         // Advance time by a tick
@@ -215,6 +314,7 @@ namespace Virtual_Pet.ViewModels
         public DelegateCommand Tick =>
             _tick ?? (_tick = new DelegateCommand(ExecuteTick));
 
+        // Note this option is always available to the user and therefore needs no CanExecute function
         void ExecuteTick()
         {
             // Apply the consequences of advancing time by a tick
@@ -234,11 +334,24 @@ namespace Virtual_Pet.ViewModels
                 }
             }
 
+            TicksSurvived += 1;
+
+            // If the user has survived for one tick, remove the 's' from ticks in the view
+            if (TicksSurvived == 1)
+            {
+                TicksSurvivedMessageGrammar = string.Empty;
+                RaisePropertyChanged(nameof(TicksSurvivedMessageGrammar));
+            }
+            else if (TicksSurvivedMessageGrammar == string.Empty)
+            {
+                TicksSurvivedMessageGrammar = "s";
+                RaisePropertyChanged(nameof(TicksSurvivedMessageGrammar));
+            }
+
             // Alert relevant views to the change
             RaisePropertyChanged(nameof(Pets));
             RaisePropertyChanged(nameof(Wallet));
-
-            TicksSurvived += 1;
+            RaisePropertyChanged(nameof(TicksSurvived));
         }
 
         public MainWindowViewModel()
