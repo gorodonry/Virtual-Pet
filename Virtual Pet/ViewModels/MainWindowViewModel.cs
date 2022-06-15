@@ -18,48 +18,6 @@ namespace Virtual_Pet.ViewModels
             set { SetProperty(ref _title, value); }
         }
 
-        public static string CheckS(string str)
-        {
-            // Checks whether to add an s after an apostrophe, returns formatted string
-            if (str.ToLower().ToCharArray()[str.Length - 1] == char.Parse("s"))
-            {
-                return str + "'";
-            }
-            else
-            {
-                return str + "'s";
-            }
-        }
-
-        public static string JoinWithAnd(List<string> iterable)
-        {
-            // Joins a list of strings together with commas and an and
-            if (iterable.Count() == 0)
-            {
-                return "";
-            }
-            else if (iterable.Count() == 1)
-            {
-                return iterable[0];
-            }
-            else if (iterable.Count() == 2)
-            {
-                return $"{iterable[0]} and {iterable[1]}";
-            }
-            else
-            {
-                return $"{string.Join(", ", iterable.GetRange(0, iterable.Count() - 1))}, and {iterable[iterable.Count() - 1]}";
-            }
-        }
-
-        public static string Capitalise(string str)
-        {
-            // Makes the first character of a string upper case then returns the string
-            char[] chars = str.ToCharArray();
-            chars[0] = char.ToUpper(chars[0]);
-            return string.Join("", chars);
-        }
-
         private bool _nameSelectionVisible = true;
         public bool NameSelectionVisible
         {
@@ -146,16 +104,29 @@ namespace Virtual_Pet.ViewModels
             get { return _cakes; }
         }
 
-        private int _selectedPet = -1;
-        public int SelectedPet
+        private Pet _selectedPet;
+        public Pet SelectedPet
         {
             get { return _selectedPet; }
             set
             {
                 SetProperty(ref _selectedPet, value);
+                Eat.RaiseCanExecuteChanged();
                 Feed.RaiseCanExecuteChanged();
                 Teach.RaiseCanExecuteChanged();
+                RaisePropertyChanged(nameof(NonSelectedPets));
+                RaisePropertyChanged(nameof(SelectedPetIsDead));
             }
+        }
+
+        public ObservableCollection<Pet> NonSelectedPets
+        {
+            get { return new(Pets.Where(p => p != SelectedPet)); }
+        }
+
+        public bool SelectedPetIsDead
+        {
+            get { return SelectedPet.HealthMessage == "dead" ? false : true; }
         }
 
         private int _wallet = 100;
@@ -203,6 +174,7 @@ namespace Virtual_Pet.ViewModels
             RaisePropertyChanged(nameof(NameSelectionVisible));
             RaisePropertyChanged(nameof(GameplayVisible));
             RaisePropertyChanged(nameof(Pets));
+            RaisePropertyChanged(nameof(NonSelectedPets));
         }
 
         bool CanExecuteStartPlaying()
@@ -245,8 +217,8 @@ namespace Virtual_Pet.ViewModels
         void ExecuteFeed(Cake cake)
         {
             // Feed the pet and deduct the cost from the user's wallet
-            Pets[SelectedPet].Hunger -= cake.Hunger;
-            Pets[SelectedPet].Health += cake.Health;
+            SelectedPet.Hunger -= cake.Hunger;
+            SelectedPet.Health += cake.Health;
 
             Wallet -= cake.Cost;
 
@@ -257,18 +229,58 @@ namespace Virtual_Pet.ViewModels
         // The user can feed a pet a cake if they can afford to buy the cake
         bool CanExecuteFeed(Cake cake)
         {
-            // Selected pet index initially set to -1 to indicate that the user has not yet selected a pet
-            if (SelectedPet == -1)
+            if (SelectedPet is null)
             {
                 return false;
             }
-            else if (cake.Cost > Wallet)
+
+            // User cannot feed a pet if it is dead
+            if (SelectedPet.HealthMessage == "dead")
+            {
+                return false;
+            }
+
+            if (cake.Cost > Wallet)
             {
                 return false;
             }
             else
             {
                 return true;
+            }
+        }
+
+        // Feed a pet another pet - aka the Hannah method (Stirling is also to blame)
+        private DelegateCommand<Pet> _eat;
+        public DelegateCommand<Pet> Eat =>
+            _eat ?? (_eat = new DelegateCommand<Pet>(ExecuteEat, CanExecuteEat));
+
+        void ExecuteEat(Pet pet)
+        {
+            SelectedPet.Hunger -= pet.HungerReplenished;
+            SelectedPet.Boredom = 0;
+
+            pet.Health = 0;
+
+            // Feeding a pet to another pet is an action, advance time by a tick
+            ExecuteTick();
+        }
+
+        bool CanExecuteEat(Pet pet)
+        {
+            // Selected pet index initially set to -1 to indicate that the user has not yet selected a pet
+            if (SelectedPet is null)
+            {
+                return false;
+            }
+
+            if (pet.HealthMessage != "dead" && SelectedPet.HealthMessage != "dead")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
@@ -280,9 +292,9 @@ namespace Virtual_Pet.ViewModels
         void ExecuteTeach()
         {
             // Teach the pet, deduct boredom, and increase hunger
-            Pets[SelectedPet].AddSound(TextToTeach);
-            Pets[SelectedPet].Boredom -= 50;
-            Pets[SelectedPet].Hunger += 25;
+            SelectedPet.AddSound(TextToTeach);
+            SelectedPet.Boredom -= 50;
+            SelectedPet.Hunger += 25;
 
             TextToTeach = "";
             RaisePropertyChanged(nameof(TextToTeach));
@@ -294,14 +306,33 @@ namespace Virtual_Pet.ViewModels
         // The user can teach a pet a sound if a pet is selected, they have entered a sound, and the pet's memory isn't full
         bool CanExecuteTeach()
         {
-            // Selected pet index initially set to -1 to indicate that the user has not yet selected a pet
-            if (SelectedPet == -1)
+            if (SelectedPet is null)
             {
                 return false;
             }
-            else if (TextToTeach.Trim().Length != 0 && Pets[SelectedPet].Sounds.Count() < Pets[SelectedPet].MaxSounds)
+
+            // User cannot teach a pet if it is dead
+            if (SelectedPet.HealthMessage == "dead")
             {
-                return true;
+                return false;
+            }
+
+            // Selected pet index initially set to -1 to indicate that the user has not yet selected a pet
+            if (SelectedPet is null)
+            {
+                return false;
+            }
+            else if (TextToTeach.Trim().Length != 0 && SelectedPet.Sounds.Count() < SelectedPet.MaxSounds)
+            {
+                // Cannot teach pet duplicate sounds
+                if (!SelectedPet.Sounds.Contains(TextToTeach))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {
@@ -312,25 +343,36 @@ namespace Virtual_Pet.ViewModels
         // Advance time by a tick
         private DelegateCommand _tick;
         public DelegateCommand Tick =>
-            _tick ?? (_tick = new DelegateCommand(ExecuteTick));
+            _tick ?? (_tick = new DelegateCommand(ExecuteTick, CanExecuteTick));
 
-        // Note this option is always available to the user and therefore needs no CanExecute function
+        // This option is always available unless all pets are dead
         void ExecuteTick()
         {
             // Apply the consequences of advancing time by a tick
             for (int i=0; i<Pets.Count(); i++)
             {
-                Pets[i].Boredom += Pets[i].BoredomRate;
-                Pets[i].Hunger += Pets[i].HungerRate;
-                if (Pets[i].HungerMessage == "starving")
+                if (Pets[i].HealthMessage != "dead")
                 {
-                    Pets[i].Health -= Pets[i].HungerRate / 2;
-                }
+                    Pets[i].Boredom += Pets[i].BoredomRate;
+                    Pets[i].Hunger += Pets[i].HungerRate;
+                    if (Pets[i].HungerMessage == "starving")
+                    {
+                        Pets[i].Health -= Pets[i].HungerRate / 2;
+                    }
 
-                // Gain a coin for each happy pet
-                if (Pets[i].HealthMessage != "dead" && Pets[i].BoredomMessage == "happy")
+                    Pets[i].TicksSurvived += 1;
+
+                    // Gain a coin for each happy pet
+                    if (Pets[i].BoredomMessage == "happy")
+                    {
+                        Wallet += 1;
+                    }
+                }
+                
+                if (Pets[i].HealthMessage == "dead")
                 {
-                    Wallet += 1;
+                    Pets[i].Boredom = 0;
+                    Pets[i].Hunger = 0;
                 }
             }
 
@@ -352,6 +394,27 @@ namespace Virtual_Pet.ViewModels
             RaisePropertyChanged(nameof(Pets));
             RaisePropertyChanged(nameof(Wallet));
             RaisePropertyChanged(nameof(TicksSurvived));
+            RaisePropertyChanged(nameof(NonSelectedPets));
+            RaisePropertyChanged(nameof(SelectedPetIsDead));
+
+            Eat.RaiseCanExecuteChanged();
+            Feed.RaiseCanExecuteChanged();
+
+            // If all pets are dead this button is unavailable
+            Tick.RaiseCanExecuteChanged();
+        }
+
+        bool CanExecuteTick()
+        {
+            foreach (Pet pet in Pets)
+            {
+                if (pet.HealthMessage != "dead")
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public MainWindowViewModel()

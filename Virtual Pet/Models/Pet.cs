@@ -34,19 +34,13 @@ namespace Virtual_Pet.Models
 
         protected string strength = "normal";
 
+        protected int ticksSurvived = 0;
+
         public Pet(string name, string imageType)
         {
             // Only the name and pet number (0 indexed) should be specified upon instantiation, everything else is controlled by the program
             this.name = name;
             this.imageType = imageType;
-        }
-
-        private static string Capitalise(string str)
-        {
-            // Makes the first character of a string upper case then returns the string
-            char[] chars = str.ToCharArray();
-            chars[0] = char.ToUpper(chars[0]);
-            return string.Join("", chars);
         }
 
         public string Name
@@ -216,13 +210,17 @@ namespace Virtual_Pet.Models
         {
             get
             {
-                if (Sounds.Count() == 0)
+                if (HealthMessage == "dead")
+                {
+                    return $"{Name} is dead. RIP";
+                }
+                else if (Sounds.Count() == 0)
                 {
                     return $"{Name} hasn't learnt any sounds yet :(";
                 }
                 else
                 {
-                    return Capitalise(string.Join(", ", Sounds));
+                    return Methods.Capitalise(string.Join(", ", Sounds));
                 }
             }
         }
@@ -330,42 +328,26 @@ namespace Virtual_Pet.Models
             }
         }
 
-        public void Feed(Cake cake)
+        public int HungerReplenished
         {
-            // Feeds a pet a cake
-            Hunger -= cake.Hunger;
-            Health += cake.Health;
-
-            // Provide relevant feedback
-            //Console.Write($"Fed {Name} the {cake.Type}cake. ");
-            //if (cake.Hunger != 0 && cake.Health != 0)
-            //{
-            //    Console.WriteLine($"{Name} gained {cake.Health} health and replenished {cake.Hunger} hunger!\n");
-            //}
-            //else if (cake.Hunger != 0)
-            //{
-            //    Console.WriteLine($"{Name} replenished {cake.Hunger} hunger!\n");
-            //}
-            //else
-            //{
-            //    Console.WriteLine($"{Name} gained {cake.Health} health!\n");
-            //}
+            // Hunger replenished to the pet that eats this pet
+            get
+            {
+                if (HealthMessage == "dead")
+                {
+                    return 0;
+                }
+                else
+                {
+                    return Math.Max(HungerLimit - Hunger, 0);
+                }
+            }
         }
 
-        public void Train(string sound)
+        public int TicksSurvived
         {
-            // Trains a user entered sound to a pet
-            if (Sounds.Count() < 5)
-            {
-                Sounds.Add(sound);
-                Boredom -= 50;
-                Hunger += 25;
-                //Console.WriteLine($"Taught {Name} {sound}. {Name} lost 50 boredom and gained 25 hunger!\n");
-            }
-            else
-            {
-                //Console.WriteLine($"{CheckS(Name)} memory is full!\n");
-            }
+            get { return ticksSurvived; }
+            set { ticksSurvived = value; }
         }
     }
 }

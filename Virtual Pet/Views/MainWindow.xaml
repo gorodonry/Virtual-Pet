@@ -107,7 +107,8 @@
             <ListBox x:Name="PetInfo"
                      Grid.Row="0"
                      ItemsSource="{Binding Pets, Mode=TwoWay}"
-                     SelectedIndex="{Binding SelectedPet, Mode=OneWayToSource}"
+                     SelectedValue="{Binding SelectedPet, Mode=TwoWay}"
+                     SelectedIndex="0"
                      SelectionChanged="ClearTeachingInput">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -272,13 +273,8 @@
                                         <Button.Content>
                                             <StackPanel>
                                                 <TextBlock HorizontalAlignment="Center"
-                                                           FontSize="12">
-                                                    <TextBlock.Text>
-                                                        <MultiBinding StringFormat=" {0}cake ">
-                                                            <Binding Path="Type"/>
-                                                        </MultiBinding>
-                                                    </TextBlock.Text>
-                                                </TextBlock>
+                                                           FontSize="12"
+                                                           Text="{Binding CapitalType, StringFormat={}{0}cake}"/>
                                                 <StackPanel Orientation="Horizontal"
                                                             HorizontalAlignment="Center">
                                                     <materialDesign:PackIcon Kind="FoodDrumstick"
@@ -305,7 +301,7 @@
                 </Grid>
                 <Border Grid.Column="3"
                         Style="{StaticResource MarginDivider}"/>
-                <!-- Options for teaching the pet a new sound -->
+                <!-- Options for teaching the pet a new sound and/or feeding one pet to another pet -->
                 <Grid Grid.Column="4">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
@@ -313,6 +309,7 @@
                         <RowDefinition Height="auto"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
+                    <!-- UI for teaching a pet new sound -->
                     <TextBlock Grid.Row="0"
                                Margin="50 0 0 0"
                                Text="{Binding ElementName=PetInfo, Path=SelectedItem.Name, StringFormat={}Teach {0}}"/>
@@ -321,12 +318,56 @@
                              Margin="25 0 0 0"
                              MinWidth="200"
                              MaxWidth="250"
+                             IsEnabled="{Binding SelectedPetIsDead, Mode=OneWay}"
                              materialDesign:HintAssist.Hint="Enter a sound to teach"
                              materialDesign:HintAssist.IsFloating="True"
                              Text="{Binding TextToTeach, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <!-- UI for feeding one pet to another pet -->
                     <TextBlock Grid.Row="2"
                                Margin="50 25 0 0"
                                Text="Additional food"/>
+                    <ItemsControl ItemsSource="{Binding NonSelectedPets, Mode=OneWay}"
+                                  Grid.Row="3">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <!-- Each consumable pet has its own button -->
+                                <Button Style="{StaticResource MaterialDesignFlatButton}"
+                                        Height="auto"
+                                        Padding="7"
+                                        Margin="5"
+                                        Command="{Binding DataContext.Eat, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                                        CommandParameter="{Binding}"
+                                        Click="ClearTeachingInput"
+                                        ClickMode="Press">
+                                    <Button.Content>
+                                        <StackPanel>
+                                            <TextBlock HorizontalAlignment="Center"
+                                                       FontSize="12"
+                                                       Text="{Binding Name, StringFormat={}{0}cake}"/>
+                                            <StackPanel Orientation="Horizontal"
+                                                        HorizontalAlignment="Center">
+                                                <materialDesign:PackIcon Kind="FoodDrumstick"
+                                                                         Height="13"/>
+                                                <TextBlock Margin="0 0 3 0"
+                                                           FontSize="12"
+                                                           Text="{Binding HungerReplenished}"/>
+                                                <materialDesign:PackIcon Kind="Sleep"
+                                                                         Height="13"
+                                                                         Margin="3 0 0 0"/>
+                                                <TextBlock FontSize="12"
+                                                           Text="∞"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Button.Content>
+                                </Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                 </Grid>
                 <!-- Display the amount of money the user has, and the number of ticks they've survived for -->
                 <StackPanel Grid.Column="6"

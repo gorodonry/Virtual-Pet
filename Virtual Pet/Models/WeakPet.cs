@@ -13,6 +13,8 @@ namespace Virtual_Pet.Models
         {
             this.name = name;
             this.imageType = imageType;
+
+            // Adjust base stats to correspond with a weak pet (i.e. one with less health)
             boredomLimit = maxBoredom;
             health = standardMaxHealth / 2;
             maxHealth = standardMaxHealth / 2;

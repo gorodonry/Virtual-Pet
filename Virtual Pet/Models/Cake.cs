@@ -27,6 +27,11 @@ namespace Virtual_Pet.Models
             get { return type; }
         }
 
+        public string CapitalType
+        {
+            get { return Methods.Capitalise(type); }
+        }
+
         public int Hunger
         {
             get { return hunger; }

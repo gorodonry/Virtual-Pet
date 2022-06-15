@@ -15,7 +15,10 @@ namespace Virtual_Pet.Views
 
         void ClearTeachingInput(object sender, RoutedEventArgs e)
         {
-            TeachingInput.Text = string.Empty;
+            if (TeachingInput is not null)
+            {
+                TeachingInput.Text = string.Empty;
+            }
         }
     }
 }
