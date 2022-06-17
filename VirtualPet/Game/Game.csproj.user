@@ -2,6 +2,9 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
+    <Compile Update="Views\Cemetery.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Gameplay.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -10,6 +13,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Views\Cemetery.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\Gameplay.xaml">
       <SubType>Designer</SubType>
     </Page>

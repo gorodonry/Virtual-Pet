@@ -162,7 +162,6 @@
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition/>
-                    <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
                 <!-- Name of the pet the action is taken on -->
                 <TextBlock Grid.Column="0"
@@ -255,7 +254,7 @@
                              Grid.Row="1"
                              Margin="25 0 0 0"
                              MinWidth="200"
-                             MaxWidth="250"
+                             MaxWidth="240"
                              IsEnabled="{Binding SelectedPetIsDead, Mode=OneWay}"
                              materialDesign:HintAssist.Hint="Enter a sound to teach"
                              materialDesign:HintAssist.IsFloating="True"
@@ -307,20 +306,30 @@
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
                 </Grid>
-                <!-- Display the amount of money the user has, and the number of ticks they've survived for -->
-                <StackPanel Grid.Column="6"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center">
-                    <TextBlock HorizontalAlignment="Center"
-                               Text="Wallet"/>
-                    <materialDesign:PackIcon Kind="Sack"
-                                             HorizontalAlignment="Center"
-                                             Width="50"
-                                             Height="50"/>
-                    <TextBlock HorizontalAlignment="Center"
-                               Text="{Binding Wallet, Mode=OneWay, StringFormat={}${0}}"/>
-                    <TextBlock HorizontalAlignment="Center"
-                               Margin="0 25 0 0"
+                <Grid Grid.Column="6">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <!-- Button to teach a pet a sound and the number of ticks survived by the user -->
+                    <Button x:Name="TeachButton"
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Width="100"
+                            Margin="40 25 0 0"
+                            materialDesign:ButtonAssist.CornerRadius="10"
+                            Command="{Binding Teach}"
+                            Content="Teach"/>
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="0"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
                                TextWrapping="WrapWithOverflow"
                                TextAlignment="Center">
                         <TextBlock.Text>
@@ -330,25 +339,30 @@
                             </MultiBinding>
                         </TextBlock.Text>
                     </TextBlock>
-                </StackPanel>
-                <!-- If the user doesn't want to take an action, they can simply advance to the next tick -->
-                <StackPanel Grid.Column="7"
-                            VerticalAlignment="Center">
-                    <Button x:Name="TeachButton"
+                    <!-- Display the amount of money the user has -->
+                    <StackPanel Grid.Row="0"
+                                Grid.Column="1">
+                        <TextBlock HorizontalAlignment="Center"
+                                   Text="Wallet"/>
+                        <materialDesign:PackIcon Kind="Sack"
+                                                 HorizontalAlignment="Center"
+                                                 Width="50"
+                                                 Height="50"/>
+                        <TextBlock HorizontalAlignment="Center"
+                                   Text="{Binding Wallet, Mode=OneWay, StringFormat={}${0}}"/>
+                    </StackPanel>
+                    <!-- If the user doesn't want to take an action, they can simply advance to the next tick -->
+                    <Button x:Name="PassButton"
+                            Grid.Row="1"
+                            Grid.Column="1"
                             Width="100"
                             Margin="20"
                             materialDesign:ButtonAssist.CornerRadius="10"
-                            Command="{Binding Teach}"
-                            Content="Teach"/>
-                    <Button x:Name="PassButton"
-                        Width="100"
-                        Margin="20"
-                        materialDesign:ButtonAssist.CornerRadius="10"
-                        Command="{Binding Tick}"
-                        Click="ClearTeachingInput"
-                        ClickMode="Press"
-                        Content="Pass"/>
-                </StackPanel>
+                            Command="{Binding Tick}"
+                            Click="ClearTeachingInput"
+                            ClickMode="Press"
+                            Content="Pass"/>
+                </Grid>
             </Grid>
         </Grid>
     </Grid>

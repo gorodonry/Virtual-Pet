@@ -61,18 +61,22 @@ namespace Game.Models
         {
             get
             {
-                // Note the dinosaur image only has a healthy option
-                if (imageType == "dinosaur")
+                // Note the dinosaur image only has a healthy option when it is alive
+                if (imageType == "dinosaur" && HealthMessage != "dead")
                 {
                     return Path.Combine(Directory.GetCurrentDirectory(), $@"..\..\..\..\Game\Images\healthy_{imageType}.png");
                 }
 
                 // Return the path of the image corresponding to the current status of the pet
-                if (HealthMessage != "sick" && HealthMessage != "dead" && BoredomMessage != "bored" && BoredomMessage != "angry")
+                if (HealthMessage == "dead")
+                {
+                    return Path.Combine(Directory.GetCurrentDirectory(), $@"..\..\..\..\Game\Images\dead_{imageType}.png");
+                }
+                else if (HealthMessage != "sick" && BoredomMessage != "bored" && BoredomMessage != "angry")
                 {
                     return Path.Combine(Directory.GetCurrentDirectory(), $@"..\..\..\..\Game\Images\healthy_{imageType}.png");
                 }
-                else if (HealthMessage != "sick" && HealthMessage != "dead")
+                else if (HealthMessage != "sick")
                 {
                     return Path.Combine(Directory.GetCurrentDirectory(), $@"..\..\..\..\Game\Images\angry_{imageType}.png");
                 }

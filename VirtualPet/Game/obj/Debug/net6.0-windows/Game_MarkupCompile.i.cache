@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 
-2-251514028
+3330317987
 
-12-1136464629
+141860082935
 199825350599
-Views\Gameplay.xaml;Views\NameSelection.xaml;
+Views\Cemetery.xaml;Views\Gameplay.xaml;Views\NameSelection.xaml;
 
 False
 

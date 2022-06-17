@@ -16,3 +16,5 @@ C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming 
 C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\VirtualPet\Game\obj\Debug\net6.0-windows\ref\Game.dll
 C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\VirtualPet\Game\obj\Debug\net6.0-windows\Views\Gameplay.baml
 C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\VirtualPet\Game\obj\Debug\net6.0-windows\Views\Gameplay.g.cs
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\VirtualPet\Game\obj\Debug\net6.0-windows\Views\Cemetery.baml
+C:\Users\Ryan Gordon\Documents\Education\Onslow\Y13\Comp. Science & Programming L3\Doc\Repositories\Virtual-Pet\VirtualPet\Game\obj\Debug\net6.0-windows\Views\Cemetery.g.cs
