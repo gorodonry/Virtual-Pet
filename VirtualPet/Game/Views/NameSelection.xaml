@@ -1,0 +1,101 @@
+﻿<UserControl x:Class="Game.Views.NameSelection"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+    <UserControl.Resources>
+        <Style x:Key="NameInputTextBlock" TargetType="TextBlock" BasedOn="{StaticResource MaterialDesignBody2TextBlock}">
+            <Setter Property="Margin" Value="0 4 5 0"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+        </Style>
+        <Style x:Key="NameInputTextBox" TargetType="TextBox" BasedOn="{StaticResource MaterialDesignTextBox}">
+            <Setter Property="Margin" Value="5 0 0 0"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="MinWidth" Value="100"/>
+            <Setter Property="MaxWidth" Value="250"/>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <!-- Interface for pet name selection by the user -->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <materialDesign:ColorZone Mode="PrimaryLight"
+                                      Grid.Row="0"
+                                      Grid.Column="0"
+                                      Grid.ColumnSpan="3"
+                                      CornerRadius="4"
+                                      Margin="7">
+                <TextBlock Text="Virtual Pet"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Margin="0 10 0 10"
+                           FontSize="30"/>
+            </materialDesign:ColorZone>
+            <TextBlock Grid.Row="2"
+                       Grid.Column="0"
+                       Style="{StaticResource NameInputTextBlock}"
+                       Text="Name of pet one"/>
+            <TextBox Grid.Row="2"
+                     Grid.Column="2"
+                     Style="{StaticResource NameInputTextBox}"
+                     Text="{Binding PetOneName, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Grid.Row="3"
+                       Grid.Column="0"
+                       Style="{StaticResource NameInputTextBlock}"
+                       Text="Name of pet two"/>
+            <TextBox Grid.Row="3"
+                     Grid.Column="2"
+                     Style="{StaticResource NameInputTextBox}"
+                     Text="{Binding PetTwoName, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Grid.Row="4"
+                       Grid.Column="0"
+                       Style="{StaticResource NameInputTextBlock}"
+                       Text="Name of pet three"/>
+            <TextBox Grid.Row="4"
+                     Grid.Column="2"
+                     Style="{StaticResource NameInputTextBox}"
+                     Text="{Binding PetThreeName, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
+            <Border Grid.Row="5"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="3"
+                    HorizontalAlignment="Center"
+                    Margin="0 50 0 0"
+                    Padding="10"
+                    BorderThickness="0 0.4 0 0.4"
+                    BorderBrush="LightGray">
+                <TextBlock FontStyle="Italic"
+                           Foreground="Gray"
+                           Text="&quot;How long can you keep your creations alive? Muahaha!&quot;"/>
+            </Border>
+            <Button Grid.Row="6"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="3"
+                    Margin="0 50 0 0"
+                    Width="200"
+                    Style="{StaticResource MaterialDesignOutlinedLightButton}"
+                    Command="{Binding StartPlaying}"
+                    Content="Start Playing"/>
+            <Border Grid.Row="2"
+                    Grid.RowSpan="3"
+                    Grid.Column="1"
+                    BorderThickness="0.1"
+                    BorderBrush="LightGray"/>
+        </Grid>
+    </Grid>
+</UserControl>
