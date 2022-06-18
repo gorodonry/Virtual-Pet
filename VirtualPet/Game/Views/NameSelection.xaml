@@ -5,6 +5,7 @@
              prism:ViewModelLocator.AutoWireViewModel="True"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
     <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <Style x:Key="NameInputTextBlock" TargetType="TextBlock" BasedOn="{StaticResource MaterialDesignBody2TextBlock}">
             <Setter Property="Margin" Value="0 4 5 0"/>
             <Setter Property="HorizontalAlignment" Value="Right"/>
@@ -16,13 +17,20 @@
             <Setter Property="MinWidth" Value="100"/>
             <Setter Property="MaxWidth" Value="250"/>
         </Style>
+        <Style x:Key="BulletPoint" TargetType="Ellipse">
+            <Setter Property="Height" Value="4"/>
+            <Setter Property="Width" Value="4"/>
+            <Setter Property="Fill" Value="Black"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
     </UserControl.Resources>
     <Grid>
-        <!-- Interface for pet name selection by the user -->
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
+                <ColumnDefinition/>
                 <ColumnDefinition Width="auto"/>
+                <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -35,10 +43,11 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
+            <!-- Title (i.e. name) of the game -->
             <materialDesign:ColorZone Mode="PrimaryLight"
                                       Grid.Row="0"
                                       Grid.Column="0"
-                                      Grid.ColumnSpan="3"
+                                      Grid.ColumnSpan="5"
                                       CornerRadius="4"
                                       Margin="7">
                 <TextBlock Text="Virtual Pet"
@@ -47,32 +56,33 @@
                            Margin="0 10 0 10"
                            FontSize="30"/>
             </materialDesign:ColorZone>
+            <!-- Interface for pet name selection by the user -->
             <TextBlock Grid.Row="2"
-                       Grid.Column="0"
+                       Grid.Column="1"
                        Style="{StaticResource NameInputTextBlock}"
                        Text="Name of pet one"/>
             <TextBox Grid.Row="2"
-                     Grid.Column="2"
+                     Grid.Column="3"
                      Style="{StaticResource NameInputTextBox}"
                      Text="{Binding PetOneName, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
             <TextBlock Grid.Row="3"
-                       Grid.Column="0"
+                       Grid.Column="1"
                        Style="{StaticResource NameInputTextBlock}"
                        Text="Name of pet two"/>
             <TextBox Grid.Row="3"
-                     Grid.Column="2"
+                     Grid.Column="3"
                      Style="{StaticResource NameInputTextBox}"
                      Text="{Binding PetTwoName, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
             <TextBlock Grid.Row="4"
-                       Grid.Column="0"
+                       Grid.Column="1"
                        Style="{StaticResource NameInputTextBlock}"
                        Text="Name of pet three"/>
             <TextBox Grid.Row="4"
-                     Grid.Column="2"
+                     Grid.Column="3"
                      Style="{StaticResource NameInputTextBox}"
                      Text="{Binding PetThreeName, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
             <Border Grid.Row="5"
-                    Grid.Column="0"
+                    Grid.Column="1"
                     Grid.ColumnSpan="3"
                     HorizontalAlignment="Center"
                     Margin="0 50 0 0"
@@ -84,7 +94,7 @@
                            Text="&quot;How long can you keep your creations alive? Muahaha!&quot;"/>
             </Border>
             <Button Grid.Row="6"
-                    Grid.Column="0"
+                    Grid.Column="1"
                     Grid.ColumnSpan="3"
                     Margin="0 50 0 0"
                     Width="200"
@@ -93,9 +103,97 @@
                     Content="Start Playing"/>
             <Border Grid.Row="2"
                     Grid.RowSpan="3"
-                    Grid.Column="1"
+                    Grid.Column="2"
                     BorderThickness="0.1"
                     BorderBrush="LightGray"/>
+            <!-- Instructions on how to play -->
+            <Grid Grid.Row="1"
+                  Grid.RowSpan="7"
+                  Grid.Column="0"
+                  Margin="20">
+                <Expander x:Name="Instructions"
+                          ExpandDirection="Down"
+                          HorizontalAlignment="Stretch">
+                    <Expander.Header>
+                        <TextBlock FontSize="20"
+                                   Text="How to Play"/>
+                    </Expander.Header>
+                    <TextBlock TextWrapping="Wrap"
+                               TextAlignment="Justify">
+                        The game works on the basis of ticks, an arbitrary measurement of time - you can assign it whatever value relative to a real unit of time you want :).
+                        You have three pets.
+                        <LineBreak/><LineBreak/>
+                        Each tick you can take one of three actions:
+                        <LineBreak/>
+                        <BulletDecorator Margin="20 0 0 0">
+                            <BulletDecorator.Bullet>
+                                <Ellipse Style="{StaticResource BulletPoint}"/>
+                            </BulletDecorator.Bullet>
+                            <TextBlock Margin="5 0 0 0">Feed a pet</TextBlock>
+                        </BulletDecorator>
+                        <LineBreak/>
+                        <BulletDecorator Margin="20 0 0 0">
+                            <BulletDecorator.Bullet>
+                                <Ellipse Style="{StaticResource BulletPoint}"/>
+                            </BulletDecorator.Bullet>
+                            <TextBlock Margin="5 0 0 0">Teach a pet a sound</TextBlock>
+                        </BulletDecorator>
+                        <LineBreak/>
+                        <BulletDecorator Margin="20 0 0 0">
+                            <BulletDecorator.Bullet>
+                                <Ellipse Style="{StaticResource BulletPoint}"/>
+                            </BulletDecorator.Bullet>
+                            <TextBlock Margin="5 0 0 0">Pass (do nothing)</TextBlock>
+                        </BulletDecorator>
+                        <LineBreak/><LineBreak/>
+                        <Bold FontWeight="ExtraBold">Tick end</Bold>
+                        <LineBreak/>
+                        At the end of every tick each of your pet's hunger and boredom levels increase by their respective rates.
+                        These rates can vary - for example, the hunger rate doubles if the pet happens to be bored, and quadruples if angry (try to keep your pets happy!).
+                        If your pet starts to starve, its health will start going down.
+                        <LineBreak/><LineBreak/>
+                        <Bold FontWeight="ExtraBold">Feeding</Bold>
+                        <LineBreak/>
+                        So in order to prevent pets dying you need to feed them, which is done with cakes.
+                        In the game there are several buttons that allow you to feed your pets - each button corresponds to a different cake, each with their own unique hunger and/or health replenishment and cost.
+                        <LineBreak/><LineBreak/>
+                        <Bold FontWeight="ExtraBold">Money</Bold>
+                        <LineBreak/>
+                        Money is used exclusively to buy cakes to feed your pets.
+                        You start with $100, and receive $1 per happy pet at the end of every tick.
+                    </TextBlock>
+                </Expander>
+            </Grid>
+            <Grid Grid.Row="1"
+                  Grid.RowSpan="7"
+                  Grid.Column="4"
+                  Margin="20"
+                  Visibility="{Binding ElementName=Instructions, Path=IsExpanded, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0"
+                           TextWrapping="Wrap"
+                           TextAlignment="Justify">
+                    <Bold FontWeight="ExtraBold">Teaching</Bold>
+                    <LineBreak/>
+                    Pets are kept happy when you teach them sounds (each sound taught reduces boredom by 50) - but beware!
+                    Teaching your pets requires vast energy input and increases their hunger by 25.
+                    Each pet also has a memory limit of 5 sounds, so be strategic about teaching them.
+                    <LineBreak/><LineBreak/>
+                    <Bold FontWeight="ExtraBold">Mechanics</Bold>
+                    <LineBreak/>
+                    If you choose to take an action in a tick, the action only applies to the pet you have selected.
+                    <LineBreak/><LineBreak/><LineBreak/><LineBreak/>
+                    Note: please play with the window maximised.
+                </TextBlock>
+                <Image Grid.Row="1"
+                       Width="300"
+                       Height="300"
+                       VerticalAlignment="Center"
+                       Source="{Binding VirtualPetImage, Mode=OneWay}"/>
+            </Grid>
         </Grid>
     </Grid>
 </UserControl>

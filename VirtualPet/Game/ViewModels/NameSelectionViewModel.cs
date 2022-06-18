@@ -5,11 +5,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Game.Views;
+using System.IO;
 
 namespace Game.ViewModels
 {
     public class NameSelectionViewModel : BindableBase, IRegionMemberLifetime
     {
+        private string _virtualPetImage = Path.Combine(Directory.GetCurrentDirectory(), $@"..\..\..\..\Game\Images\virtual_pet.png");
+        public string VirtualPetImage
+        {
+            get { return _virtualPetImage; }
+        }
+
         // Names of the three pets, user chooses the names
         private string _petOneName = string.Empty;
         public string PetOneName

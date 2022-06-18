@@ -21,6 +21,7 @@
     <None Remove="Images\sick_dog.png" />
     <None Remove="Images\sick_pixel_dog-ish.png" />
     <None Remove="Images\sick_squid.png" />
+    <None Remove="Images\virtual_pet.PNG" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MaterialDesignThemes" Version="4.5.0" />
@@ -44,5 +45,6 @@
     <Resource Include="Images\sick_dog.png" />
     <Resource Include="Images\sick_pixel_dog-ish.png" />
     <Resource Include="Images\sick_squid.png" />
+    <Resource Include="Images\virtual_pet.PNG" />
   </ItemGroup>
 </Project>
