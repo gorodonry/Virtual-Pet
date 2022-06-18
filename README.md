@@ -2,6 +2,7 @@
 A simple space-invaders type game with a GUI. Space-invaders in the sense that it's only a matter of time before you lose. Instructions can be found here: https://onslowcollege.github.io/13dtc/programming/virtual-pet.
 
 **How to play**
+
 The game works on the basis of ticks, an arbitrary measurement of time. The aim of the game is to keep your pets alive for as long as possible. The controls and stats of your pets are very simple - a pet has health, hunger, and boredom levels. If health drops to 0 the pet dies. If hunger increases beyond a certain point the pet starts to starve (causes health to go down). If boredom increases beyond certain thresholds the pet's hunger goes up at an accelerated rate.
 
 Each tick you can take one of three actions:

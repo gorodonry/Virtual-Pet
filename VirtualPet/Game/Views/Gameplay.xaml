@@ -5,6 +5,7 @@
              prism:ViewModelLocator.AutoWireViewModel="True"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
     <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <Style x:Key="StatusBarIcon" TargetType="materialDesign:PackIcon">
             <Setter Property="Grid.Column" Value="0"/>
             <Setter Property="Grid.Row" Value="0"/>
@@ -262,9 +263,11 @@
                     <!-- UI for feeding one pet to another pet -->
                     <TextBlock Grid.Row="2"
                                Margin="50 25 0 0"
-                               Text="Additional food"/>
-                    <ItemsControl ItemsSource="{Binding NonSelectedPets, Mode=OneWay}"
-                                  Grid.Row="3">
+                               Text="Additional food"
+                               Visibility="{Binding EnableHannahExtension, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                    <ItemsControl Grid.Row="3"
+                                  ItemsSource="{Binding NonSelectedPets, Mode=OneWay}"
+                                  Visibility="{Binding EnableHannahExtension, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel/>

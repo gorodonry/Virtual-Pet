@@ -41,6 +41,7 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <!-- Title (i.e. name) of the game -->
@@ -97,18 +98,40 @@
                     Grid.Column="1"
                     Grid.ColumnSpan="3"
                     Margin="0 50 0 0"
-                    Width="200"
+                    Width="325"
                     Style="{StaticResource MaterialDesignOutlinedLightButton}"
                     Command="{Binding StartPlaying}"
                     Content="Start Playing"/>
+            <!-- Option to enable the Hannah extension, with an explanation as to what this is-->
+            <StackPanel Grid.Row="7"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="3"
+                        HorizontalAlignment="Center"
+                        Margin="0 10 0 0"
+                        Orientation="Horizontal">
+                <CheckBox IsChecked="{Binding EnableHannahExtension, Mode=TwoWay}"
+                          Content="Enable the Hannah extension"/>
+                <materialDesign:PackIcon Kind="HelpCircleOutline"
+                                         Margin="4 3 0 0">
+                    <materialDesign:PackIcon.ToolTip>
+                        <TextBlock TextWrapping="Wrap"
+                                   MaxWidth="300"
+                                   TextAlignment="Justify">
+                            The Hannah extension allows pets to eat other pets.
+                            This action fully restores all boredom and a variable amount of hunger (dependant on the hunger of the pet being consumed).
+                            Options for feeding pets to other pets are found under 'additional food' during gameplay.
+                        </TextBlock>
+                    </materialDesign:PackIcon.ToolTip>
+                </materialDesign:PackIcon>
+            </StackPanel>
             <Border Grid.Row="2"
                     Grid.RowSpan="3"
                     Grid.Column="2"
                     BorderThickness="0.1"
                     BorderBrush="LightGray"/>
-            <!-- Instructions on how to play -->
+            <!-- Instructions on how to play, arranged on the left and right sides of the UI, set to collapsed by default -->
             <Grid Grid.Row="1"
-                  Grid.RowSpan="7"
+                  Grid.RowSpan="8"
                   Grid.Column="0"
                   Margin="20">
                 <Expander x:Name="Instructions"
@@ -165,7 +188,7 @@
                 </Expander>
             </Grid>
             <Grid Grid.Row="1"
-                  Grid.RowSpan="7"
+                  Grid.RowSpan="8"
                   Grid.Column="4"
                   Margin="20"
                   Visibility="{Binding ElementName=Instructions, Path=IsExpanded, Converter={StaticResource BooleanToVisibilityConverter}}">

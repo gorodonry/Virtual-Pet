@@ -11,19 +11,19 @@ namespace Game.ViewModels
 {
     public class GameplayViewModel : BindableBase, INavigationAware
     {
-        private List<string> _names;
-        public List<string> Names
-        {
-            get { return _names; }
-            set { SetProperty(ref _names, value); }
+        private bool _enableHannahExtension;
+        public bool EnableHannahExtension
+        { 
+            get { return _enableHannahExtension; }
+            set { SetProperty(ref _enableHannahExtension, value); }
         }
 
         // Types of the three pets where 1 is a normal pet, 2 is a weak pet, and 3 is a strong pet
-        private static int[] petTypes = new int[3] { new Random().Next(1, 4), new Random().Next(1, 4), new Random().Next(1, 4) };
+        private static readonly int[] petTypes = new int[3] { new Random().Next(1, 4), new Random().Next(1, 4), new Random().Next(1, 4) };
 
         // Image type of the three pets, determined randomly
-        private static string[] petImages = new string[4] { "dinosaur", "dog", "pixel_dog-ish", "squid" };
-        private static int[] petImageTypes = new int[3] { new Random().Next(0, 4), new Random().Next(0, 4), new Random().Next(0, 4) };
+        private static readonly string[] petImages = new string[4] { "dinosaur", "dog", "pixel_dog-ish", "squid" };
+        private static readonly int[] petImageTypes = new int[3] { new Random().Next(0, 4), new Random().Next(0, 4), new Random().Next(0, 4) };
 
         // Observable collection of users pets, names are specified when the user clicks the start playing button
         private ObservableCollection<Pet> _pets = new()
@@ -78,7 +78,7 @@ namespace Game.ViewModels
 
         public bool SelectedPetIsDead
         {
-            get { return SelectedPet.HealthMessage == "dead" ? false : true; }
+            get { return SelectedPet.HealthMessage != "dead"; }
         }
 
         private int _wallet = 100;
@@ -227,7 +227,7 @@ namespace Game.ViewModels
             {
                 return false;
             }
-            else if (TextToTeach.Trim().Length != 0 && SelectedPet.Sounds.Count() < SelectedPet.MaxSounds)
+            else if (TextToTeach.Trim().Length != 0 && SelectedPet.Sounds.Count < SelectedPet.MaxSounds)
             {
                 // Cannot teach pet duplicate sounds
                 if (!SelectedPet.Sounds.Contains(TextToTeach))
@@ -254,7 +254,7 @@ namespace Game.ViewModels
         void ExecuteTick()
         {
             // Apply the consequences of advancing time by a tick
-            for (int i = 0; i < Pets.Count(); i++)
+            for (int i = 0; i < Pets.Count; i++)
             {
                 if (Pets[i].HealthMessage != "dead")
                 {
@@ -326,12 +326,15 @@ namespace Game.ViewModels
         {
             // Get pet names from the name selection view
             List<string> names = navigationContext.Parameters.GetValue<List<string>>("Names");
+            bool enableHannahExtension = navigationContext.Parameters.GetValue<bool>("EnableHannahExtension");
 
             // Set pet names
-            for (int i=0; i < Pets.Count() && i < names.Count; i++)
+            for (int i=0; i < Pets.Count && i < names.Count; i++)
             {
                 Pets[i].Name = names[i];
             }
+
+            EnableHannahExtension = enableHannahExtension;
 
             // Alert the view to the changes
             RaisePropertyChanged(nameof(Pets));

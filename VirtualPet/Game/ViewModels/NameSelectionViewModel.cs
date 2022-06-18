@@ -11,7 +11,7 @@ namespace Game.ViewModels
 {
     public class NameSelectionViewModel : BindableBase, IRegionMemberLifetime
     {
-        private string _virtualPetImage = Path.Combine(Directory.GetCurrentDirectory(), $@"..\..\..\..\Game\Images\virtual_pet.png");
+        private readonly string _virtualPetImage = Path.Combine(Directory.GetCurrentDirectory(), $@"..\..\..\..\Game\Images\virtual_pet.png");
         public string VirtualPetImage
         {
             get { return _virtualPetImage; }
@@ -51,6 +51,13 @@ namespace Game.ViewModels
             }
         }
 
+        private bool _enableHannahExtension = true;
+        public bool EnableHannahExtension
+        {
+            get { return _enableHannahExtension; }
+            set { SetProperty(ref _enableHannahExtension, value); }
+        }
+        
         // Command to change from the name selection UI to the gameplay UI
         private DelegateCommand _startPlaying;
         public DelegateCommand StartPlaying =>
@@ -61,7 +68,8 @@ namespace Game.ViewModels
             // Start gameplay
             var parameters = new NavigationParameters
             {
-                { "Names", new List<string>(){ PetOneName, PetTwoName, PetThreeName } }
+                { "Names", new List<string>(){ PetOneName, PetTwoName, PetThreeName } },
+                { "EnableHannahExtension", EnableHannahExtension }
             };
 
             _regionManager.RequestNavigate("ContentRegion", nameof(Gameplay), parameters);
@@ -73,7 +81,7 @@ namespace Game.ViewModels
             if (!string.IsNullOrEmpty(PetOneName.Trim()) && !string.IsNullOrEmpty(PetTwoName.Trim()) && !string.IsNullOrEmpty(PetThreeName.Trim()))
             {
                 // No two pets can have the same name
-                List<string> names = new List<string>() { PetOneName, PetTwoName, PetThreeName };
+                List<string> names = new() { PetOneName, PetTwoName, PetThreeName };
                 if (names.Distinct().Count() == names.Count)
                 {
                     return true;
