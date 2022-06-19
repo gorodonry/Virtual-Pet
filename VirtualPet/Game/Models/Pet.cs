@@ -16,32 +16,50 @@ namespace Game.Models
         protected const int standardMaxHealth = 100;
 
         protected string name;
-        protected string imageType;
+        protected readonly string strength;
+        protected readonly string imageType;
+        protected readonly int tombstoneType;
 
         protected int boredom = 0;
-        protected int maxBoredom = 100;
+        protected const int maxBoredom = 100;
         protected int hunger = 0;
-        protected int maxHunger = 100;
+        protected const int maxHunger = 100;
         protected List<string> sounds = new();
-        protected int maxSounds = 5;
+        protected const int maxSounds = 5;
         protected int health = standardMaxHealth;
-        protected int maxHealth = standardMaxHealth;
-        protected int boredomLimit = new Random().Next(50, 90);
-        protected int angerLimit = 90;
-        protected int hungerLimit = 80;
+        protected readonly int maxHealth = standardMaxHealth;
+        protected readonly int boredomLimit = new Random().Next(50, 90);
+        protected const int angerLimit = 90;
+        protected const int hungerLimit = 80;
 
-        protected int boredomRate = 4;
-        protected int hungerRate = 4;
-
-        protected string strength = "normal";
+        protected const int boredomRate = 4;
+        protected readonly int hungerRate = 4;
 
         protected int ticksSurvived = 0;
+        protected string reasonForDeath;
 
-        public Pet(string name, string imageType)
+        public Pet(string name, string strength, string imageType, int tombstoneType)
         {
             // Only the name and pet number (0 indexed) should be specified upon instantiation, everything else is controlled by the program
             this.name = name;
+            this.strength = strength;
             this.imageType = imageType;
+            this.tombstoneType = tombstoneType;
+
+            if (strength == "weak")
+            {
+                // Adjust base stats to correspond with a weak pet (i.e. one with less health)
+                boredomLimit = maxBoredom;
+                health = standardMaxHealth / 2;
+                maxHealth = standardMaxHealth / 2;
+            }
+            else if (strength == "strong")
+            {
+                // Adjust base stats to correspond with a strong pet (i.e. one with more health)
+                health = standardMaxHealth * 2;
+                maxHealth = standardMaxHealth * 2;
+                hungerRate = 8;
+            }
         }
 
         public string Name
@@ -353,6 +371,22 @@ namespace Game.Models
         {
             get { return ticksSurvived; }
             set { ticksSurvived = value; }
+        }
+
+        public string ReasonForDeath
+        {
+            get { return reasonForDeath; }
+            set { reasonForDeath = value; }
+        }
+
+        public int TombstoneType
+        {
+            get { return tombstoneType; }
+        }
+
+        public string Tombstone
+        {
+            get { return Path.Combine(Directory.GetCurrentDirectory(), $@"..\..\..\..\Game\Images\tombstone_{TombstoneType}.png"); }
         }
 
         public void Feed(Cake cake)

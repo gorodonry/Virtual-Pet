@@ -3,7 +3,43 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:prism="http://prismlibrary.com/"             
              prism:ViewModelLocator.AutoWireViewModel="True">
+    <UserControl.Background>
+        <ImageBrush ImageSource="{Binding MeadowImage}"/>
+    </UserControl.Background>
     <Grid>
-            
+        <StackPanel VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
+            <ItemsControl ItemsSource="{Binding DeadPets}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Height="300"
+                                    Width="300"
+                                    Margin="50">
+                            <StackPanel.Background>
+                                <ImageBrush ImageSource="{Binding Tombstone}"/>
+                            </StackPanel.Background>
+                            <TextBlock Margin="0 100 0 0"
+                                       HorizontalAlignment="Center"
+                                       Text="{Binding Name}"/>
+                            <TextBlock Margin="0 5 0 0"
+                                       HorizontalAlignment="Center"
+                                       Text="{Binding TicksSurvived, StringFormat={}Survived {0} ticks}"/>
+                            <TextBlock Margin="0 5 0 0"
+                                       HorizontalAlignment="Center"
+                                       Text="{Binding ReasonForDeath}"/>
+                            <TextBlock Margin="0 15 0 0"
+                                       HorizontalAlignment="Center"
+                                       FontSize="20"
+                                       Text="RIP"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
     </Grid>
 </UserControl>

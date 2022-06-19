@@ -24,6 +24,7 @@ namespace Game
         {
             containerRegistry.RegisterForNavigation<NameSelection, NameSelectionViewModel>();
             containerRegistry.RegisterForNavigation<Gameplay, GameplayViewModel>();
+            containerRegistry.RegisterForNavigation<Cemetery, CemeteryViewModel>();
         }
     }
 }

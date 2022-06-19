@@ -9,10 +9,10 @@ namespace Game.Models
     public class Cake
     {
         // Contains all information on a type of cake that can be fed to pets
-        protected string type;
-        protected int hunger;
-        protected int health;
-        protected int cost;
+        protected readonly string type;
+        protected readonly int hunger;
+        protected readonly int health;
+        protected readonly int cost;
 
         public Cake(string type, int hunger, int health, int cost)
         {

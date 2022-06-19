@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Game.Models;
 using Prism.Regions;
+using Game.Views;
 
 namespace Game.ViewModels
 {
@@ -18,19 +19,23 @@ namespace Game.ViewModels
             set { SetProperty(ref _enableHannahExtension, value); }
         }
 
-        // Types of the three pets where 1 is a normal pet, 2 is a weak pet, and 3 is a strong pet
-        private static readonly int[] petTypes = new int[3] { new Random().Next(1, 4), new Random().Next(1, 4), new Random().Next(1, 4) };
+        // Types of the three pets, determined randomly
+        private static readonly string[] petStrengths = new string[3] { "weak", "normal", "strong" };
+        private static readonly int[] petTypes = new int[3] { new Random().Next(0, 3), new Random().Next(0, 3), new Random().Next(0, 3) };
 
         // Image type of the three pets, determined randomly
         private static readonly string[] petImages = new string[4] { "dinosaur", "dog", "pixel_dog-ish", "squid" };
         private static readonly int[] petImageTypes = new int[3] { new Random().Next(0, 4), new Random().Next(0, 4), new Random().Next(0, 4) };
 
-        // Observable collection of users pets, names are specified when the user clicks the start playing button
+        // Tombstone types of the three pets, determined randomly
+        private static readonly int[] tombstoneTypes = new int[3] { new Random().Next(1, 4), new Random().Next(1, 4), new Random().Next(1, 4) };
+
+        // Observable collection of users pets, names are specified when the user clicks the start playing button in the name selection view
         private ObservableCollection<Pet> _pets = new()
         {
-            (petTypes[0] == 1) ? new Pet("", petImages[petImageTypes[0]]) : (petTypes[0] == 2) ? new WeakPet("", petImages[petImageTypes[0]]) : new StrongPet("", petImages[petImageTypes[0]]),
-            (petTypes[1] == 1) ? new Pet("", petImages[petImageTypes[1]]) : (petTypes[1] == 2) ? new WeakPet("", petImages[petImageTypes[1]]) : new StrongPet("", petImages[petImageTypes[1]]),
-            (petTypes[2] == 1) ? new Pet("", petImages[petImageTypes[2]]) : (petTypes[2] == 2) ? new WeakPet("", petImages[petImageTypes[2]]) : new StrongPet("", petImages[petImageTypes[2]])
+            new Pet("", petStrengths[petTypes[0]], petImages[petImageTypes[0]], tombstoneTypes[0]),
+            new Pet("", petStrengths[petTypes[1]], petImages[petImageTypes[1]], tombstoneTypes[1]),
+            new Pet("", petStrengths[petTypes[2]], petImages[petImageTypes[2]], tombstoneTypes[2])
         };
 
         public ObservableCollection<Pet> Pets
@@ -168,6 +173,7 @@ namespace Game.ViewModels
             SelectedPet.Boredom = 0;
 
             pet.Health = 0;
+            pet.ReasonForDeath = $"Eaten by {SelectedPet.Name}";
 
             // Feeding a pet to another pet is an action, advance time by a tick
             ExecuteTick();
@@ -274,14 +280,41 @@ namespace Game.ViewModels
                     }
                 }
 
+                // If a pet dies at the end of a tick, then it has died of starvation
+                if (Pets[i].HealthMessage == "dead" && string.IsNullOrEmpty(Pets[i].ReasonForDeath))
+                {
+                    Pets[i].ReasonForDeath = "Died of starvation";
+                }
+
                 if (Pets[i].HealthMessage == "dead")
                 {
                     Pets[i].Boredom = 0;
                     Pets[i].Hunger = 0;
+
                 }
             }
 
             TicksSurvived += 1;
+
+            // Navigate to the cemetery if all pets are dead
+            bool allPetsDead = true;
+            foreach (Pet pet in Pets)
+            {
+                if (pet.HealthMessage != "dead")
+                {
+                    allPetsDead = false;
+                }
+            }
+
+            if (allPetsDead)
+            {
+                var parameters = new NavigationParameters
+                {
+                    { "Pets", Pets },
+                    { "TicksSurvived", TicksSurvived }
+                };
+                _regionManager.RequestNavigate("ContentRegion", nameof(Cemetery), parameters);
+            }
 
             // If the user has survived for one tick, remove the 's' from ticks in the view
             if (TicksSurvived == 1)
@@ -326,7 +359,6 @@ namespace Game.ViewModels
         {
             // Get pet names from the name selection view
             List<string> names = navigationContext.Parameters.GetValue<List<string>>("Names");
-            bool enableHannahExtension = navigationContext.Parameters.GetValue<bool>("EnableHannahExtension");
 
             // Set pet names
             for (int i=0; i < Pets.Count && i < names.Count; i++)
@@ -334,7 +366,7 @@ namespace Game.ViewModels
                 Pets[i].Name = names[i];
             }
 
-            EnableHannahExtension = enableHannahExtension;
+            EnableHannahExtension = navigationContext.Parameters.GetValue<bool>("EnableHannahExtension");
 
             // Alert the view to the changes
             RaisePropertyChanged(nameof(Pets));
@@ -351,9 +383,11 @@ namespace Game.ViewModels
             
         }
 
-        public GameplayViewModel()
-        {
+        private readonly IRegionManager _regionManager;
 
+        public GameplayViewModel(IRegionManager regionManager)
+        {
+            _regionManager = regionManager;
         }
     }
 }
