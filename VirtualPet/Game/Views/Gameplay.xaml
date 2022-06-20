@@ -368,5 +368,22 @@
                 </Grid>
             </Grid>
         </Grid>
+        <Button Margin="0 10 20 0"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Right"
+                Style="{StaticResource MaterialDesignFlatButton}"
+                Command="{Binding GoToCemetery}">
+            <Button.Content>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock VerticalAlignment="Center"
+                               Text="Cemetery"/>
+                    <materialDesign:PackIcon Kind="ArrowRight"
+                                             VerticalAlignment="Center"
+                                             Height="16"
+                                             Width="16"
+                                             Margin="10 0 0 0"/>
+                </StackPanel>
+            </Button.Content>
+        </Button>
     </Grid>
 </UserControl>

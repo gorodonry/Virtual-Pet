@@ -19,7 +19,6 @@ namespace Game.ViewModels
         public List<Pet> DeadPets
         {
             get { return _deadPets; }
-            set { SetProperty(ref _deadPets, value); }
         }
 
         // Number of ticks survived by the user (either so far or in total)
@@ -27,14 +26,12 @@ namespace Game.ViewModels
         public int TicksSurvived
         {
             get { return _ticksSurvived; }
-            set { SetProperty(ref _ticksSurvived, value); }
         }
 
         private bool _allPetsDead;
         public bool AllPetsDead
         {
             get { return _allPetsDead; }
-            set { SetProperty(ref _allPetsDead, value); }
         }
 
         // Background image for the usercontrol
@@ -77,6 +74,9 @@ namespace Game.ViewModels
             _allPetsDead = navigationContext.Parameters.GetValue<bool>("AllPetsDead");
 
             RaisePropertyChanged(nameof(DeadPets));
+            RaisePropertyChanged(nameof(AllPetsDead));
+            RaisePropertyChanged(nameof(TicksSurvived));
+            ReturnToGame.RaiseCanExecuteChanged();
         }
 
         private readonly IRegionManager _regionManager;

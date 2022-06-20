@@ -176,7 +176,6 @@ namespace Game.ViewModels
                 ExecuteGoToCemetery();
             }
 
-            Trace.WriteLine(SelectedPetIsDead);
             // Alert relevant views to the change
             RaisePropertyChanged(nameof(Pets));
             RaisePropertyChanged(nameof(Wallet));
@@ -208,24 +207,24 @@ namespace Game.ViewModels
                 {
                     { "DeadPets", GameSimulator.DeadPets },
                     { "TicksSurvived", TicksSurvived },
-                    { "AllPetsDead", true }
+                    { "AllPetsDead", GameSimulator.AllPetsDead }
                 };
             _regionManager.RequestNavigate("ContentRegion", nameof(Cemetery), parameters);
         }
 
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
-            // Get pet names from the name selection view
-            List<string> names = navigationContext.Parameters.GetValue<List<string>>("Names");
-
-            // Set pet names
-            if (names is not null)
+            // Set pet names, if applicable
+            if (navigationContext.Parameters.ContainsKey("Names"))
             {
-                _gameSimulator.SetPetNames(names.ToArray());
+                _gameSimulator.SetPetNames(navigationContext.Parameters.GetValue<List<string>>("Names").ToArray());
             }
 
-            // Check whether the Hannah extension has been enabled
-            _enableHannahExtension = navigationContext.Parameters.GetValue<bool>("EnableHannahExtension");
+            // Check whether the Hannah extension has been enabled, if applicable
+            if (navigationContext.Parameters.ContainsKey("EnableHannahExtension"))
+            {
+                _enableHannahExtension = navigationContext.Parameters.GetValue<bool>("EnableHannahExtension");
+            }
 
             // Alert the view to the changes
             RaisePropertyChanged(nameof(Pets));
