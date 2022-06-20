@@ -45,8 +45,8 @@
             <!-- Information for pets -->
             <ListBox x:Name="PetInfo"
                      Grid.Row="0"
-                     ItemsSource="{Binding Pets, Mode=TwoWay}"
-                     SelectedValue="{Binding SelectedPet, Mode=TwoWay}"
+                     ItemsSource="{Binding Pets, Mode=OneWay}"
+                     SelectedValue="{Binding SelectedPet, Mode=OneWayToSource}"
                      SelectedIndex="0"
                      SelectionChanged="ClearTeachingInput">
                 <ListBox.ItemsPanel>
@@ -256,7 +256,7 @@
                              Margin="25 0 0 0"
                              MinWidth="200"
                              MaxWidth="240"
-                             IsEnabled="{Binding SelectedPetIsDead, Mode=OneWay}"
+                             IsEnabled="{Binding TeachingAvailable, Mode=OneWay}"
                              materialDesign:HintAssist.Hint="Enter a sound to teach"
                              materialDesign:HintAssist.IsFloating="True"
                              Text="{Binding TextToTeach, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>

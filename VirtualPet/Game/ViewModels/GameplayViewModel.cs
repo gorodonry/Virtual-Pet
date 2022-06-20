@@ -7,13 +7,14 @@ using System.Linq;
 using Game.Models;
 using Prism.Regions;
 using Game.Views;
+using System.Diagnostics;
 
 namespace Game.ViewModels
 {
     public class GameplayViewModel : BindableBase, INavigationAware
     {
         // Contains all the controls for the game
-        private Simulator _gameSimulator;
+        private Simulator _gameSimulator = new();
         public Simulator GameSimulator
         {
             get { return _gameSimulator; }
@@ -50,7 +51,7 @@ namespace Game.ViewModels
                 Feed.RaiseCanExecuteChanged();
                 Teach.RaiseCanExecuteChanged();
                 RaisePropertyChanged(nameof(NonSelectedPets));
-                RaisePropertyChanged(nameof(SelectedPetIsDead));
+                RaisePropertyChanged(nameof(TeachingAvailable));
             }
         }
 
@@ -79,6 +80,12 @@ namespace Game.ViewModels
         public string TicksSurvivedMessageGrammar
         {
             get { return GameSimulator.TicksSurvivedMessageGrammar; }
+        }
+
+        // Disables teaching input when pet is dead
+        public bool TeachingAvailable
+        {
+            get { return !SelectedPetIsDead; }
         }
 
         // Text the user wishes to teach a pet, a textbox's text is bound to this
@@ -166,20 +173,16 @@ namespace Game.ViewModels
             // Navigate to the cemetery if all pets are dead
             if (GameSimulator.AllPetsDead)
             {
-                var parameters = new NavigationParameters
-                {
-                    { "Pets", Pets },
-                    { "TicksSurvived", TicksSurvived }
-                };
-                _regionManager.RequestNavigate("ContentRegion", nameof(Cemetery), parameters);
+                ExecuteGoToCemetery();
             }
 
+            Trace.WriteLine(SelectedPetIsDead);
             // Alert relevant views to the change
             RaisePropertyChanged(nameof(Pets));
             RaisePropertyChanged(nameof(Wallet));
             RaisePropertyChanged(nameof(TicksSurvived));
             RaisePropertyChanged(nameof(NonSelectedPets));
-            RaisePropertyChanged(nameof(SelectedPetIsDead));
+            RaisePropertyChanged(nameof(TeachingAvailable));
             RaisePropertyChanged(nameof(TicksSurvivedMessageGrammar));
 
             Eat.RaiseCanExecuteChanged();
@@ -192,24 +195,41 @@ namespace Game.ViewModels
         bool CanExecuteTick()
         {
             // The user can advance a tick as long as at least one of their pets is alive
-            return GameSimulator.AllPetsDead;
+            return !GameSimulator.AllPetsDead;
+        }
+        
+        private DelegateCommand _goToCemetery;
+        public DelegateCommand GoToCemetery =>
+            _goToCemetery ?? (_goToCemetery = new DelegateCommand(ExecuteGoToCemetery));
+
+        void ExecuteGoToCemetery()
+        {
+            var parameters = new NavigationParameters
+                {
+                    { "DeadPets", GameSimulator.DeadPets },
+                    { "TicksSurvived", TicksSurvived },
+                    { "AllPetsDead", true }
+                };
+            _regionManager.RequestNavigate("ContentRegion", nameof(Cemetery), parameters);
         }
 
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
-            if (GameSimulator is null)
-            {
-                // Get pet names from the name selection view
-                List<string> names = navigationContext.Parameters.GetValue<List<string>>("Names");
+            // Get pet names from the name selection view
+            List<string> names = navigationContext.Parameters.GetValue<List<string>>("Names");
 
-                // Create game simulator
-                _gameSimulator = new Simulator(names.ToArray());
+            // Set pet names
+            if (names is not null)
+            {
+                _gameSimulator.SetPetNames(names.ToArray());
             }
 
-            EnableHannahExtension = navigationContext.Parameters.GetValue<bool>("EnableHannahExtension");
+            // Check whether the Hannah extension has been enabled
+            _enableHannahExtension = navigationContext.Parameters.GetValue<bool>("EnableHannahExtension");
 
             // Alert the view to the changes
             RaisePropertyChanged(nameof(Pets));
+            RaisePropertyChanged(nameof(EnableHannahExtension));
             RaisePropertyChanged(nameof(NonSelectedPets));
         }
 

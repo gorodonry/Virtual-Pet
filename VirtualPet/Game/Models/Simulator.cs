@@ -41,14 +41,14 @@ namespace Game.Models
         private int wallet = 100;
         private int ticksSurvived = 0;
 
-        public Simulator(string[] names)
+        public Simulator()
         {
             // Create the observable collection of users pets, names are specified when the user clicks the start playing button in the name selection view
             pets = new ObservableCollection<Pet>()
             {
-                new Pet(names[0], petStrengths[petTypes[0]], petImages[petImageTypes[0]], tombstoneTypes[0]),
-                new Pet(names[0], petStrengths[petTypes[1]], petImages[petImageTypes[1]], tombstoneTypes[1]),
-                new Pet(names[0], petStrengths[petTypes[2]], petImages[petImageTypes[2]], tombstoneTypes[2])
+                new Pet("", petStrengths[petTypes[0]], petImages[petImageTypes[0]], tombstoneTypes[0]),
+                new Pet("", petStrengths[petTypes[1]], petImages[petImageTypes[1]], tombstoneTypes[1]),
+                new Pet("", petStrengths[petTypes[2]], petImages[petImageTypes[2]], tombstoneTypes[2])
             };
         }
 
@@ -75,6 +75,25 @@ namespace Game.Models
         public ObservableCollection<Pet> NonSelectedPets
         {
             get { return new(Pets.Where(p => p != SelectedPet)); }
+        }
+
+        // Collection of all pets that are currently dead
+        public ObservableCollection<Pet> DeadPets
+        {
+            get
+            {
+                ObservableCollection<Pet> deadPets = new();
+
+                foreach (Pet pet in Pets)
+                {
+                    if (pet.IsDead)
+                    {
+                        deadPets.Add(pet);
+                    }
+                }
+
+                return deadPets;
+            }
         }
 
         public bool SelectedPetIsDead
@@ -107,11 +126,23 @@ namespace Game.Models
                 {
                     if (!pet.IsDead)
                     {
-                        return true;
+                        return false;
                     }
                 }
 
-                return false;
+                return true;
+            }
+        }
+
+        // Set/reset the names of the pets to a specified array of names
+        public void SetPetNames(string[] names)
+        {
+            if (names.Length == Pets.Count)
+            {
+                for (int i=0; i<Pets.Count; i++)
+                {
+                    Pets[i].Name = names[i];
+                }
             }
         }
 

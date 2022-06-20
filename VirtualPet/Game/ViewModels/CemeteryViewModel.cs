@@ -8,36 +8,21 @@ using Game.Models;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Diagnostics;
+using Game.Views;
 
 namespace Game.ViewModels
 {
     public class CemeteryViewModel : BindableBase, INavigationAware
     {
-        private List<Pet> _pets = new();
-        public List<Pet> Pets
-        {
-            get { return _pets; }
-            set { SetProperty(ref _pets, value); }
-        }
-
+        // List of all pets that are currently dead
+        private List<Pet> _deadPets;
         public List<Pet> DeadPets
         {
-            get
-            {
-                List<Pet> deadPets = new();
-
-                foreach (Pet pet in Pets)
-                {
-                    if (!string.IsNullOrEmpty(pet.ReasonForDeath))
-                    {
-                        deadPets.Add(pet);
-                    }
-                }
-
-                return deadPets;
-            }
+            get { return _deadPets; }
+            set { SetProperty(ref _deadPets, value); }
         }
 
+        // Number of ticks survived by the user (either so far or in total)
         private int _ticksSurvived;
         public int TicksSurvived
         {
@@ -45,24 +30,34 @@ namespace Game.ViewModels
             set { SetProperty(ref _ticksSurvived, value); }
         }
 
+        private bool _allPetsDead;
+        public bool AllPetsDead
+        {
+            get { return _allPetsDead; }
+            set { SetProperty(ref _allPetsDead, value); }
+        }
+
+        // Background image for the usercontrol
         private readonly string _meadowImage = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\..\Game\Images\meadow.jpg");
         public string MeadowImage
         {
             get { return _meadowImage; }
         }
 
+        // Command to return the user to the gameplay view, only available if the user still has live pets
         private DelegateCommand _returnToGame;
         public DelegateCommand ReturnToGame =>
             _returnToGame ?? (_returnToGame = new DelegateCommand(ExecuteReturnToGame, CanExecuteReturnToGame));
 
         void ExecuteReturnToGame()
         {
-
+            _regionManager.RequestNavigate("ContentRegion", nameof(Gameplay));
         }
 
         bool CanExecuteReturnToGame()
         {
-            return true;
+            // The user can navigate back to gameplay if at least one of their pets are still alive
+            return !AllPetsDead;
         }
 
         public bool IsNavigationTarget(NavigationContext navigationContext)
@@ -77,15 +72,18 @@ namespace Game.ViewModels
 
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
-            Pets = navigationContext.Parameters.GetValue<ObservableCollection<Pet>>("Pets").ToList();
-            TicksSurvived = navigationContext.Parameters.GetValue<int>("TicksSurvived");
+            _deadPets = navigationContext.Parameters.GetValue<ObservableCollection<Pet>>("DeadPets").ToList();
+            _ticksSurvived = navigationContext.Parameters.GetValue<int>("TicksSurvived");
+            _allPetsDead = navigationContext.Parameters.GetValue<bool>("AllPetsDead");
 
             RaisePropertyChanged(nameof(DeadPets));
         }
 
-        public CemeteryViewModel()
-        {
+        private readonly IRegionManager _regionManager;
 
+        public CemeteryViewModel(IRegionManager regionManager)
+        {
+            _regionManager = regionManager;
         }
     }
 }
