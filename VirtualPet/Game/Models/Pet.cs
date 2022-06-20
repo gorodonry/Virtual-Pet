@@ -297,6 +297,11 @@ namespace Game.Models
             }
         }
 
+        public bool IsDead
+        {
+            get { return HealthMessage == "dead"; }
+        }
+
         public int BoredomRate
         {
             // Boredom rate increases if the pet is already bored
@@ -362,7 +367,7 @@ namespace Game.Models
                 }
                 else
                 {
-                    return Math.Max(HungerLimit - Hunger, 0);
+                    return Math.Max(HungerLimit - Hunger, 20);
                 }
             }
         }
@@ -379,14 +384,9 @@ namespace Game.Models
             set { reasonForDeath = value; }
         }
 
-        public int TombstoneType
-        {
-            get { return tombstoneType; }
-        }
-
         public string Tombstone
         {
-            get { return Path.Combine(Directory.GetCurrentDirectory(), $@"..\..\..\..\Game\Images\tombstone_{TombstoneType}.png"); }
+            get { return Path.Combine(Directory.GetCurrentDirectory(), $@"..\..\..\..\Game\Images\tombstone_{tombstoneType}.png"); }
         }
 
         public void Feed(Cake cake)
@@ -396,14 +396,84 @@ namespace Game.Models
             Health += cake.Health;
         }
 
+        public void Eat(Pet pet)
+        {
+            // Feeding a pet another pet reduces hunger (variable) and all boredom
+            Hunger -= pet.HungerReplenished;
+            Boredom = 0;
+        }
+
+        public void GetEaten(Pet pet)
+        {
+            // Getting eaten reduces health to 0 (and incidentally also hunger and boredom)
+            Health = 0;
+            Hunger = 0;
+            Boredom = 0;
+            ReasonForDeath = $"Eaten by {pet.Name}";
+        }
+
+        public bool CanTrain(string sound)
+        {
+            // Pet must be alive
+            if (IsDead)
+            {
+                return false;
+            }
+
+            // User must have entered a sound to train
+            if (sound.Trim().Length == 0)
+            {
+                return false;
+            }
+
+            // Number of sounds taught cannot exceed pet memory
+            if (Sounds.Count >= maxSounds)
+            {
+                return false;
+            }
+
+            // Duplicate sounds cannot be taught
+            if (Sounds.Contains(sound))
+            {
+                return false;
+            }
+
+            // If all conditions are met
+            return true;
+        }
+
         public void Train(string sound)
         {
             // Training a pet reduces boredom but increases hunger
-            if (Sounds.Count() < MaxSounds)
+            if (CanTrain(sound))
             {
                 AddSound(sound);
                 Boredom -= 50;
                 Hunger += 25;
+            }
+        }
+
+        public void Tick()
+        {
+            if (!IsDead)
+            {
+                // Apply stats changes that occur as a result of time advancing by a tick
+                Boredom += BoredomRate;
+                Hunger += HungerRate;
+                if (HungerMessage == "starving")
+                {
+                    Health -= HungerRate / 2;
+                }
+
+                TicksSurvived += 1;
+
+                // If a pet dies in the course of this function then it has died of starvation
+                if (IsDead)
+                {
+                    ReasonForDeath = "Died of starvation";
+                    Hunger = 0;
+                    Boredom = 0;
+                }
             }
         }
     }

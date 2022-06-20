@@ -51,6 +51,20 @@ namespace Game.ViewModels
             get { return _meadowImage; }
         }
 
+        private DelegateCommand _returnToGame;
+        public DelegateCommand ReturnToGame =>
+            _returnToGame ?? (_returnToGame = new DelegateCommand(ExecuteReturnToGame, CanExecuteReturnToGame));
+
+        void ExecuteReturnToGame()
+        {
+
+        }
+
+        bool CanExecuteReturnToGame()
+        {
+            return true;
+        }
+
         public bool IsNavigationTarget(NavigationContext navigationContext)
         {
             return true;
