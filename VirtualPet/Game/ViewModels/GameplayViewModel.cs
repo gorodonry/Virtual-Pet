@@ -11,7 +11,7 @@ using System.Diagnostics;
 
 namespace Game.ViewModels
 {
-    public class GameplayViewModel : BindableBase, INavigationAware
+    public class GameplayViewModel : BindableBase, INavigationAware, IRegionMemberLifetime
     {
         // Contains all the controls for the game
         private Simulator _gameSimulator = new();
@@ -203,12 +203,15 @@ namespace Game.ViewModels
 
         void ExecuteGoToCemetery()
         {
+            KeepAlive = !GameSimulator.AllPetsDead;
+
             var parameters = new NavigationParameters
-                {
-                    { "DeadPets", GameSimulator.DeadPets },
-                    { "TicksSurvived", TicksSurvived },
-                    { "AllPetsDead", GameSimulator.AllPetsDead }
-                };
+            {
+                { "DeadPets", GameSimulator.DeadPets },
+                { "TicksSurvived", GameSimulator.TicksSurvived },
+                { "AllPetsDead", GameSimulator.AllPetsDead }
+            };
+
             _regionManager.RequestNavigate("ContentRegion", nameof(Cemetery), parameters);
         }
 
@@ -239,7 +242,14 @@ namespace Game.ViewModels
 
         public void OnNavigatedFrom(NavigationContext navigationContext)
         {
-            
+
+        }
+
+        private bool _keepAlive;
+        public bool KeepAlive
+        {
+            get { return _keepAlive; }
+            set { SetProperty(ref _keepAlive, value); }
         }
 
         private readonly IRegionManager _regionManager;

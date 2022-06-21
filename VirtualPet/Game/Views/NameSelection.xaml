@@ -111,18 +111,24 @@
                         Orientation="Horizontal">
                 <CheckBox IsChecked="{Binding EnableHannahExtension, Mode=TwoWay}"
                           Content="Enable the Hannah extension"/>
-                <materialDesign:PackIcon Kind="HelpCircleOutline"
-                                         Margin="4 3 0 0">
-                    <materialDesign:PackIcon.ToolTip>
-                        <TextBlock TextWrapping="Wrap"
-                                   MaxWidth="300"
-                                   TextAlignment="Justify">
-                            The Hannah extension allows pets to eat other pets.
-                            This action fully restores all boredom and a variable amount of hunger (dependant on the hunger of the pet being consumed).
-                            Options for feeding pets to other pets are found under 'additional food' during gameplay.
-                        </TextBlock>
-                    </materialDesign:PackIcon.ToolTip>
-                </materialDesign:PackIcon>
+                <Label Margin="3 3 0 0"
+                       Padding="5 5 10 5"
+                       Cursor="Help"
+                       ToolTipService.InitialShowDelay="300">
+                    <materialDesign:PackIcon Kind="HelpCircleOutline"
+                                             Foreground="Black"/>
+                    <Label.ToolTip>
+                        <ToolTip>
+                            <TextBlock TextWrapping="Wrap"
+                                       MaxWidth="300"
+                                       TextAlignment="Justify">
+                                The Hannah extension allows pets to eat other pets.
+                                This action fully restores all boredom and a variable amount of hunger (dependant on the hunger of the pet being consumed).
+                                Options for feeding pets to other pets are found under 'additional food' during gameplay.
+                            </TextBlock>
+                        </ToolTip>
+                    </Label.ToolTip>
+                </Label>
             </StackPanel>
             <Border Grid.Row="2"
                     Grid.RowSpan="3"

@@ -69,7 +69,7 @@ namespace Game.Models
             {
                 if (value.Trim().Length != 0)
                 {
-                    name = value;
+                    name = value.Trim();
                     RaisePropertyChanged(nameof(Name));
                 }
             }
@@ -216,7 +216,7 @@ namespace Game.Models
 
         public void AddSound(string sound)
         {
-            if (Sounds.Count() < MaxSounds)
+            if (Sounds.Count < MaxSounds)
             {
                 Sounds.Add(sound.Trim());
                 RaisePropertyChanged(nameof(Sounds));
@@ -237,7 +237,7 @@ namespace Game.Models
                 {
                     return $"{Name} is dead. RIP";
                 }
-                else if (Sounds.Count() == 0)
+                else if (Sounds.Count == 0)
                 {
                     return $"{Name} hasn't learnt any sounds yet :(";
                 }
