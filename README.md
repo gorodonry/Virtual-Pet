@@ -1,8 +1,3 @@
----
-meta:
-	author: Ryan Gordon
-	topic: Virtual Pet
----
 # Virtual-Pet
 A simple space-invaders type game with a GUI. Space-invaders in the sense that it's only a matter of time before you lose. Instructions can be found [here](https://onslowcollege.github.io/13dtc/programming/virtual-pet "https://onslowcollege.github.io/13dtc/programming/virtual-pet").
 
@@ -14,8 +9,7 @@ Each tick you can take one of three actions:
 	<li>Feed a pet (reduces hunger and/or health of the pet)</li>
 	<li>Teach a pet (reduces boredom of the pet at the expense of increasing hunger)</li>
 	<li>Pass (do nothing)</li>
-</ul>
-
+</ul><br>
 Pets are fed cakes, which cost money. Money is earnt by keeping pets happy. Pets are kept happy by teaching them sounds, but each pet can learn a maximum of five sounds over the course of the game.
 
 There is an option which users can choose to enable in the name selection view called 'The Hannah extension'. This extension allows users to feed pets to other pets (i.e. pets can also function as 'cakes' if this option is enabled).
