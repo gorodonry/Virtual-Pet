@@ -1,0 +1,61 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Images\angry_dog.png" />
+    <None Remove="Images\angry_pixel_dog-ish.png" />
+    <None Remove="Images\angry_squid.png" />
+    <None Remove="Images\dead_dinosaur.png" />
+    <None Remove="Images\dead_dog.png" />
+    <None Remove="Images\dead_pixel_dog-ish.png" />
+    <None Remove="Images\dead_squid.png" />
+    <None Remove="Images\healthy_dinosaur.png" />
+    <None Remove="Images\healthy_dog.png" />
+    <None Remove="Images\healthy_pixel_dog-ish.png" />
+    <None Remove="Images\healthy_squid.png" />
+    <None Remove="Images\meadow.jpg" />
+    <None Remove="Images\sick_angry_dog.png" />
+    <None Remove="Images\sick_angry_pixel_dog-ish.png" />
+    <None Remove="Images\sick_angry_squid.png" />
+    <None Remove="Images\sick_dog.png" />
+    <None Remove="Images\sick_pixel_dog-ish.png" />
+    <None Remove="Images\sick_squid.png" />
+    <None Remove="Images\tombstone_1.png" />
+    <None Remove="Images\tombstone_2.png" />
+    <None Remove="Images\tombstone_3.png" />
+    <None Remove="Images\virtual_pet.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="MaterialDesignThemes" Version="4.5.0" />
+    <PackageReference Include="Prism.Wpf" Version="8.1.97" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\VirtualPet.Core\VirtualPet.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\angry_dog.png" />
+    <Resource Include="Images\angry_pixel_dog-ish.png" />
+    <Resource Include="Images\angry_squid.png" />
+    <Resource Include="Images\dead_dinosaur.png" />
+    <Resource Include="Images\dead_dog.png" />
+    <Resource Include="Images\dead_pixel_dog-ish.png" />
+    <Resource Include="Images\dead_squid.png" />
+    <Resource Include="Images\healthy_dinosaur.png" />
+    <Resource Include="Images\healthy_dog.png" />
+    <Resource Include="Images\healthy_pixel_dog-ish.png" />
+    <Resource Include="Images\healthy_squid.png" />
+    <Resource Include="Images\meadow.jpg" />
+    <Resource Include="Images\sick_angry_dog.png" />
+    <Resource Include="Images\sick_angry_pixel_dog-ish.png" />
+    <Resource Include="Images\sick_angry_squid.png" />
+    <Resource Include="Images\sick_dog.png" />
+    <Resource Include="Images\sick_pixel_dog-ish.png" />
+    <Resource Include="Images\sick_squid.png" />
+    <Resource Include="Images\tombstone_1.png" />
+    <Resource Include="Images\tombstone_2.png" />
+    <Resource Include="Images\tombstone_3.png" />
+    <Resource Include="Images\virtual_pet.PNG" />
+  </ItemGroup>
+</Project>

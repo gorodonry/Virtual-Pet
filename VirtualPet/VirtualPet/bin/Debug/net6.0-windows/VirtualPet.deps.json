@@ -8,9 +8,10 @@
     ".NETCoreApp,Version=v6.0": {
       "VirtualPet/1.0.0": {
         "dependencies": {
-          "Game": "1.0.0",
           "MaterialDesignThemes": "4.5.0",
-          "Prism.Unity": "8.1.97"
+          "Prism.Unity": "8.1.97",
+          "VirtualPet.Core": "1.0.0",
+          "VirtualPet.Modules.Game": "1.0.0"
         },
         "runtime": {
           "VirtualPet.dll": {}
@@ -100,13 +101,22 @@
           }
         }
       },
-      "Game/1.0.0": {
+      "VirtualPet.Core/1.0.0": {
         "dependencies": {
-          "MaterialDesignThemes": "4.5.0",
           "Prism.Wpf": "8.1.97"
         },
         "runtime": {
-          "Game.dll": {}
+          "VirtualPet.Core.dll": {}
+        }
+      },
+      "VirtualPet.Modules.Game/1.0.0": {
+        "dependencies": {
+          "MaterialDesignThemes": "4.5.0",
+          "Prism.Wpf": "8.1.97",
+          "VirtualPet.Core": "1.0.0"
+        },
+        "runtime": {
+          "VirtualPet.Modules.Game.dll": {}
         }
       }
     }
@@ -187,7 +197,12 @@
       "path": "unity.container/5.11.11",
       "hashPath": "unity.container.5.11.11.nupkg.sha512"
     },
-    "Game/1.0.0": {
+    "VirtualPet.Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "VirtualPet.Modules.Game/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

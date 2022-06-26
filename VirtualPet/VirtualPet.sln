@@ -3,9 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32602.215
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualPet", "VirtualPet\VirtualPet.csproj", "{F505CB4A-0661-43BD-8A21-A43185E5B25B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VirtualPet", "VirtualPet\VirtualPet.csproj", "{F505CB4A-0661-43BD-8A21-A43185E5B25B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game", "Game\Game.csproj", "{D8C6CCF7-AE68-453C-9308-FFF5E19576D7}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{084F75A6-F17D-4187-8FDA-4B15933264FA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{B55E5F26-638C-4AB1-8CF2-8DD57FA7EF4E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VirtualPet.Core", "VirtualPet.Core\VirtualPet.Core.csproj", "{42722353-B4B7-4E05-BEE5-8657BFE33C8C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VirtualPet.Modules.Game", "Modules\VirtualPet.Modules.Game\VirtualPet.Modules.Game.csproj", "{4E44C953-17D9-4533-AAD9-D3B0C6845B75}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VirtualPet.Modules.Game.Tests", "Tests\VirtualPet.Modules.Game.Tests\VirtualPet.Modules.Game.Tests.csproj", "{735FEF50-5AC0-4BE2-AA9F-B50750B0B882}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,13 +25,25 @@ Global
 		{F505CB4A-0661-43BD-8A21-A43185E5B25B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F505CB4A-0661-43BD-8A21-A43185E5B25B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F505CB4A-0661-43BD-8A21-A43185E5B25B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D8C6CCF7-AE68-453C-9308-FFF5E19576D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D8C6CCF7-AE68-453C-9308-FFF5E19576D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D8C6CCF7-AE68-453C-9308-FFF5E19576D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D8C6CCF7-AE68-453C-9308-FFF5E19576D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42722353-B4B7-4E05-BEE5-8657BFE33C8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42722353-B4B7-4E05-BEE5-8657BFE33C8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42722353-B4B7-4E05-BEE5-8657BFE33C8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42722353-B4B7-4E05-BEE5-8657BFE33C8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E44C953-17D9-4533-AAD9-D3B0C6845B75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E44C953-17D9-4533-AAD9-D3B0C6845B75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E44C953-17D9-4533-AAD9-D3B0C6845B75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E44C953-17D9-4533-AAD9-D3B0C6845B75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{735FEF50-5AC0-4BE2-AA9F-B50750B0B882}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{735FEF50-5AC0-4BE2-AA9F-B50750B0B882}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{735FEF50-5AC0-4BE2-AA9F-B50750B0B882}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{735FEF50-5AC0-4BE2-AA9F-B50750B0B882}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4E44C953-17D9-4533-AAD9-D3B0C6845B75} = {084F75A6-F17D-4187-8FDA-4B15933264FA}
+		{735FEF50-5AC0-4BE2-AA9F-B50750B0B882} = {B55E5F26-638C-4AB1-8CF2-8DD57FA7EF4E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {615A9AB3-32E3-4ED9-8EB6-78A7F7C74CC1}

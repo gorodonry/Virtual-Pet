@@ -10,9 +10,9 @@
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
         FontFamily="{materialDesign:MaterialDesignFont}"
-        Icon="/Images/virtual_pet.ico"
+        Icon="/Assets/virtual_pet.ico"
         WindowState="Maximized">
     <Grid>
-        <ContentControl prism:RegionManager.RegionName="ContentRegion" />
+        <ContentControl prism:RegionManager.RegionName="ContentRegion"/>
     </Grid>
 </Window>

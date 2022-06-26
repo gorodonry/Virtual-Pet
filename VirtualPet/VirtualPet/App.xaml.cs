@@ -1,8 +1,8 @@
 ﻿using Prism.Ioc;
 using Prism.Modularity;
 using System.Windows;
+using VirtualPet.Modules.Game;
 using VirtualPet.Views;
-using Game;
 
 namespace VirtualPet
 {

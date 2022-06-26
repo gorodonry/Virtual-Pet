@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "gU27tyaqY91+Gza3/+B/dh6gl9IvPg6IKAQ/di0Jok6SYWW4qdoawgigtyn7uvsuDl5z85qfLfdkiggnJkJblw==",
+  "dgSpecHash": "2Jl6IneHE+LbYr9/x7LPxdogznF9OO5Ip1yWTHCgxH2hr+IwEfzsiaS/gj6SWZGM70yr8ANT/ZVTxpKQCWZ7TQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Ryan Gordon\\Documents\\Education\\Onslow\\Y13\\Comp. Science & Programming L3\\Doc\\Repositories\\Virtual-Pet\\VirtualPet\\VirtualPet\\VirtualPet.csproj",
+  "projectFilePath": "C:\\Users\\Ryan Gordon\\Documents\\Coding\\WPF\\Virtual-Pet\\VirtualPet\\VirtualPet\\VirtualPet.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Ryan Gordon\\.nuget\\packages\\materialdesigncolors\\2.0.6\\materialdesigncolors.2.0.6.nupkg.sha512",
     "C:\\Users\\Ryan Gordon\\.nuget\\packages\\materialdesignthemes\\4.5.0\\materialdesignthemes.4.5.0.nupkg.sha512",

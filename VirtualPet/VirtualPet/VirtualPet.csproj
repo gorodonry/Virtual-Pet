@@ -3,9 +3,19 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Assets\virtual_pet.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="Images\virtual_pet.ico" />
+    <Compile Remove="Images\**" />
+    <EmbeddedResource Remove="Images\**" />
+    <None Remove="Images\**" />
+    <Page Remove="Images\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Assets\virtual_pet.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\virtual_pet.ico" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MaterialDesignThemes" Version="4.5.0">
@@ -13,9 +23,10 @@
     <PackageReference Include="Prism.Unity" Version="8.1.97" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Game\Game.csproj" />
+    <ProjectReference Include="..\Modules\VirtualPet.Modules.Game\VirtualPet.Modules.Game.csproj" />
+    <ProjectReference Include="..\VirtualPet.Core\VirtualPet.Core.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\virtual_pet.ico" />
+    <Resource Include="Assets\virtual_pet.ico" />
   </ItemGroup>
 </Project>

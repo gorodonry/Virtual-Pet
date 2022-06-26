@@ -122,18 +122,35 @@
           "lib/netcoreapp3.0/Unity.Container.dll": {}
         }
       },
-      "Game/1.0.0": {
+      "VirtualPet.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Prism.Wpf": "8.1.97"
+        },
+        "compile": {
+          "bin/placeholder/VirtualPet.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/VirtualPet.Core.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WPF"
+        ]
+      },
+      "VirtualPet.Modules.Game/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
           "MaterialDesignThemes": "4.5.0",
-          "Prism.Wpf": "8.1.97"
+          "Prism.Wpf": "8.1.97",
+          "VirtualPet.Core": "1.0.0"
         },
         "compile": {
-          "bin/placeholder/Game.dll": {}
+          "bin/placeholder/VirtualPet.Modules.Game.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Game.dll": {}
+          "bin/placeholder/VirtualPet.Modules.Game.dll": {}
         },
         "frameworkReferences": [
           "Microsoft.WindowsDesktop.App.WPF"
@@ -422,17 +439,23 @@
         "unity.container.nuspec"
       ]
     },
-    "Game/1.0.0": {
+    "VirtualPet.Core/1.0.0": {
       "type": "project",
-      "path": "../Game/Game.csproj",
-      "msbuildProject": "../Game/Game.csproj"
+      "path": "../VirtualPet.Core/VirtualPet.Core.csproj",
+      "msbuildProject": "../VirtualPet.Core/VirtualPet.Core.csproj"
+    },
+    "VirtualPet.Modules.Game/1.0.0": {
+      "type": "project",
+      "path": "../Modules/VirtualPet.Modules.Game/VirtualPet.Modules.Game.csproj",
+      "msbuildProject": "../Modules/VirtualPet.Modules.Game/VirtualPet.Modules.Game.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0-windows7.0": [
-      "Game >= 1.0.0",
       "MaterialDesignThemes >= 4.5.0",
-      "Prism.Unity >= 8.1.97"
+      "Prism.Unity >= 8.1.97",
+      "VirtualPet.Core >= 1.0.0",
+      "VirtualPet.Modules.Game >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -442,11 +465,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Ryan Gordon\\Documents\\Education\\Onslow\\Y13\\Comp. Science & Programming L3\\Doc\\Repositories\\Virtual-Pet\\VirtualPet\\VirtualPet\\VirtualPet.csproj",
+      "projectUniqueName": "C:\\Users\\Ryan Gordon\\Documents\\Coding\\WPF\\Virtual-Pet\\VirtualPet\\VirtualPet\\VirtualPet.csproj",
       "projectName": "VirtualPet",
-      "projectPath": "C:\\Users\\Ryan Gordon\\Documents\\Education\\Onslow\\Y13\\Comp. Science & Programming L3\\Doc\\Repositories\\Virtual-Pet\\VirtualPet\\VirtualPet\\VirtualPet.csproj",
+      "projectPath": "C:\\Users\\Ryan Gordon\\Documents\\Coding\\WPF\\Virtual-Pet\\VirtualPet\\VirtualPet\\VirtualPet.csproj",
       "packagesPath": "C:\\Users\\Ryan Gordon\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Ryan Gordon\\Documents\\Education\\Onslow\\Y13\\Comp. Science & Programming L3\\Doc\\Repositories\\Virtual-Pet\\VirtualPet\\VirtualPet\\obj\\",
+      "outputPath": "C:\\Users\\Ryan Gordon\\Documents\\Coding\\WPF\\Virtual-Pet\\VirtualPet\\VirtualPet\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -467,8 +490,11 @@
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
           "projectReferences": {
-            "C:\\Users\\Ryan Gordon\\Documents\\Education\\Onslow\\Y13\\Comp. Science & Programming L3\\Doc\\Repositories\\Virtual-Pet\\VirtualPet\\Game\\Game.csproj": {
-              "projectPath": "C:\\Users\\Ryan Gordon\\Documents\\Education\\Onslow\\Y13\\Comp. Science & Programming L3\\Doc\\Repositories\\Virtual-Pet\\VirtualPet\\Game\\Game.csproj"
+            "C:\\Users\\Ryan Gordon\\Documents\\Coding\\WPF\\Virtual-Pet\\VirtualPet\\Modules\\VirtualPet.Modules.Game\\VirtualPet.Modules.Game.csproj": {
+              "projectPath": "C:\\Users\\Ryan Gordon\\Documents\\Coding\\WPF\\Virtual-Pet\\VirtualPet\\Modules\\VirtualPet.Modules.Game\\VirtualPet.Modules.Game.csproj"
+            },
+            "C:\\Users\\Ryan Gordon\\Documents\\Coding\\WPF\\Virtual-Pet\\VirtualPet\\VirtualPet.Core\\VirtualPet.Core.csproj": {
+              "projectPath": "C:\\Users\\Ryan Gordon\\Documents\\Coding\\WPF\\Virtual-Pet\\VirtualPet\\VirtualPet.Core\\VirtualPet.Core.csproj"
             }
           }
         }
