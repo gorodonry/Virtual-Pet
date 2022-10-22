@@ -110,26 +110,26 @@ namespace VirtualPet.Business.Models
             {
                 // Note the dinosaur image only has a healthy option when it is alive.
                 if (_imageType == "dinosaur" && HealthMessage != "dead")
-                    return Path.Combine(Directory.GetCurrentDirectory(), $@"..\..\..\..\VirtualPet\Images\healthy_{_imageType}.png");
+                    return Path.Combine(Directory.GetCurrentDirectory(), $@"..\..\..\..\Services\VirtualPet.Services\Images\healthy_{_imageType}.png");
 
                 // Return the path of the image corresponding to the current status of the pet.
                 if (HealthMessage == "dead")
-                    return Path.Combine(Directory.GetCurrentDirectory(), $@"..\..\..\..\VirtualPet\Images\dead_{_imageType}.png");
+                    return Path.Combine(Directory.GetCurrentDirectory(), $@"..\..\..\..\Services\VirtualPet.Services\Images\dead_{_imageType}.png");
                 
                 // Healthy pet.
                 if (HealthMessage != "sick" && BoredomMessage != "bored" && BoredomMessage != "angry")
-                    return Path.Combine(Directory.GetCurrentDirectory(), $@"..\..\..\..\VirtualPet\Images\healthy_{_imageType}.png");
+                    return Path.Combine(Directory.GetCurrentDirectory(), $@"..\..\..\..\Services\VirtualPet.Services\Images\healthy_{_imageType}.png");
                 
                 // Angry but not sick pet.
                 if (HealthMessage != "sick")
-                    return Path.Combine(Directory.GetCurrentDirectory(), $@"..\..\..\..\VirtualPet\Images\angry_{_imageType}.png");
+                    return Path.Combine(Directory.GetCurrentDirectory(), $@"..\..\..\..\Services\VirtualPet.Services\Images\angry_{_imageType}.png");
                 
                 // Sick but not angry pet.
                 if (BoredomMessage != "bored" && BoredomMessage != "angry")
-                    return Path.Combine(Directory.GetCurrentDirectory(), $@"..\..\..\..\VirtualPet\Images\sick_{_imageType}.png");
+                    return Path.Combine(Directory.GetCurrentDirectory(), $@"..\..\..\..\Services\VirtualPet.Services\Images\sick_{_imageType}.png");
 
                 // Angry and sick pet.
-                return Path.Combine(Directory.GetCurrentDirectory(), $@"..\..\..\..\VirtualPet\Images\sick_angry_{_imageType}.png");
+                return Path.Combine(Directory.GetCurrentDirectory(), $@"..\..\..\..\Services\VirtualPet.Services\Images\sick_angry_{_imageType}.png");
             }
         }
 

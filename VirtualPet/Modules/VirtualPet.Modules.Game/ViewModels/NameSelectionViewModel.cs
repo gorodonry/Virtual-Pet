@@ -12,7 +12,7 @@ namespace VirtualPet.Modules.Game.ViewModels
 {
     public class NameSelectionViewModel : BindableBase, IRegionMemberLifetime
     {
-        private readonly string _virtualPetImage = Path.Combine(Directory.GetCurrentDirectory(), $@"..\..\..\..\VirtualPet\Images\virtual_pet.png");
+        private readonly string _virtualPetImage = Path.Combine(Directory.GetCurrentDirectory(), $@"..\..\..\..\Services\VirtualPet.Services\Images\virtual_pet.png");
         public string VirtualPetImage
         {
             get { return _virtualPetImage; }
