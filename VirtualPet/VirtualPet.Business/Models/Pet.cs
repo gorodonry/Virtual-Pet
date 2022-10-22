@@ -460,7 +460,7 @@ namespace VirtualPet.Business.Models
         /// <summary>
         /// The image URI of the pet's tombstone.
         /// </summary>
-        public string Tombstone => Path.Combine(Directory.GetCurrentDirectory(), $@"..\..\..\..\VirtualPet\Images\tombstone_{_tombstoneType}.png");
+        public string Tombstone => Path.Combine(Directory.GetCurrentDirectory(), $@"..\..\..\..\Services\VirtualPet.Services\Images\tombstone_{_tombstoneType}.png");
 
         /// <summary>
         /// Feeds the pet a <see cref="Cake"/>.
