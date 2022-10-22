@@ -1,0 +1,15 @@
+C:\Users\Ryan Gordon\Documents\Coding\WPF\Virtual-Pet\VirtualPet\VirtualPet.Business\bin\Debug\net6.0-windows\VirtualPet.Business.deps.json
+C:\Users\Ryan Gordon\Documents\Coding\WPF\Virtual-Pet\VirtualPet\VirtualPet.Business\bin\Debug\net6.0-windows\VirtualPet.Business.dll
+C:\Users\Ryan Gordon\Documents\Coding\WPF\Virtual-Pet\VirtualPet\VirtualPet.Business\bin\Debug\net6.0-windows\VirtualPet.Business.pdb
+C:\Users\Ryan Gordon\Documents\Coding\WPF\Virtual-Pet\VirtualPet\VirtualPet.Business\bin\Debug\net6.0-windows\VirtualPet.Core.dll
+C:\Users\Ryan Gordon\Documents\Coding\WPF\Virtual-Pet\VirtualPet\VirtualPet.Business\bin\Debug\net6.0-windows\VirtualPet.Core.pdb
+C:\Users\Ryan Gordon\Documents\Coding\WPF\Virtual-Pet\VirtualPet\VirtualPet.Business\obj\Debug\net6.0-windows\VirtualPet.Business.csproj.AssemblyReference.cache
+C:\Users\Ryan Gordon\Documents\Coding\WPF\Virtual-Pet\VirtualPet\VirtualPet.Business\obj\Debug\net6.0-windows\VirtualPet.Business.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Ryan Gordon\Documents\Coding\WPF\Virtual-Pet\VirtualPet\VirtualPet.Business\obj\Debug\net6.0-windows\VirtualPet.Business.AssemblyInfoInputs.cache
+C:\Users\Ryan Gordon\Documents\Coding\WPF\Virtual-Pet\VirtualPet\VirtualPet.Business\obj\Debug\net6.0-windows\VirtualPet.Business.AssemblyInfo.cs
+C:\Users\Ryan Gordon\Documents\Coding\WPF\Virtual-Pet\VirtualPet\VirtualPet.Business\obj\Debug\net6.0-windows\VirtualPet.Business.csproj.CoreCompileInputs.cache
+C:\Users\Ryan Gordon\Documents\Coding\WPF\Virtual-Pet\VirtualPet\VirtualPet.Business\obj\Debug\net6.0-windows\VirtualPet.Business.csproj.CopyComplete
+C:\Users\Ryan Gordon\Documents\Coding\WPF\Virtual-Pet\VirtualPet\VirtualPet.Business\obj\Debug\net6.0-windows\VirtualPet.Business.dll
+C:\Users\Ryan Gordon\Documents\Coding\WPF\Virtual-Pet\VirtualPet\VirtualPet.Business\obj\Debug\net6.0-windows\refint\VirtualPet.Business.dll
+C:\Users\Ryan Gordon\Documents\Coding\WPF\Virtual-Pet\VirtualPet\VirtualPet.Business\obj\Debug\net6.0-windows\VirtualPet.Business.pdb
+C:\Users\Ryan Gordon\Documents\Coding\WPF\Virtual-Pet\VirtualPet\VirtualPet.Business\obj\Debug\net6.0-windows\ref\VirtualPet.Business.dll

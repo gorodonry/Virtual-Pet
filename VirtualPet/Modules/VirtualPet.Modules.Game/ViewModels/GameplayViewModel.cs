@@ -1,25 +1,21 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using VirtualPet.Modules.Game.Models;
 using Prism.Regions;
 using VirtualPet.Modules.Game.Views;
+using VirtualPet.Business.Models;
 using System.Diagnostics;
 using VirtualPet.Core;
+using VirtualPet.Services.Interfaces;
 
 namespace VirtualPet.Modules.Game.ViewModels
 {
     public class GameplayViewModel : BindableBase, INavigationAware, IRegionMemberLifetime
     {
         // Contains all the controls for the game
-        private Simulator _gameSimulator = new();
-        public Simulator GameSimulator
-        {
-            get { return _gameSimulator; }
-        }
+        private GameplayModel _model = new();
 
         // Determined in the name selection UI, set by the user
         private bool _enableHannahExtension;
@@ -32,22 +28,23 @@ namespace VirtualPet.Modules.Game.ViewModels
         // Listbox containing pets binds to this collection
         public ObservableCollection<Pet> Pets
         {
-            get { return GameSimulator.Pets; }
+            get { return _model.Pets; }
         }
 
         // Cake button itemscontrol binds to this collection
         public List<Cake> Cakes
         {
-            get { return GameSimulator.Cakes; }
+            get { return _model.Cakes; }
         }
 
         // Pet currently selected by user
         public Pet SelectedPet
         {
-            get { return GameSimulator.SelectedPet; }
+            get { return _model.SelectedPet; }
             set
             {
-                GameSimulator.SelectedPet = value;
+                _model.SelectedPet = value;
+
                 Eat.RaiseCanExecuteChanged();
                 Feed.RaiseCanExecuteChanged();
                 Teach.RaiseCanExecuteChanged();
@@ -59,28 +56,28 @@ namespace VirtualPet.Modules.Game.ViewModels
         // Pets currently not selected by user, used when feeding pets to other pets (i.e. for the Hannah extension)
         public ObservableCollection<Pet> NonSelectedPets
         {
-            get { return GameSimulator.NonSelectedPets; }
+            get { return _model.NonSelectedPets; }
         }
 
         // Important information on current pet, the amount of money the user has, and the number of ticks they have survived for
         public bool SelectedPetIsDead
         {
-            get { return GameSimulator.SelectedPetIsDead; }
+            get { return _model.SelectedPetIsDead; }
         }
 
         public int Wallet
         {
-            get { return GameSimulator.Wallet; }
+            get { return _model.Wallet; }
         }
 
         public int TicksSurvived
         {
-            get { return GameSimulator.TicksSurvived; }
+            get { return _model.TicksSurvived; }
         }
 
         public string TicksSurvivedMessageGrammar
         {
-            get { return GameSimulator.TicksSurvivedMessageGrammar; }
+            get { return _model.TicksSurvivedMessageGrammar; }
         }
 
         // Disables teaching input when pet is dead
@@ -109,7 +106,7 @@ namespace VirtualPet.Modules.Game.ViewModels
         void ExecuteFeed(Cake cake)
         {
             // Feed the pet
-            GameSimulator.ExecuteFeed(cake);
+            _model.ExecuteFeed(cake);
 
             // Feeding a pet is an action, advance time by a tick
             ExecuteTick();
@@ -117,7 +114,7 @@ namespace VirtualPet.Modules.Game.ViewModels
 
         bool CanExecuteFeed(Cake cake)
         {
-            return GameSimulator.CanExecuteFeed(cake);
+            return _model.CanExecuteFeed(cake);
         }
 
         // Feed a pet another pet - aka the Hannah extension (Stirling is also to blame)
@@ -128,7 +125,7 @@ namespace VirtualPet.Modules.Game.ViewModels
         void ExecuteEat(Pet pet)
         {
             // Feed the pet
-            GameSimulator.ExecuteEat(pet);
+            _model.ExecuteEat(pet);
 
             // Feeding a pet to another pet is an action, advance time by a tick
             ExecuteTick();
@@ -136,7 +133,7 @@ namespace VirtualPet.Modules.Game.ViewModels
 
         bool CanExecuteEat(Pet pet)
         {
-            return GameSimulator.CanExecuteEat(pet);
+            return _model.CanExecuteEat(pet);
         }
 
         // Teach a pet a sound specified by the user
@@ -147,7 +144,7 @@ namespace VirtualPet.Modules.Game.ViewModels
         void ExecuteTeach()
         {
             // Teach the pet the sound, then reset the input
-            GameSimulator.ExecuteTeach(TextToTeach);
+            _model.ExecuteTeach(TextToTeach);
 
             TextToTeach = "";
             RaisePropertyChanged(nameof(TextToTeach));
@@ -158,7 +155,7 @@ namespace VirtualPet.Modules.Game.ViewModels
 
         bool CanExecuteTeach()
         {
-            return GameSimulator.CanExecuteTeach(TextToTeach);
+            return _model.CanExecuteTeach(TextToTeach);
         }
 
         // Advance time by a tick
@@ -169,10 +166,10 @@ namespace VirtualPet.Modules.Game.ViewModels
         void ExecuteTick()
         {
             // Apply the consequences of advancing time by a tick
-            GameSimulator.ExecuteTick();
+            _model.ExecuteTick();
 
             // Navigate to the cemetery if all pets are dead
-            if (GameSimulator.AllPetsDead)
+            if (_model.AllPetsDead)
             {
                 ExecuteGoToCemetery();
             }
@@ -195,7 +192,7 @@ namespace VirtualPet.Modules.Game.ViewModels
         bool CanExecuteTick()
         {
             // The user can advance a tick as long as at least one of their pets is alive
-            return !GameSimulator.AllPetsDead;
+            return !_model.AllPetsDead;
         }
         
         private DelegateCommand _goToCemetery;
@@ -204,13 +201,13 @@ namespace VirtualPet.Modules.Game.ViewModels
 
         void ExecuteGoToCemetery()
         {
-            KeepAlive = !GameSimulator.AllPetsDead;
+            KeepAlive = !_model.AllPetsDead;
 
             var parameters = new NavigationParameters
             {
-                { "DeadPets", GameSimulator.DeadPets },
-                { "TicksSurvived", GameSimulator.TicksSurvived },
-                { "AllPetsDead", GameSimulator.AllPetsDead }
+                { "DeadPets", _model.DeadPets },
+                { "TicksSurvived", _model.TicksSurvived },
+                { "AllPetsDead", _model.AllPetsDead }
             };
 
             _regionManager.RequestNavigate(RegionNames.ContentRegion, nameof(Cemetery), parameters);
@@ -221,7 +218,7 @@ namespace VirtualPet.Modules.Game.ViewModels
             // Set pet names, if applicable
             if (navigationContext.Parameters.ContainsKey("Names"))
             {
-                _gameSimulator.SetPetNames(navigationContext.Parameters.GetValue<List<string>>("Names").ToArray());
+                _model.SetPetNames(navigationContext.Parameters.GetValue<List<string>>("Names").ToArray());
             }
 
             // Check whether the Hannah extension has been enabled, if applicable
@@ -255,9 +252,11 @@ namespace VirtualPet.Modules.Game.ViewModels
 
         private readonly IRegionManager _regionManager;
 
-        public GameplayViewModel(IRegionManager regionManager)
+        public GameplayViewModel(IRegionManager regionManager, ICakeService cakeService)
         {
             _regionManager = regionManager;
+
+            // _model.ImportCakes(cakeService.GetCakes()); or something equivalent.
         }
     }
 }

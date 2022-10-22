@@ -6,13 +6,29 @@
     <ApplicationIcon>Assets\virtual_pet.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="Images\**" />
-    <EmbeddedResource Remove="Images\**" />
-    <None Remove="Images\**" />
-    <Page Remove="Images\**" />
-  </ItemGroup>
-  <ItemGroup>
     <None Remove="Assets\virtual_pet.ico" />
+    <None Remove="Images\angry_dog.png" />
+    <None Remove="Images\angry_pixel_dog-ish.png" />
+    <None Remove="Images\angry_squid.png" />
+    <None Remove="Images\dead_dinosaur.png" />
+    <None Remove="Images\dead_dog.png" />
+    <None Remove="Images\dead_pixel_dog-ish.png" />
+    <None Remove="Images\dead_squid.png" />
+    <None Remove="Images\healthy_dinosaur.png" />
+    <None Remove="Images\healthy_dog.png" />
+    <None Remove="Images\healthy_pixel_dog-ish.png" />
+    <None Remove="Images\healthy_squid.png" />
+    <None Remove="Images\meadow.jpg" />
+    <None Remove="Images\sick_angry_dog.png" />
+    <None Remove="Images\sick_angry_pixel_dog-ish.png" />
+    <None Remove="Images\sick_angry_squid.png" />
+    <None Remove="Images\sick_dog.png" />
+    <None Remove="Images\sick_pixel_dog-ish.png" />
+    <None Remove="Images\sick_squid.png" />
+    <None Remove="Images\tombstone_1.png" />
+    <None Remove="Images\tombstone_2.png" />
+    <None Remove="Images\tombstone_3.png" />
+    <None Remove="Images\virtual_pet.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\virtual_pet.ico" />
@@ -24,9 +40,34 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Modules\VirtualPet.Modules.Game\VirtualPet.Modules.Game.csproj" />
+    <ProjectReference Include="..\Services\VirtualPet.Services.Interfaces\VirtualPet.Services.Interfaces.csproj" />
+    <ProjectReference Include="..\Services\VirtualPet.Services\VirtualPet.Services.csproj" />
+    <ProjectReference Include="..\VirtualPet.Business\VirtualPet.Business.csproj" />
     <ProjectReference Include="..\VirtualPet.Core\VirtualPet.Core.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\virtual_pet.ico" />
+    <Resource Include="Images\angry_dog.png" />
+    <Resource Include="Images\angry_pixel_dog-ish.png" />
+    <Resource Include="Images\angry_squid.png" />
+    <Resource Include="Images\dead_dinosaur.png" />
+    <Resource Include="Images\dead_dog.png" />
+    <Resource Include="Images\dead_pixel_dog-ish.png" />
+    <Resource Include="Images\dead_squid.png" />
+    <Resource Include="Images\healthy_dinosaur.png" />
+    <Resource Include="Images\healthy_dog.png" />
+    <Resource Include="Images\healthy_pixel_dog-ish.png" />
+    <Resource Include="Images\healthy_squid.png" />
+    <Resource Include="Images\meadow.jpg" />
+    <Resource Include="Images\sick_angry_dog.png" />
+    <Resource Include="Images\sick_angry_pixel_dog-ish.png" />
+    <Resource Include="Images\sick_angry_squid.png" />
+    <Resource Include="Images\sick_dog.png" />
+    <Resource Include="Images\sick_pixel_dog-ish.png" />
+    <Resource Include="Images\sick_squid.png" />
+    <Resource Include="Images\tombstone_1.png" />
+    <Resource Include="Images\tombstone_2.png" />
+    <Resource Include="Images\tombstone_3.png" />
+    <Resource Include="Images\virtual_pet.png" />
   </ItemGroup>
 </Project>

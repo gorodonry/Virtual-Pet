@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "byljZcGZtE9mAHwdDWitLSknp3CODRTctf88DeKEw8gEygN5OzudDKNhBAelYrSN/mo3AWy/eYlAaUWghUFZGQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Ryan Gordon\\Documents\\Coding\\WPF\\Virtual-Pet\\VirtualPet\\VirtualPet.Business\\VirtualPet.Business.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Ryan Gordon\\.nuget\\packages\\microsoft.xaml.behaviors.wpf\\1.1.31\\microsoft.xaml.behaviors.wpf.1.1.31.nupkg.sha512",
+    "C:\\Users\\Ryan Gordon\\.nuget\\packages\\prism.core\\8.1.97\\prism.core.8.1.97.nupkg.sha512",
+    "C:\\Users\\Ryan Gordon\\.nuget\\packages\\prism.wpf\\8.1.97\\prism.wpf.8.1.97.nupkg.sha512"
+  ],
+  "logs": []
+}

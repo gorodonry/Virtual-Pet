@@ -10,7 +10,7 @@ Each tick you can take one of three actions:
 	<li>Teach a pet (reduces boredom of the pet at the expense of increasing hunger)</li>
 	<li>Pass (do nothing)</li>
 </ul><br>
-Pets are fed cakes, which cost money. Money is earnt by keeping pets happy. Pets are kept happy by teaching them sounds, but each pet can learn a maximum of five sounds over the course of the game.  
+Pets are fed cakes, which cost money. Money is earnt by keeping pets happy. Pets are kept happy by teaching them sounds, but each pet can learn a maximum of five sounds over the course of the game.<br>
 
 There is an option which users can choose to enable in the name selection view called 'The Hannah extension'. This extension allows users to feed pets to other pets (i.e. pets can also function as 'cakes' if this option is enabled).
 

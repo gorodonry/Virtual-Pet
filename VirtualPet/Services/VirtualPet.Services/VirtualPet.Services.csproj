@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\VirtualPet.Business\VirtualPet.Business.csproj" />
+    <ProjectReference Include="..\VirtualPet.Services.Interfaces\VirtualPet.Services.Interfaces.csproj" />
+  </ItemGroup>
+
+</Project>

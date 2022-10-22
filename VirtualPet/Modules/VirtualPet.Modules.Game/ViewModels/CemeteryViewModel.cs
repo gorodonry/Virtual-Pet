@@ -1,15 +1,15 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using VirtualPet.Modules.Game.Models;
+using VirtualPet.Business.Models;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Diagnostics;
 using VirtualPet.Modules.Game.Views;
 using VirtualPet.Core;
+
+using System.Diagnostics;
 
 namespace VirtualPet.Modules.Game.ViewModels
 {
@@ -17,10 +17,11 @@ namespace VirtualPet.Modules.Game.ViewModels
     {
         // List of all pets that are currently dead
         private List<Pet> _deadPets;
-        public List<Pet> DeadPets
-        {
-            get { return _deadPets; }
-        }
+
+        /// <summary>
+        /// List of all pets that are currently dead.
+        /// </summary>
+        public List<Pet> DeadPets => _deadPets;
 
         // Number of ticks survived by the user (either so far or in total)
         private int _ticksSurvived;
@@ -36,7 +37,7 @@ namespace VirtualPet.Modules.Game.ViewModels
         }
 
         // Background image for the usercontrol
-        private readonly string _meadowImage = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\..\Modules\VirtualPet.Modules.Game\Images\meadow.jpg");
+        private readonly string _meadowImage = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\..\VirtualPet\Images\meadow.jpg");
         public string MeadowImage
         {
             get { return _meadowImage; }

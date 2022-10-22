@@ -21,3 +21,7 @@ C:\Users\Ryan Gordon\Documents\Coding\WPF\Virtual-Pet\VirtualPet\Modules\Virtual
 C:\Users\Ryan Gordon\Documents\Coding\WPF\Virtual-Pet\VirtualPet\Modules\VirtualPet.Modules.Game\obj\Debug\net6.0-windows\refint\VirtualPet.Modules.Game.dll
 C:\Users\Ryan Gordon\Documents\Coding\WPF\Virtual-Pet\VirtualPet\Modules\VirtualPet.Modules.Game\obj\Debug\net6.0-windows\VirtualPet.Modules.Game.pdb
 C:\Users\Ryan Gordon\Documents\Coding\WPF\Virtual-Pet\VirtualPet\Modules\VirtualPet.Modules.Game\obj\Debug\net6.0-windows\ref\VirtualPet.Modules.Game.dll
+C:\Users\Ryan Gordon\Documents\Coding\WPF\Virtual-Pet\VirtualPet\Modules\VirtualPet.Modules.Game\bin\Debug\net6.0-windows\VirtualPet.Business.dll
+C:\Users\Ryan Gordon\Documents\Coding\WPF\Virtual-Pet\VirtualPet\Modules\VirtualPet.Modules.Game\bin\Debug\net6.0-windows\VirtualPet.Business.pdb
+C:\Users\Ryan Gordon\Documents\Coding\WPF\Virtual-Pet\VirtualPet\Modules\VirtualPet.Modules.Game\bin\Debug\net6.0-windows\VirtualPet.Services.Interfaces.dll
+C:\Users\Ryan Gordon\Documents\Coding\WPF\Virtual-Pet\VirtualPet\Modules\VirtualPet.Modules.Game\bin\Debug\net6.0-windows\VirtualPet.Services.Interfaces.pdb

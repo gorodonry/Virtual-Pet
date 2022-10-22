@@ -115,3 +115,7 @@ C:\Users\Ryan Gordon\Documents\Coding\WPF\Virtual-Pet\VirtualPet\Tests\VirtualPe
 C:\Users\Ryan Gordon\Documents\Coding\WPF\Virtual-Pet\VirtualPet\Tests\VirtualPet.Modules.Game.Tests\obj\Debug\net6.0-windows\VirtualPet.Modules.Game.Tests.pdb
 C:\Users\Ryan Gordon\Documents\Coding\WPF\Virtual-Pet\VirtualPet\Tests\VirtualPet.Modules.Game.Tests\obj\Debug\net6.0-windows\VirtualPet.Modules.Game.Tests.genruntimeconfig.cache
 C:\Users\Ryan Gordon\Documents\Coding\WPF\Virtual-Pet\VirtualPet\Tests\VirtualPet.Modules.Game.Tests\obj\Debug\net6.0-windows\ref\VirtualPet.Modules.Game.Tests.dll
+C:\Users\Ryan Gordon\Documents\Coding\WPF\Virtual-Pet\VirtualPet\Tests\VirtualPet.Modules.Game.Tests\bin\Debug\net6.0-windows\VirtualPet.Business.dll
+C:\Users\Ryan Gordon\Documents\Coding\WPF\Virtual-Pet\VirtualPet\Tests\VirtualPet.Modules.Game.Tests\bin\Debug\net6.0-windows\VirtualPet.Business.pdb
+C:\Users\Ryan Gordon\Documents\Coding\WPF\Virtual-Pet\VirtualPet\Tests\VirtualPet.Modules.Game.Tests\bin\Debug\net6.0-windows\VirtualPet.Services.Interfaces.dll
+C:\Users\Ryan Gordon\Documents\Coding\WPF\Virtual-Pet\VirtualPet\Tests\VirtualPet.Modules.Game.Tests\bin\Debug\net6.0-windows\VirtualPet.Services.Interfaces.pdb

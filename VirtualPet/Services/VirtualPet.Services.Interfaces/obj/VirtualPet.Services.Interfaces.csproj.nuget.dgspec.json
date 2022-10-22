@@ -1,0 +1,214 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\Ryan Gordon\\Documents\\Coding\\WPF\\Virtual-Pet\\VirtualPet\\Services\\VirtualPet.Services.Interfaces\\VirtualPet.Services.Interfaces.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\Ryan Gordon\\Documents\\Coding\\WPF\\Virtual-Pet\\VirtualPet\\Services\\VirtualPet.Services.Interfaces\\VirtualPet.Services.Interfaces.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Ryan Gordon\\Documents\\Coding\\WPF\\Virtual-Pet\\VirtualPet\\Services\\VirtualPet.Services.Interfaces\\VirtualPet.Services.Interfaces.csproj",
+        "projectName": "VirtualPet.Services.Interfaces",
+        "projectPath": "C:\\Users\\Ryan Gordon\\Documents\\Coding\\WPF\\Virtual-Pet\\VirtualPet\\Services\\VirtualPet.Services.Interfaces\\VirtualPet.Services.Interfaces.csproj",
+        "packagesPath": "C:\\Users\\Ryan Gordon\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Ryan Gordon\\Documents\\Coding\\WPF\\Virtual-Pet\\VirtualPet\\Services\\VirtualPet.Services.Interfaces\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Ryan Gordon\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0-windows"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0-windows7.0": {
+            "targetAlias": "net6.0-windows",
+            "projectReferences": {
+              "C:\\Users\\Ryan Gordon\\Documents\\Coding\\WPF\\Virtual-Pet\\VirtualPet\\VirtualPet.Business\\VirtualPet.Business.csproj": {
+                "projectPath": "C:\\Users\\Ryan Gordon\\Documents\\Coding\\WPF\\Virtual-Pet\\VirtualPet\\VirtualPet.Business\\VirtualPet.Business.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0-windows7.0": {
+          "targetAlias": "net6.0-windows",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            },
+            "Microsoft.WindowsDesktop.App.WPF": {
+              "privateAssets": "none"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Ryan Gordon\\Documents\\Coding\\WPF\\Virtual-Pet\\VirtualPet\\VirtualPet.Business\\VirtualPet.Business.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Ryan Gordon\\Documents\\Coding\\WPF\\Virtual-Pet\\VirtualPet\\VirtualPet.Business\\VirtualPet.Business.csproj",
+        "projectName": "VirtualPet.Business",
+        "projectPath": "C:\\Users\\Ryan Gordon\\Documents\\Coding\\WPF\\Virtual-Pet\\VirtualPet\\VirtualPet.Business\\VirtualPet.Business.csproj",
+        "packagesPath": "C:\\Users\\Ryan Gordon\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Ryan Gordon\\Documents\\Coding\\WPF\\Virtual-Pet\\VirtualPet\\VirtualPet.Business\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Ryan Gordon\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0-windows"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0-windows7.0": {
+            "targetAlias": "net6.0-windows",
+            "projectReferences": {
+              "C:\\Users\\Ryan Gordon\\Documents\\Coding\\WPF\\Virtual-Pet\\VirtualPet\\VirtualPet.Core\\VirtualPet.Core.csproj": {
+                "projectPath": "C:\\Users\\Ryan Gordon\\Documents\\Coding\\WPF\\Virtual-Pet\\VirtualPet\\VirtualPet.Core\\VirtualPet.Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0-windows7.0": {
+          "targetAlias": "net6.0-windows",
+          "dependencies": {
+            "Prism.Core": {
+              "target": "Package",
+              "version": "[8.1.97, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            },
+            "Microsoft.WindowsDesktop.App.WPF": {
+              "privateAssets": "none"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Ryan Gordon\\Documents\\Coding\\WPF\\Virtual-Pet\\VirtualPet\\VirtualPet.Core\\VirtualPet.Core.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Ryan Gordon\\Documents\\Coding\\WPF\\Virtual-Pet\\VirtualPet\\VirtualPet.Core\\VirtualPet.Core.csproj",
+        "projectName": "VirtualPet.Core",
+        "projectPath": "C:\\Users\\Ryan Gordon\\Documents\\Coding\\WPF\\Virtual-Pet\\VirtualPet\\VirtualPet.Core\\VirtualPet.Core.csproj",
+        "packagesPath": "C:\\Users\\Ryan Gordon\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Ryan Gordon\\Documents\\Coding\\WPF\\Virtual-Pet\\VirtualPet\\VirtualPet.Core\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Ryan Gordon\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0-windows"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0-windows7.0": {
+            "targetAlias": "net6.0-windows",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0-windows7.0": {
+          "targetAlias": "net6.0-windows",
+          "dependencies": {
+            "Prism.Wpf": {
+              "target": "Package",
+              "version": "[8.1.97, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            },
+            "Microsoft.WindowsDesktop.App.WPF": {
+              "privateAssets": "none"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

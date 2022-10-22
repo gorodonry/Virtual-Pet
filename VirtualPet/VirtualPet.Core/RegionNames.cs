@@ -1,8 +1,4 @@
-﻿using Prism.Ioc;
-using Prism.Modularity;
-using Prism.Regions;
-
-namespace VirtualPet.Core
+﻿namespace VirtualPet.Core
 {
     public static class RegionNames
     {

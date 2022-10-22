@@ -72,7 +72,7 @@
                                        Margin="0 0 0 15"
                                        Text="{Binding Name}"/>
                             <!-- Image of the pet -->
-                            <Image Source="{Binding Image}"
+                            <Image Source="{Binding ImageURI}"
                                    MaxWidth="275"
                                    MaxHeight="275"/>
                             <!-- Health of the pet as a health bar -->
