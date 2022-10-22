@@ -8,7 +8,7 @@
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </UserControl.Resources>
     <UserControl.Background>
-        <ImageBrush ImageSource="{Binding MeadowImage}"/>
+        <ImageBrush ImageSource="{Binding BackgroundImagePath}"/>
     </UserControl.Background>
     <Grid>
         <!-- Stackpanel containing the tombstones of the pets -->

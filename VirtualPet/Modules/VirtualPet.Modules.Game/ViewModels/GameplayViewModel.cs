@@ -205,9 +205,7 @@ namespace VirtualPet.Modules.Game.ViewModels
 
             var parameters = new NavigationParameters
             {
-                { "DeadPets", _model.DeadPets },
-                { "TicksSurvived", _model.TicksSurvived },
-                { "AllPetsDead", _model.AllPetsDead }
+                { "GameplayModel", _model }
             };
 
             _regionManager.RequestNavigate(RegionNames.ContentRegion, nameof(Cemetery), parameters);
