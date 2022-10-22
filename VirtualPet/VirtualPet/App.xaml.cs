@@ -21,6 +21,7 @@ namespace VirtualPet
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterSingleton<ICakeService, CakeService>();
+            containerRegistry.RegisterSingleton<IImageService, ImageService>();
         }
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
