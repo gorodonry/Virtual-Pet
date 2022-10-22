@@ -31,9 +31,6 @@
     <None Remove="Images\virtual_pet.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\virtual_pet.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="MaterialDesignThemes" Version="4.5.0">
     </PackageReference>
     <PackageReference Include="Prism.Unity" Version="8.1.97" />
