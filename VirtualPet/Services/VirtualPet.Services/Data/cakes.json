@@ -1,0 +1,50 @@
+[
+  {
+    "Type": "cake",
+    "Hunger": 2,
+    "Health": 0,
+    "Cost": 0
+  },
+  {
+    "Type": "berry",
+    "Hunger": 10,
+    "Health": 5,
+    "Cost": 5
+  },
+  {
+    "Type": "banana",
+    "Hunger": 15,
+    "Health": 2,
+    "Cost": 10
+  },
+  {
+    "Type": "peach",
+    "Hunger": 20,
+    "Health": 0,
+    "Cost": 20
+  },
+  {
+    "Type": "pea",
+    "Hunger": 5,
+    "Health": 10,
+    "Cost": 10
+  },
+  {
+    "Type": "bean",
+    "Hunger": 2,
+    "Health": 15,
+    "Cost": 25
+  },
+  {
+    "Type": "pod",
+    "Hunger": 0,
+    "Health": 20,
+    "Cost": 40
+  },
+  {
+    "Type": "ambrosia",
+    "Hunger": 10000,
+    "Health": 10000,
+    "Cost": 200
+  }
+]

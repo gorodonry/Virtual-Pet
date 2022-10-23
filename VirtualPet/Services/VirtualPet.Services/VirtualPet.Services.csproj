@@ -61,4 +61,8 @@
     <Resource Include="Images\virtual_pet.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\" />
+  </ItemGroup>
+
 </Project>
