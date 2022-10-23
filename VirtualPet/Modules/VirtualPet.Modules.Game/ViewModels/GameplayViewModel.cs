@@ -20,16 +20,10 @@ namespace VirtualPet.Modules.Game.ViewModels
     {
         private readonly GameplayModel _model = new();
 
-        private bool _enableHannahExtension;
-
         /// <summary>
         /// Boolean indicating whether or not the 'Hannah extension' is enabled.
         /// </summary>
-        public bool EnableHannahExtension
-        { 
-            get { return _enableHannahExtension; }
-            private set { SetProperty(ref _enableHannahExtension, value); }
-        }
+        public bool EnableHannahExtension => _model.HannahExtensionIsEnabled;
 
         /// <summary>
         /// A list of the user's pets.
@@ -84,11 +78,10 @@ namespace VirtualPet.Modules.Game.ViewModels
         /// </summary>
         public int TicksSurvived => _model.TicksSurvived;
 
-        // Disables teaching input when pet is dead
-        public bool TeachingAvailable
-        {
-            get { return !SelectedPetIsDead; }
-        }
+        /// <summary>
+        /// Indicates whether or not the selected pet can be taught a sound.
+        /// </summary>
+        public bool TeachingAvailable => _model.TeachingAvailable;
 
         private string _textToTeach = string.Empty;
 
@@ -110,9 +103,9 @@ namespace VirtualPet.Modules.Game.ViewModels
         public DelegateCommand<Cake> Feed => _feed ??= new DelegateCommand<Cake>(ExecuteFeed, CanExecuteFeed);
 
         /// <summary>
-        /// Feeds a <see cref="Pet"/> a <see cref="Cake"/>.
+        /// Feeds a pet a cake.
         /// </summary>
-        /// <param name="cake">The <see cref="Cake"/> to feed the <see cref="Pet"/>.</param>
+        /// <param name="cake">The cake to feed to the pet.</param>
         void ExecuteFeed(Cake cake)
         {
             _model.ExecuteFeed(cake);
@@ -121,10 +114,10 @@ namespace VirtualPet.Modules.Game.ViewModels
         }
 
         /// <summary>
-        /// Indicates whether or not the <see cref="SelectedPet"/> can be fed a specified <see cref="Cake"/>.
+        /// Indicates whether or not the selected pet can be fed a specified cake.
         /// </summary>
-        /// <param name="cake">The <see cref="Cake"/> the user wishes to feed the <see cref="Pet"/>.</param>
-        /// <returns>A boolean indicating whether or not the <see cref="SelectedPet"/> can be fed the specified <see cref="Cake"/>.</returns>
+        /// <param name="cake">The cake the user wishes to feed the pet.</param>
+        /// <returns>A boolean indicating whether or not the selected pet can be fed the specified cake.</returns>
         bool CanExecuteFeed(Cake cake)
         {
             return _model.CanExecuteFeed(cake);
@@ -136,7 +129,7 @@ namespace VirtualPet.Modules.Game.ViewModels
         /// <summary>
         /// Feeds a pet to another pet (aka the Hannah extension).
         /// </summary>
-        /// <param name="pet">The <see cref="Pet"/> being fed to the other pet.</param>
+        /// <param name="pet">The pet being fed to the other pet.</param>
         /// <remarks>
         /// Stirling is also to blame.
         /// </remarks>
@@ -148,10 +141,10 @@ namespace VirtualPet.Modules.Game.ViewModels
         }
 
         /// <summary>
-        /// Indicates whether or not the <see cref="SelectedPet"/> can be fed another <see cref="Pet"/>.
+        /// Indicates whether or not the selected pet can be fed another pet.
         /// </summary>
-        /// <param name="pet">The <see cref="Pet"/> to feed to the <see cref="SelectedPet"/>.</param>
-        /// <returns>A boolean indicating whether or not the <see cref="SelectedPet"/> can be fed the specified <see cref="Pet"/>.</returns>
+        /// <param name="pet">The pet to feed to the selected pet.</param>
+        /// <returns>A boolean indicating whether or not the selected pet can be fed the specified pet.</returns>
         bool CanExecuteEat(Pet pet)
         {
             return _model.CanExecuteEat(pet);
@@ -175,9 +168,9 @@ namespace VirtualPet.Modules.Game.ViewModels
         }
 
         /// <summary>
-        /// Indicates whether or not the <see cref="SelectedPet"/> can be taught a sound.
+        /// Indicates whether or not the selected pet can be taught a sound.
         /// </summary>
-        /// <returns>A boolean indicating whether or not the <see cref="SelectedPet"/> can be taught a sound.</returns>
+        /// <returns>A boolean indicating whether or not the selected pet can be taught a sound.</returns>
         bool CanExecuteTeach()
         {
             return _model.CanExecuteTeach(TextToTeach);
@@ -246,7 +239,7 @@ namespace VirtualPet.Modules.Game.ViewModels
 
             // Check whether the Hannah extension has been enabled, if applicable.
             if (navigationContext.Parameters.ContainsKey("EnableHannahExtension"))
-                _enableHannahExtension = navigationContext.Parameters.GetValue<bool>("EnableHannahExtension");
+                _model.HannahExtensionIsEnabled = navigationContext.Parameters.GetValue<bool>("EnableHannahExtension");
 
             // Alert the view to the changes.
             RaisePropertyChanged(nameof(Pets));

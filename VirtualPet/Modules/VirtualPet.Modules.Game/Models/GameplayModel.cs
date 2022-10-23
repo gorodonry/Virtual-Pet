@@ -14,16 +14,18 @@ namespace VirtualPet.Modules.Game.Models
     /// </summary>
     public class GameplayModel : BindableBase
     {
-        private readonly ObservableCollection<Pet> _pets = new()
+        protected readonly ObservableCollection<Pet> _pets = new()
         {
             new(), new(), new()
         };
 
-        private List<Cake> _cakes;
+        protected List<Cake> _cakes;
 
-        private Pet _selectedPet;
-        private int _wallet = 100;
-        private int _ticksSurvived = 0;
+        protected Pet _selectedPet;
+        protected int _wallet = 100;
+        protected int _ticksSurvived = 0;
+
+        protected bool? _hannahExtensionIsEnabled;
 
         /// <summary>
         /// Creates a new instance of the gameplay model.
@@ -31,6 +33,21 @@ namespace VirtualPet.Modules.Game.Models
         public GameplayModel()
         {
 
+        }
+
+        /// <summary>
+        /// Boolean indicating whether or not the 'Hannah extension' is enabled.
+        /// </summary>
+        public bool HannahExtensionIsEnabled
+        {
+            get
+            {
+                if (_hannahExtensionIsEnabled is null)
+                    return false;
+
+                return (bool)_hannahExtensionIsEnabled;
+            }
+            set { _hannahExtensionIsEnabled ??= value; }
         }
 
         /// <summary>
@@ -69,6 +86,11 @@ namespace VirtualPet.Modules.Game.Models
         /// Indicates whether or not the selected pet is dead.
         /// </summary>
         public bool SelectedPetIsDead => SelectedPet.IsDead;
+
+        /// <summary>
+        /// Indicates whether or not the selected pet is capable of being taught a new sound.
+        /// </summary>
+        public bool TeachingAvailable => !SelectedPet.MemoryFull;
 
         /// <summary>
         /// The amount of money the user has.

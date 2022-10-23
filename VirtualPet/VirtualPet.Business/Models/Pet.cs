@@ -284,6 +284,11 @@ namespace VirtualPet.Business.Models
         public int MaxSounds => _maxSounds;
 
         /// <summary>
+        /// Indicates whether or not the pet's memory is full (i.e. whether or not they can be taught new sounds).
+        /// </summary>
+        public bool MemoryFull => _sounds.Count >= _maxSounds;
+
+        /// <summary>
         /// A string with information on the sounds the pet can make.
         /// </summary>
         public string DisplaySounds
@@ -446,16 +451,12 @@ namespace VirtualPet.Business.Models
         /// The reason for a pet's death.
         /// </summary>
         /// <remarks>
-        /// Can be set, but not reset.
+        /// Can be set, but not reset. Cannot be externally set.
         /// </remarks>
         public string? ReasonForDeath
         {
             get { return _reasonForDeath; }
-            set
-            {
-                if (_reasonForDeath is null)
-                    _reasonForDeath = value;
-            }
+            protected set { _reasonForDeath ??= value; }
         }
 
         /// <summary>
@@ -510,6 +511,7 @@ namespace VirtualPet.Business.Models
                 Health = 0;
                 Hunger = 0;
                 Boredom = 0;
+
                 ReasonForDeath = $"Eaten by {nameOfConsumer}";
             }
         }
@@ -555,6 +557,7 @@ namespace VirtualPet.Business.Models
             if (CanTrain(sound))
             {
                 AddSound(sound);
+
                 Boredom -= 50;
                 Hunger += 25;
             }
@@ -574,6 +577,7 @@ namespace VirtualPet.Business.Models
                 // Apply stats changes that occur as a result of time advancing by a tick
                 Boredom += BoredomRate;
                 Hunger += HungerRate;
+
                 if (HungerMessage == "starving")
                     Health -= HungerRate / 2;
 
@@ -582,9 +586,10 @@ namespace VirtualPet.Business.Models
                 // If a pet dies in the course of this function then it has died of starvation.
                 if (IsDead)
                 {
-                    ReasonForDeath = "Died of starvation";
                     Hunger = 0;
                     Boredom = 0;
+
+                    ReasonForDeath = "Died of starvation";
                 }
             }
         }
