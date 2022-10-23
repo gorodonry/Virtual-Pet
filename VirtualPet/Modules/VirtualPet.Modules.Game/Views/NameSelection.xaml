@@ -44,68 +44,54 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
+            
             <!-- Title (i.e. name) of the game -->
             <materialDesign:ColorZone Mode="PrimaryLight"
-                                      Grid.Row="0"
-                                      Grid.Column="0"
-                                      Grid.ColumnSpan="5"
+                                      Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5"
                                       CornerRadius="4"
                                       Margin="7">
                 <TextBlock Text="Virtual Pet"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center" HorizontalAlignment="Center"
                            Margin="0 10 0 10"
                            FontSize="30"/>
             </materialDesign:ColorZone>
+            
             <!-- Interface for pet name selection by the user -->
-            <TextBlock Grid.Row="2"
-                       Grid.Column="1"
+            <TextBlock Grid.Row="2" Grid.Column="1"
                        Style="{StaticResource NameInputTextBlock}"
                        Text="Name of pet one"/>
-            <TextBox Grid.Row="2"
-                     Grid.Column="3"
+            <TextBox Grid.Row="2" Grid.Column="3"
                      Style="{StaticResource NameInputTextBox}"
                      Text="{Binding PetOneName, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBlock Grid.Row="3"
-                       Grid.Column="1"
+            <TextBlock Grid.Row="3" Grid.Column="1"
                        Style="{StaticResource NameInputTextBlock}"
                        Text="Name of pet two"/>
-            <TextBox Grid.Row="3"
-                     Grid.Column="3"
+            <TextBox Grid.Row="3" Grid.Column="3"
                      Style="{StaticResource NameInputTextBox}"
                      Text="{Binding PetTwoName, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBlock Grid.Row="4"
-                       Grid.Column="1"
+            <TextBlock Grid.Row="4" Grid.Column="1"
                        Style="{StaticResource NameInputTextBlock}"
                        Text="Name of pet three"/>
-            <TextBox Grid.Row="4"
-                     Grid.Column="3"
+            <TextBox Grid.Row="4" Grid.Column="3"
                      Style="{StaticResource NameInputTextBox}"
                      Text="{Binding PetThreeName, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
-            <Border Grid.Row="5"
-                    Grid.Column="1"
-                    Grid.ColumnSpan="3"
+            <Border Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3"
                     HorizontalAlignment="Center"
-                    Margin="0 50 0 0"
-                    Padding="10"
-                    BorderThickness="0 0.4 0 0.4"
-                    BorderBrush="LightGray">
+                    Margin="0 50 0 0" Padding="10"
+                    BorderThickness="0 0.4 0 0.4" BorderBrush="LightGray">
                 <TextBlock FontStyle="Italic"
                            Foreground="Gray"
                            Text="&quot;How long can you keep your creations alive? Muahaha!&quot;"/>
             </Border>
-            <Button Grid.Row="6"
-                    Grid.Column="1"
-                    Grid.ColumnSpan="3"
+            <Button Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3"
                     Margin="0 50 0 0"
                     Width="325"
                     Style="{StaticResource MaterialDesignOutlinedLightButton}"
                     Command="{Binding StartPlaying}"
                     Content="Start Playing"/>
+            
             <!-- Option to enable the Hannah extension, with an explanation as to what this is-->
-            <StackPanel Grid.Row="7"
-                        Grid.Column="1"
-                        Grid.ColumnSpan="3"
+            <StackPanel Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="3"
                         HorizontalAlignment="Center"
                         Margin="0 10 0 0"
                         Orientation="Horizontal">
@@ -119,9 +105,8 @@
                                              Foreground="Black"/>
                     <Label.ToolTip>
                         <ToolTip>
-                            <TextBlock TextWrapping="Wrap"
-                                       MaxWidth="300"
-                                       TextAlignment="Justify">
+                            <TextBlock TextWrapping="Wrap" TextAlignment="Justify"
+                                       MaxWidth="300">
                                 The Hannah extension allows pets to eat other pets.
                                 This action fully restores all boredom and a variable amount of hunger (dependant on the hunger of the pet being consumed).
                                 Options for feeding pets to other pets are found under 'additional food' during gameplay.
@@ -130,15 +115,11 @@
                     </Label.ToolTip>
                 </Label>
             </StackPanel>
-            <Border Grid.Row="2"
-                    Grid.RowSpan="3"
-                    Grid.Column="2"
-                    BorderThickness="0.1"
-                    BorderBrush="LightGray"/>
+            <Border Grid.Row="2" Grid.RowSpan="3" Grid.Column="2"
+                    BorderThickness="0.1" BorderBrush="LightGray"/>
+            
             <!-- Instructions on how to play, arranged on the left and right sides of the UI, set to collapsed by default -->
-            <Grid Grid.Row="1"
-                  Grid.RowSpan="8"
-                  Grid.Column="0"
+            <Grid Grid.Row="1" Grid.RowSpan="8" Grid.Column="0"
                   Margin="20">
                 <Expander x:Name="Instructions"
                           ExpandDirection="Down"
@@ -147,8 +128,7 @@
                         <TextBlock FontSize="20"
                                    Text="How to Play"/>
                     </Expander.Header>
-                    <TextBlock TextWrapping="Wrap"
-                               TextAlignment="Justify">
+                    <TextBlock TextWrapping="Wrap" TextAlignment="Justify">
                         The game works on the basis of ticks, an arbitrary measurement of time - you can assign it whatever value relative to a real unit of time you want :).
                         You have three pets.
                         <LineBreak/><LineBreak/>
@@ -193,9 +173,7 @@
                     </TextBlock>
                 </Expander>
             </Grid>
-            <Grid Grid.Row="1"
-                  Grid.RowSpan="8"
-                  Grid.Column="4"
+            <Grid Grid.Row="1" Grid.RowSpan="8" Grid.Column="4"
                   Margin="20"
                   Visibility="{Binding ElementName=Instructions, Path=IsExpanded, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <Grid.RowDefinitions>
@@ -203,8 +181,7 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0"
-                           TextWrapping="Wrap"
-                           TextAlignment="Justify">
+                           TextWrapping="Wrap" TextAlignment="Justify">
                     <Bold FontWeight="ExtraBold">Teaching</Bold>
                     <LineBreak/>
                     Pets are kept happy when you teach them sounds (each sound taught reduces boredom by 50) - but beware!
@@ -218,10 +195,9 @@
                     Note: please play with the window maximised.
                 </TextBlock>
                 <Image Grid.Row="1"
-                       Width="300"
-                       Height="300"
+                       Width="300" Height="300"
                        VerticalAlignment="Center"
-                       Source="{Binding VirtualPetImage, Mode=OneWay}"/>
+                       Source="{Binding VirtualPetImage}"/>
             </Grid>
         </Grid>
     </Grid>

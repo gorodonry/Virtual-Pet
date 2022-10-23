@@ -89,6 +89,7 @@ namespace VirtualPet.Business.Models
                     _name = value.Trim();
 
                     RaisePropertyChanged(nameof(Name));
+                    RaisePropertyChanged(nameof(DisplaySounds));
                 }
             }
         }

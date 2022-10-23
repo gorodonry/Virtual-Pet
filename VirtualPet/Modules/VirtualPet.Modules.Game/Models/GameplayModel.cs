@@ -3,122 +3,92 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using VirtualPet.Business.Models;
+using VirtualPet.Services.Interfaces;
+
+using System.Diagnostics;
 
 namespace VirtualPet.Modules.Game.Models
 {
+    /// <summary>
+    /// Contains all information and logic necessary for the gameplay.
+    /// </summary>
     public class GameplayModel : BindableBase
     {
-        // The pets themselves
-        private readonly ObservableCollection<Pet> pets = new()
+        private readonly ObservableCollection<Pet> _pets = new()
         {
             new(), new(), new()
         };
 
-        // Other game variables
-        private readonly List<Cake> cakes = new()
-        {
-            new Cake("cake", 2, 0, 0),
-            new Cake("berry", 10, 5, 5),
-            new Cake("banana", 15, 2, 10),
-            new Cake("peach", 20, 0, 20),
-            new Cake("pea", 5, 10, 10),
-            new Cake("bean", 2, 15, 25),
-            new Cake("pod", 0, 20, 40),
-            new Cake("ambrosia", 10000, 10000, 200)
-        };
+        private List<Cake> _cakes;
 
-        private Pet selectedPet;
-        private int wallet = 100;
-        private int ticksSurvived = 0;
+        private Pet _selectedPet;
+        private int _wallet = 100;
+        private int _ticksSurvived = 0;
 
+        /// <summary>
+        /// Creates a new instance of the gameplay model.
+        /// </summary>
         public GameplayModel()
         {
 
         }
 
-        // Pet information, controlled by this model
-        public ObservableCollection<Pet> Pets
-        {
-            get { return pets; }
-        }
-        
-        // Information on all the varieties of cake
-        public List<Cake> Cakes
-        {
-            get { return cakes; }
-        }
+        /// <summary>
+        /// List of pets the user has.
+        /// </summary>
+        public ObservableCollection<Pet> Pets => _pets;
 
-        // Pet currently selected by the user, obtained via the viewmodel
+        /// <summary>
+        /// List of cakes that can be fed to pets.
+        /// </summary>
+        public List<Cake> Cakes => _cakes;
+
+        /// <summary>
+        /// Pet currently selected by the user.
+        /// </summary>
+        /// <remarks>
+        /// Obtained from the viewmodel.
+        /// </remarks>
         public Pet SelectedPet
         {
-            get { return selectedPet; }
-            set { selectedPet = value; }
+            get { return _selectedPet; }
+            set { _selectedPet = value; }
         }
 
-        // Collection of all the pets currently not selected by the user, based off the pet selected
-        public ObservableCollection<Pet> NonSelectedPets
-        {
-            get { return new(Pets.Where(p => p != SelectedPet)); }
-        }
+        /// <summary>
+        /// List of pets not currently selected by the user.
+        /// </summary>
+        public ObservableCollection<Pet> NonSelectedPets => new(Pets.Where(p => p != SelectedPet));
 
-        // Collection of all pets that are currently dead
-        public ObservableCollection<Pet> DeadPets
-        {
-            get
-            {
-                ObservableCollection<Pet> deadPets = new();
+        /// <summary>
+        /// List of deceased pets.
+        /// </summary>
+        public ObservableCollection<Pet> DeadPets => new(Pets.Where(p => p.IsDead));
 
-                foreach (Pet pet in Pets)
-                {
-                    if (pet.IsDead)
-                    {
-                        deadPets.Add(pet);
-                    }
-                }
+        /// <summary>
+        /// Indicates whether or not the selected pet is dead.
+        /// </summary>
+        public bool SelectedPetIsDead => SelectedPet.IsDead;
 
-                return deadPets;
-            }
-        }
+        /// <summary>
+        /// The amount of money the user has.
+        /// </summary>
+        public int Wallet => _wallet;
 
-        public bool SelectedPetIsDead
-        {
-            get { return SelectedPet.IsDead; }
-        }
+        /// <summary>
+        /// Number of ticks survived by the user.
+        /// </summary>
+        public int TicksSurvived => _ticksSurvived;
 
-        // Amount of money the user has, controlled by functions in this class
-        public int Wallet
-        {
-            get { return wallet; }
-        }
+        /// <summary>
+        /// Boolean indicating whether or not all the user's pets are dead.
+        /// </summary>
+        public bool AllPetsDead => new ObservableCollection<Pet>(Pets.Where(p => !p.IsDead)).Count == 0;
 
-        // Number of ticks survived by the user, controlled by functions in this class
-        public int TicksSurvived
-        {
-            get { return ticksSurvived; }
-        }
-
-        public string TicksSurvivedMessageGrammar
-        {
-            get { return TicksSurvived == 1 ? "" : "s"; }
-        }
-
-        public bool AllPetsDead
-        {
-            get
-            {
-                foreach (Pet pet in Pets)
-                {
-                    if (!pet.IsDead)
-                    {
-                        return false;
-                    }
-                }
-
-                return true;
-            }
-        }
-
-        // Set/reset the names of the pets to a specified array of names
+        /// <summary>
+        /// Sets/resets the names of the pets to a specified array of names.
+        /// </summary>
+        /// <param name="names">The new pet names.</param>
         public void SetPetNames(string[] names)
         {
             if (names.Length == Pets.Count)
@@ -130,83 +100,100 @@ namespace VirtualPet.Modules.Game.Models
             }
         }
 
-        // Boolean indicating whether or not a pet can be fed a cake
+        /// <summary>
+        /// Returns a boolean indicating whether or not the <see cref="SelectedPet"/> can be fed a particular <see cref="Cake"/>.
+        /// </summary>
+        /// <param name="cake">The cake the user wishes to feed the <see cref="SelectedPet"/>.</param>
+        /// <returns>A boolean indicating whether or not the pet can be fed the <see cref="Cake"/>.</returns>
         public bool CanExecuteFeed(Cake cake)
         {
             if (SelectedPet is null)
-            {
                 return false;
-            }
             
-            // User cannot feed a pet if it is dead
+            // User cannot feed a pet if it is dead.
             if (SelectedPetIsDead)
-            {
                 return false;
-            }
             
-            // User can only feed a pet a cake if they can afford it
+            // User can only feed a pet a cake if they can afford it.
             if (cake.Cost > Wallet)
-            {
                 return false;
-            }
 
-            // If all conditions are met
+            // If all conditions are met.
             return true;
         }
 
+        /// <summary>
+        /// Feeds a specified <see cref="Cake"/> to the <see cref="SelectedPet"/>.
+        /// </summary>
+        /// <param name="cake">The <see cref="Cake"/> to feed to the pet.</param>
         public void ExecuteFeed(Cake cake)
         {
-            // Feed the pet and deduct the cost from the user's wallet
-            SelectedPet.Feed(cake);
-            wallet -= cake.Cost;
+            // Feed the pet and deduct the cost from the user's wallet.
+            _selectedPet.Feed(cake);
+
+            _wallet -= cake.Cost;
         }
 
+        /// <summary>
+        /// Returns a boolean indicating whether or not a <see cref="Pet"/> can be fed to the <see cref="SelectedPet"/>.
+        /// </summary>
+        /// <param name="pet">The <see cref="Pet"/> being fed to the selected pet.</param>
+        /// <returns>A boolean indicating whether or not the pet can be fed the other pet.</returns>
         public bool CanExecuteEat(Pet pet)
         {
             if (SelectedPet is null)
-            {
                 return false;
-            }
 
-            // Both the selected pet and the pet being fed to the selected pet must be alive
+            // Both the selected pet and the pet being fed to the selected pet must be alive.
             if (SelectedPetIsDead || pet.IsDead)
-            {
                 return false;
-            }
 
-            // If all conditions are met
+            // If all conditions are met.
             return true;
         }
 
+        /// <summary>
+        /// Feeds a <see cref="Pet"/> to the <see cref="SelectedPet"/>.
+        /// </summary>
+        /// <param name="pet">The <see cref="Pet"/> being fed to the selected pet.</param>
         public void ExecuteEat(Pet pet)
         {
-            // Feed the selected pet and kill the other one
-            SelectedPet.Eat(pet);
+            // Feed the selected pet and kill the other one.
+            _selectedPet.Eat(pet);
+            
             pet.GetEaten(SelectedPet.Name);
         }
 
+        /// <summary>
+        /// Returns a boolean indicating whether or not a <see cref="Pet"/> can be taught a sound.
+        /// </summary>
+        /// <param name="sound">The sound the user wishes to teach the pet.</param>
+        /// <returns>A boolean indicating whether or not the pet can be taught the specified sound.</returns>
         public bool CanExecuteTeach(string sound)
         {
             if (SelectedPet is null)
-            {
                 return false;
-            }
 
             if (!SelectedPet.CanTrain(sound))
-            {
                 return false;
-            }
 
-            // If all conditions are met
+            // If all conditions are met.
             return true;
         }
 
+        /// <summary>
+        /// Teaches the <see cref="SelectedPet"/> a sound.
+        /// </summary>
+        /// <param name="sound">The sound to teach the <see cref="Pet"/>.</param>
         public void ExecuteTeach(string sound)
         {
-            // Teach the selected pet the sound
-            SelectedPet.Train(sound);
+            // Teach the selected pet the sound.
+            _selectedPet.Train(sound);
         }
 
+        /// <summary>
+        /// Advances time by a tick.
+        /// </summary>
         public void ExecuteTick()
         {
             for (int i = 0; i < Pets.Count; i++)
@@ -215,15 +202,25 @@ namespace VirtualPet.Modules.Game.Models
                 {
                     Pets[i].Tick();
 
-                    // Gain a coin for each happy pet
+                    // Gain a coin for each happy pet.
                     if (Pets[i].BoredomMessage == "happy")
-                    {
-                        wallet += 1;
-                    }
+                        _wallet += 1;
                 }
             }
 
-            ticksSurvived += 1;
+            _ticksSurvived += 1;
+        }
+
+        /// <summary>
+        /// Sets the cakes used by the current game to the specified list.
+        /// </summary>
+        /// <param name="cakes">The cakes to be used by the current game.</param>
+        /// <remarks>
+        /// The cakes should be obtained via <see cref="ICakeService"/>.
+        /// </remarks>
+        public void ImportCakes(List<Cake> cakes)
+        {
+            _cakes ??= cakes;
         }
     }
 }

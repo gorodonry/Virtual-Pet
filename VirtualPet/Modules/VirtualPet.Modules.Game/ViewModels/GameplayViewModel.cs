@@ -6,38 +6,44 @@ using VirtualPet.Modules.Game.Models;
 using Prism.Regions;
 using VirtualPet.Modules.Game.Views;
 using VirtualPet.Business.Models;
-using System.Diagnostics;
 using VirtualPet.Core;
 using VirtualPet.Services.Interfaces;
 
+using System.Diagnostics;
+
 namespace VirtualPet.Modules.Game.ViewModels
 {
+    /// <summary>
+    /// Viewmodel for the gameplay view.
+    /// </summary>
     public class GameplayViewModel : BindableBase, INavigationAware, IRegionMemberLifetime
     {
-        // Contains all the controls for the game
-        private GameplayModel _model = new();
+        private readonly GameplayModel _model = new();
 
-        // Determined in the name selection UI, set by the user
         private bool _enableHannahExtension;
+
+        /// <summary>
+        /// Boolean indicating whether or not the 'Hannah extension' is enabled.
+        /// </summary>
         public bool EnableHannahExtension
         { 
             get { return _enableHannahExtension; }
-            set { SetProperty(ref _enableHannahExtension, value); }
+            private set { SetProperty(ref _enableHannahExtension, value); }
         }
 
-        // Listbox containing pets binds to this collection
-        public ObservableCollection<Pet> Pets
-        {
-            get { return _model.Pets; }
-        }
+        /// <summary>
+        /// A list of the user's pets.
+        /// </summary>
+        public ObservableCollection<Pet> Pets => _model.Pets;
 
-        // Cake button itemscontrol binds to this collection
-        public List<Cake> Cakes
-        {
-            get { return _model.Cakes; }
-        }
+        /// <summary>
+        /// List of cakes that can be eaten by pets.
+        /// </summary>
+        public List<Cake> Cakes => _model.Cakes;
 
-        // Pet currently selected by user
+        /// <summary>
+        /// Pet currently selected by the user.
+        /// </summary>
         public Pet SelectedPet
         {
             get { return _model.SelectedPet; }
@@ -45,40 +51,38 @@ namespace VirtualPet.Modules.Game.ViewModels
             {
                 _model.SelectedPet = value;
 
+                RaisePropertyChanged(nameof(NonSelectedPets));
+                RaisePropertyChanged(nameof(TeachingAvailable));
+
                 Eat.RaiseCanExecuteChanged();
                 Feed.RaiseCanExecuteChanged();
                 Teach.RaiseCanExecuteChanged();
-                RaisePropertyChanged(nameof(NonSelectedPets));
-                RaisePropertyChanged(nameof(TeachingAvailable));
             }
         }
 
-        // Pets currently not selected by user, used when feeding pets to other pets (i.e. for the Hannah extension)
-        public ObservableCollection<Pet> NonSelectedPets
-        {
-            get { return _model.NonSelectedPets; }
-        }
+        /// <summary>
+        /// Pets currently not selected by user.
+        /// </summary>
+        /// <remarks>
+        /// Used when feeding pets to other pets (i.e. for the Hannah extension).
+        /// </remarks>
+        public ObservableCollection<Pet> NonSelectedPets => _model.NonSelectedPets;
 
         // Important information on current pet, the amount of money the user has, and the number of ticks they have survived for
-        public bool SelectedPetIsDead
-        {
-            get { return _model.SelectedPetIsDead; }
-        }
+        /// <summary>
+        /// Indicates whether or not the selected pet is dead.
+        /// </summary>
+        public bool SelectedPetIsDead => _model.SelectedPetIsDead;
 
-        public int Wallet
-        {
-            get { return _model.Wallet; }
-        }
+        /// <summary>
+        /// The user's wallet (i.e. how much money they have).
+        /// </summary>
+        public int Wallet => _model.Wallet;
 
-        public int TicksSurvived
-        {
-            get { return _model.TicksSurvived; }
-        }
-
-        public string TicksSurvivedMessageGrammar
-        {
-            get { return _model.TicksSurvivedMessageGrammar; }
-        }
+        /// <summary>
+        /// Number of ticks the user's pets have survived for.
+        /// </summary>
+        public int TicksSurvived => _model.TicksSurvived;
 
         // Disables teaching input when pet is dead
         public bool TeachingAvailable
@@ -86,119 +90,142 @@ namespace VirtualPet.Modules.Game.ViewModels
             get { return !SelectedPetIsDead; }
         }
 
-        // Text the user wishes to teach a pet, a textbox's text is bound to this
         private string _textToTeach = string.Empty;
+
+        /// <summary>
+        /// The sound the user wishes to teach a pet.
+        /// </summary>
         public string TextToTeach
         {
             get { return _textToTeach; }
             set
             {
                 SetProperty(ref _textToTeach, value);
+
                 Teach.RaiseCanExecuteChanged();
             }
         }
 
-        // Feed a pet a cake specified by the user
         private DelegateCommand<Cake> _feed;
-        public DelegateCommand<Cake> Feed =>
-            _feed ?? (_feed = new DelegateCommand<Cake>(ExecuteFeed, CanExecuteFeed));
+        public DelegateCommand<Cake> Feed => _feed ??= new DelegateCommand<Cake>(ExecuteFeed, CanExecuteFeed);
 
+        /// <summary>
+        /// Feeds a <see cref="Pet"/> a <see cref="Cake"/>.
+        /// </summary>
+        /// <param name="cake">The <see cref="Cake"/> to feed the <see cref="Pet"/>.</param>
         void ExecuteFeed(Cake cake)
         {
-            // Feed the pet
             _model.ExecuteFeed(cake);
 
-            // Feeding a pet is an action, advance time by a tick
             ExecuteTick();
         }
 
+        /// <summary>
+        /// Indicates whether or not the <see cref="SelectedPet"/> can be fed a specified <see cref="Cake"/>.
+        /// </summary>
+        /// <param name="cake">The <see cref="Cake"/> the user wishes to feed the <see cref="Pet"/>.</param>
+        /// <returns>A boolean indicating whether or not the <see cref="SelectedPet"/> can be fed the specified <see cref="Cake"/>.</returns>
         bool CanExecuteFeed(Cake cake)
         {
             return _model.CanExecuteFeed(cake);
         }
 
-        // Feed a pet another pet - aka the Hannah extension (Stirling is also to blame)
         private DelegateCommand<Pet> _eat;
-        public DelegateCommand<Pet> Eat =>
-            _eat ?? (_eat = new DelegateCommand<Pet>(ExecuteEat, CanExecuteEat));
+        public DelegateCommand<Pet> Eat => _eat ??= new DelegateCommand<Pet>(ExecuteEat, CanExecuteEat);
 
+        /// <summary>
+        /// Feeds a pet to another pet (aka the Hannah extension).
+        /// </summary>
+        /// <param name="pet">The <see cref="Pet"/> being fed to the other pet.</param>
+        /// <remarks>
+        /// Stirling is also to blame.
+        /// </remarks>
         void ExecuteEat(Pet pet)
         {
-            // Feed the pet
             _model.ExecuteEat(pet);
 
-            // Feeding a pet to another pet is an action, advance time by a tick
             ExecuteTick();
         }
 
+        /// <summary>
+        /// Indicates whether or not the <see cref="SelectedPet"/> can be fed another <see cref="Pet"/>.
+        /// </summary>
+        /// <param name="pet">The <see cref="Pet"/> to feed to the <see cref="SelectedPet"/>.</param>
+        /// <returns>A boolean indicating whether or not the <see cref="SelectedPet"/> can be fed the specified <see cref="Pet"/>.</returns>
         bool CanExecuteEat(Pet pet)
         {
             return _model.CanExecuteEat(pet);
         }
 
-        // Teach a pet a sound specified by the user
         private DelegateCommand _teach;
-        public DelegateCommand Teach =>
-            _teach ?? (_teach = new DelegateCommand(ExecuteTeach, CanExecuteTeach));
+        public DelegateCommand Teach => _teach ??= new DelegateCommand(ExecuteTeach, CanExecuteTeach);
 
+        /// <summary>
+        /// Teaches a pet a sound.
+        /// </summary>
         void ExecuteTeach()
         {
-            // Teach the pet the sound, then reset the input
+            // Teach the pet the sound, then reset the input.
             _model.ExecuteTeach(TextToTeach);
 
-            TextToTeach = "";
+            TextToTeach = string.Empty;
             RaisePropertyChanged(nameof(TextToTeach));
 
-            // Teaching a pet is an action, advance time by a tick
             ExecuteTick();
         }
 
+        /// <summary>
+        /// Indicates whether or not the <see cref="SelectedPet"/> can be taught a sound.
+        /// </summary>
+        /// <returns>A boolean indicating whether or not the <see cref="SelectedPet"/> can be taught a sound.</returns>
         bool CanExecuteTeach()
         {
             return _model.CanExecuteTeach(TextToTeach);
         }
 
-        // Advance time by a tick
         private DelegateCommand _tick;
-        public DelegateCommand Tick =>
-            _tick ?? (_tick = new DelegateCommand(ExecuteTick, CanExecuteTick));
+        public DelegateCommand Tick => _tick ??= new DelegateCommand(ExecuteTick, CanExecuteTick);
 
+        /// <summary>
+        /// Advances time by a tick.
+        /// </summary>
         void ExecuteTick()
         {
-            // Apply the consequences of advancing time by a tick
             _model.ExecuteTick();
 
-            // Navigate to the cemetery if all pets are dead
+            // Navigate to the cemetery if all pets are dead.
             if (_model.AllPetsDead)
-            {
                 ExecuteGoToCemetery();
-            }
 
-            // Alert relevant views to the change
+            // Alert relevant views to the change.
             RaisePropertyChanged(nameof(Pets));
             RaisePropertyChanged(nameof(Wallet));
             RaisePropertyChanged(nameof(TicksSurvived));
             RaisePropertyChanged(nameof(NonSelectedPets));
             RaisePropertyChanged(nameof(TeachingAvailable));
-            RaisePropertyChanged(nameof(TicksSurvivedMessageGrammar));
 
             Eat.RaiseCanExecuteChanged();
             Feed.RaiseCanExecuteChanged();
-
-            // If all pets are dead this button is unavailable
-            Tick.RaiseCanExecuteChanged();
         }
 
+        /// <summary>
+        /// Indicates whether or not time can be advances by a tick.
+        /// </summary>
+        /// <returns>A boolean indicating whether or not time can be advanced by a tick.</returns>
+        /// <remarks>
+        /// Time can advance if at least one of the user's pets is still alive.
+        /// </remarks>
         bool CanExecuteTick()
         {
-            // The user can advance a tick as long as at least one of their pets is alive
             return !_model.AllPetsDead;
         }
         
         private DelegateCommand _goToCemetery;
-        public DelegateCommand GoToCemetery =>
-            _goToCemetery ?? (_goToCemetery = new DelegateCommand(ExecuteGoToCemetery));
+        public DelegateCommand GoToCemetery => _goToCemetery ??= new DelegateCommand(ExecuteGoToCemetery);
 
+        /// <summary>
+        /// Navigates to the cemetery view.
+        /// </summary>
         void ExecuteGoToCemetery()
         {
             KeepAlive = !_model.AllPetsDead;
@@ -213,19 +240,15 @@ namespace VirtualPet.Modules.Game.ViewModels
 
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
-            // Set pet names, if applicable
+            // Set pet names, if applicable.
             if (navigationContext.Parameters.ContainsKey("Names"))
-            {
                 _model.SetPetNames(navigationContext.Parameters.GetValue<List<string>>("Names").ToArray());
-            }
 
-            // Check whether the Hannah extension has been enabled, if applicable
+            // Check whether the Hannah extension has been enabled, if applicable.
             if (navigationContext.Parameters.ContainsKey("EnableHannahExtension"))
-            {
                 _enableHannahExtension = navigationContext.Parameters.GetValue<bool>("EnableHannahExtension");
-            }
 
-            // Alert the view to the changes
+            // Alert the view to the changes.
             RaisePropertyChanged(nameof(Pets));
             RaisePropertyChanged(nameof(EnableHannahExtension));
             RaisePropertyChanged(nameof(NonSelectedPets));
@@ -242,10 +265,11 @@ namespace VirtualPet.Modules.Game.ViewModels
         }
 
         private bool _keepAlive;
+
         public bool KeepAlive
         {
             get { return _keepAlive; }
-            set { SetProperty(ref _keepAlive, value); }
+            private set { SetProperty(ref _keepAlive, value); }
         }
 
         private readonly IRegionManager _regionManager;
@@ -254,7 +278,7 @@ namespace VirtualPet.Modules.Game.ViewModels
         {
             _regionManager = regionManager;
 
-            // _model.ImportCakes(cakeService.GetCakes()); or something equivalent.
+            _model.ImportCakes(cakeService.GetCakes());
         }
     }
 }
