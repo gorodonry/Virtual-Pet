@@ -46,7 +46,7 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             
-            <!-- Information for pets -->
+            <!-- Pet information -->
             <ListBox x:Name="PetInfo"
                      Grid.Row="0"
                      ItemsSource="{Binding Pets, Mode=OneWay}"
@@ -368,6 +368,8 @@
                 </Grid>
             </Grid>
         </Grid>
+        
+        <!-- Button to visit the cemetery -->
         <Button Margin="0 10 20 0"
                 VerticalAlignment="Top" HorizontalAlignment="Right"
                 Style="{StaticResource MaterialDesignFlatButton}"
