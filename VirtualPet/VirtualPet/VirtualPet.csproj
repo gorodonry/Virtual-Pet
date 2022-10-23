@@ -6,16 +6,7 @@
     <ApplicationIcon>Assets\virtual_pet.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="Images\**" />
-    <EmbeddedResource Remove="Images\**" />
-    <None Remove="Images\**" />
-    <Page Remove="Images\**" />
-  </ItemGroup>
-  <ItemGroup>
     <None Remove="Assets\virtual_pet.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Assets\virtual_pet.ico" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MaterialDesignThemes" Version="4.5.0">
@@ -24,6 +15,9 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Modules\VirtualPet.Modules.Game\VirtualPet.Modules.Game.csproj" />
+    <ProjectReference Include="..\Services\VirtualPet.Services.Interfaces\VirtualPet.Services.Interfaces.csproj" />
+    <ProjectReference Include="..\Services\VirtualPet.Services\VirtualPet.Services.csproj" />
+    <ProjectReference Include="..\VirtualPet.Business\VirtualPet.Business.csproj" />
     <ProjectReference Include="..\VirtualPet.Core\VirtualPet.Core.csproj" />
   </ItemGroup>
   <ItemGroup>

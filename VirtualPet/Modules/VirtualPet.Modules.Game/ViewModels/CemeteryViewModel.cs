@@ -1,61 +1,59 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using VirtualPet.Modules.Game.Models;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Diagnostics;
+using VirtualPet.Business.Models;
 using VirtualPet.Modules.Game.Views;
 using VirtualPet.Core;
+using VirtualPet.Services.Interfaces;
+using VirtualPet.Modules.Game.Models;
+
+using System.Diagnostics;
 
 namespace VirtualPet.Modules.Game.ViewModels
 {
-    public class CemeteryViewModel : BindableBase, INavigationAware
+    /// <summary>
+    /// View model for the cemetery view.
+    /// </summary>
+    public class CemeteryViewModel : BindableBase, INavigationAware, IRegionMemberLifetime
     {
-        // List of all pets that are currently dead
-        private List<Pet> _deadPets;
-        public List<Pet> DeadPets
-        {
-            get { return _deadPets; }
-        }
+        private readonly CemeteryModel _model = new();
 
-        // Number of ticks survived by the user (either so far or in total)
-        private int _ticksSurvived;
-        public int TicksSurvived
-        {
-            get { return _ticksSurvived; }
-        }
+        private readonly string _backgroundImagePath;
 
-        private bool _allPetsDead;
-        public bool AllPetsDead
-        {
-            get { return _allPetsDead; }
-        }
+        /// <summary>
+        /// The path of the background image for the cemetery.
+        /// </summary>
+        public string BackgroundImagePath => _backgroundImagePath;
 
-        // Background image for the usercontrol
-        private readonly string _meadowImage = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\..\Modules\VirtualPet.Modules.Game\Images\meadow.jpg");
-        public string MeadowImage
-        {
-            get { return _meadowImage; }
-        }
+        /// <summary>
+        /// List of all pets that are currently dead.
+        /// </summary>
+        public List<Pet> DeadPets => _model.DeadPets;
 
-        // Command to return the user to the gameplay view, only available if the user still has live pets
+        /// <summary>
+        /// Number of ticks survived by the user.
+        /// </summary>
+        public int TicksSurvived => _model.TicksSurvived;
+
         private DelegateCommand _returnToGame;
-        public DelegateCommand ReturnToGame =>
-            _returnToGame ?? (_returnToGame = new DelegateCommand(ExecuteReturnToGame, CanExecuteReturnToGame));
+        public DelegateCommand ReturnToGame => _returnToGame ??= new DelegateCommand(ExecuteReturnToGame, CanExecuteReturnToGame);
 
+        /// <summary>
+        /// Returns the user to their game (provided their's one currently in progress).
+        /// </summary>
         void ExecuteReturnToGame()
         {
             _regionManager.RequestNavigate(RegionNames.ContentRegion, nameof(Gameplay));
         }
 
+        /// <summary>
+        /// Indicates whether or not the user can return to their game.
+        /// </summary>
+        /// <returns>False if the user's pets are all dead, otherwise true.</returns>
         bool CanExecuteReturnToGame()
         {
-            // The user can navigate back to gameplay if at least one of their pets are still alive
-            return !AllPetsDead;
+            return _model.GameOnGoing;
         }
 
         public bool IsNavigationTarget(NavigationContext navigationContext)
@@ -70,21 +68,23 @@ namespace VirtualPet.Modules.Game.ViewModels
 
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
-            _deadPets = navigationContext.Parameters.GetValue<ObservableCollection<Pet>>("DeadPets").ToList();
-            _ticksSurvived = navigationContext.Parameters.GetValue<int>("TicksSurvived");
-            _allPetsDead = navigationContext.Parameters.GetValue<bool>("AllPetsDead");
+            // Obtain all necessary information from the gameplay model.
+            _model.ImportInformation(navigationContext.Parameters.GetValue<GameplayModel>("GameplayModel"));
 
             RaisePropertyChanged(nameof(DeadPets));
-            RaisePropertyChanged(nameof(AllPetsDead));
             RaisePropertyChanged(nameof(TicksSurvived));
             ReturnToGame.RaiseCanExecuteChanged();
         }
 
+        public bool KeepAlive => false;
+
         private readonly IRegionManager _regionManager;
 
-        public CemeteryViewModel(IRegionManager regionManager)
+        public CemeteryViewModel(IRegionManager regionManager, IImageService imageService)
         {
             _regionManager = regionManager;
+
+            _backgroundImagePath = imageService.GetCemeteryBackgroundPath();
         }
     }
 }

@@ -3,6 +3,8 @@ using Prism.Modularity;
 using System.Windows;
 using VirtualPet.Modules.Game;
 using VirtualPet.Views;
+using VirtualPet.Services.Interfaces;
+using VirtualPet.Services;
 
 namespace VirtualPet
 {
@@ -18,7 +20,8 @@ namespace VirtualPet
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-
+            containerRegistry.RegisterSingleton<ICakeService, CakeService>();
+            containerRegistry.RegisterSingleton<IImageService, ImageService>();
         }
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
